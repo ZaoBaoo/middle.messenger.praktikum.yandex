@@ -18,32 +18,32 @@ export const tmpl = `
             <form class="user-card__rows">
               <div class="user-card__row">
                   <p class="user-card__row-label">Почта</p>
-                  <input class="user-card__row-input" type="text" value="{{email}}" name="email" disabled>
+                  <input class="user-card__row-input" type="text" value="{{email}}" name="email">
               </div>
               
               <div class="user-card__row">
                   <p class="user-card__row-label">Логин</p>
-                  <input class="user-card__row-input" type="text" value="{{login}}" name="login" disabled>
+                  <input class="user-card__row-input" type="text" value="{{login}}" name="login">
               </div>
   
               <div class="user-card__row">
                   <p class="user-card__row-label">Имя</p>
-                  <input class="user-card__row-input" type="text" value="{{firstName}}" name="first_name" disabled>
+                  <input class="user-card__row-input" type="text" value="{{firstName}}" name="first_name">
               </div>
   
               <div class="user-card__row">
                   <p class="user-card__row-label">Фамилия</p>
-                  <input class="user-card__row-input" type="text" value="{{secondName}}" name="second_name" disabled>
+                  <input class="user-card__row-input" type="text" value="{{secondName}}" name="second_name">
               </div>
   
               <div class="user-card__row">
                   <p class="user-card__row-label">Имя в чате</p>
-                  <input class="user-card__row-input" type="text" value="{{chatName}}" name="display_name" disabled>
+                  <input class="user-card__row-input" type="text" value="{{chatName}}" name="display_name">
               </div>
   
               <div class="user-card__row">
                   <p class="user-card__row-label">Телефон</p>
-                  <input class="user-card__row-input" type="text" value="{{phone}}" name="phone" disabled>
+                  <input class="user-card__row-input" type="text" value="{{phone}}" name="phone">
               </div>
               
               <div class="user-card__wrapper-button">
