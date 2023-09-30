@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 import { tmpl } from './profile.tmpl.js';
 
 // Components
-import { Navbar } from '../../layouts/Navbar/index.js';
+import { Navbar } from '../../layouts/navbar/index.js';
 import { Button } from '../../components/button/index.js';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';

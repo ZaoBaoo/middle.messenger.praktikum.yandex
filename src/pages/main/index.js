@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 import { tmpl } from './main.tmpl.js';
 
 // Layouts
-import { Navbar } from '../../layouts/Navbar';
+import { Navbar } from '../../layouts/navbar';
 
 export const Main = (props) => {
   return Handlebars.compile(tmpl)({ ...props, navbar: Navbar() });
