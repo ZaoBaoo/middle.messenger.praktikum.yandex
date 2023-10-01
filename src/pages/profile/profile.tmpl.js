@@ -1,9 +1,10 @@
 export const tmpl = `
-  <section class="profile">
+  <main>
+    <section class="profile">
      <a class="profile__back-link" href="/">
-         <div class="profile__back">
-             <img class="profile__back-icon" src="{{arrow}}" alt="Вернуться назад">
-         </div>
+        <div class="profile__back">
+           <img class="profile__back-icon" src="{{arrow}}" alt="Вернуться назад">
+        </div>
      </a>
      <div class="container">
         <div class="profile__content">
@@ -54,6 +55,7 @@ export const tmpl = `
              </div>
           </div>
         </div>
-     </div>
-  </section>
+      </div>
+    </section>
+  </main>
 `;
