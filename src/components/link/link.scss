@@ -1,11 +1,11 @@
 .link {
   color: var(--blue);
-  text-align: center;
   font-size: 11px;
-  font-style: normal;
   font-weight: 500;
   line-height: 11px;
+  text-align: center;
   transition: opacity 0.25s ease-in-out;
+  font-style: normal;
 
   &:hover {
     opacity: 0.7;

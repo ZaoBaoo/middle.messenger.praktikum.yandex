@@ -14,13 +14,21 @@ export const tmpl = `
     
               <form class="profile-password-edit__rows">
                 <div class="profile-password-edit__row">
-                    <p class="profile-password-edit__row-label">Старый пароль</p>
-                    <input class="profile-password-edit__row-input" type="password" value="{{oldPassword}}" name="oldPassword">
+                  <p class="profile-password-edit__row-label">Старый пароль</p>
+                  <input 
+                    class="profile-password-edit__row-input" 
+                    type="password" value="{{oldPassword}}" 
+                    name="oldPassword"
+                  >
                 </div>
     
                 <div class="profile-password-edit__row">
                     <p class="profile-password-edit__row-label">Новый пароль</p>
-                    <input class="profile-password-edit__row-input" type="password" value="{{newPassword}}" name="newPassword">
+                    <input 
+                      class="profile-password-edit__row-input" 
+                      type="password" value="{{newPassword}}" 
+                      name="newPassword"
+                    >
                 </div>
     
                 <div class="profile-password-edit__row">

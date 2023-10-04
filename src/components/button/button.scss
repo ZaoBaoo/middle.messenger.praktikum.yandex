@@ -1,15 +1,14 @@
 .button {
-  color: var(--white);
-  text-align: center;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 13px;
-
   width: 280px;
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
   background: var(--blue);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: center;
   cursor: pointer;
   transition: opacity 0.25s ease-in-out;
 
@@ -18,7 +17,7 @@
   }
 
   &:focus {
-    outline: 1px solid #555555;
+    outline: 1px solid #555;
     opacity: 0.9;
   }
 }

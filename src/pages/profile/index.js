@@ -1,10 +1,8 @@
-import './prifile.scss';
+import './profile.scss';
 import Handlebars from 'handlebars';
 import { tmpl } from './profile.tmpl.js';
 
 // Components
-import { Navbar } from '../../layouts/navbar/index.js';
-import { Button } from '../../components/button/index.js';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 import { Link } from '../../components/link/index.js';
@@ -12,7 +10,10 @@ import { Link } from '../../components/link/index.js';
 export const Profile = (props) => {
   const additionalProps = {
     linkEditInfo: Link({ to: '/profile-info-edit', text: 'Изменить данные' }),
-    linkEditPassword: Link({ to: '/profile-password-edit', text: 'Изменить пароль' }),
+    linkEditPassword: Link({
+      to: '/profile-password-edit',
+      text: 'Изменить пароль',
+    }),
     email: 'pochta@yandex.ru',
     login: 'ivanivanov',
     firstName: 'Иван',

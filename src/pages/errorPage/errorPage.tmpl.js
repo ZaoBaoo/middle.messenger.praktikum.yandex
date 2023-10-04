@@ -1,9 +1,9 @@
 export const tmpl = `
   <main>
-    <section class="errorPage">
-      <div class="errorPage__content">
-        <h1 class="errorPage__title">{{code}}</h1>
-        <h2 class="errorPage__subtitle">{{text}}</h2>
+    <section class="error-page">
+      <div class="error-page__content">
+        <h1 class="error-page__title">{{code}}</h1>
+        <h2 class="error-page__subtitle">{{text}}</h2>
         {{{link}}}
       </div>
     </section>

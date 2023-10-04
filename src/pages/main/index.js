@@ -5,6 +5,4 @@ import { tmpl } from './main.tmpl.js';
 // Layouts
 import { Navbar } from '../../layouts/navbar';
 
-export const Main = (props) => {
-  return Handlebars.compile(tmpl)({ ...props, navbar: Navbar() });
-};
+export const Main = (props) => Handlebars.compile(tmpl)({ ...props, navbar: Navbar() });
