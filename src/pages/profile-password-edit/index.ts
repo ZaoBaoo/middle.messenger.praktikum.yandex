@@ -1,11 +1,16 @@
 import './profile-password-edit.scss';
 import Handlebars from 'handlebars';
-import { tmpl } from './profile-password-edit.tmpl.js';
-import { Button } from '../../components/button/index.js';
+import { tmpl } from './profile-password-edit.tmpl.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 
-export const ProfilePasswordEdit = (props) => {
+// Components
+import { Button } from '../../components/button/index.ts';
+
+// Types
+import { ProfilePasswordEditType } from './types.ts';
+
+export const ProfilePasswordEdit: ProfilePasswordEditType = () => {
   const additionalProps = {
     button: Button({ type: 'submit', text: 'Сохранить' }),
     oldPassword: '123456789',
@@ -15,10 +20,5 @@ export const ProfilePasswordEdit = (props) => {
     arrow,
   };
 
-  const combineProps = {
-    ...additionalProps,
-    ...props,
-  };
-
-  return Handlebars.compile(tmpl)(combineProps);
+  return Handlebars.compile(tmpl)(additionalProps);
 };

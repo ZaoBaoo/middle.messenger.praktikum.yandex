@@ -1,13 +1,16 @@
 import './sing-in.scss';
 import Handlebars from 'handlebars';
-import { tmpl } from './sign-in.tmpl.js';
+import { tmpl } from './sign-in.tmpl.ts';
 
 // Components
-import { Input } from '../../components/input/index.js';
-import { Button } from '../../components/button/index.js';
+import { Input } from '../../components/input/index.ts';
+import { Button } from '../../components/button/index.ts';
 import { Link } from '../../components/link/index.ts';
 
-export const Signin = (props) => {
+// Types
+import { SingInType } from './types.ts';
+
+export const SignIn: SingInType = () => {
   const inputs = {
     inputEmail: Input({ type: 'email', label: 'Почта', name: 'email' }),
     inputLogin: Input({ type: 'text', label: 'Логин', name: 'login' }),
@@ -31,7 +34,6 @@ export const Signin = (props) => {
   };
 
   const combineProps = {
-    ...props,
     ...inputs,
     button: Button({ text: 'Зарегистрироваться', type: 'submit' }),
     link: Link({ to: '/login', text: 'Войти' }),

@@ -1,13 +1,16 @@
 import './profile-info-edit.scss';
 import Handlebars from 'handlebars';
-import { tmpl } from './profile-info-edit.tmpl.js';
+import { tmpl } from './profile-info-edit.tmpl.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 
 // Components
-import { Button } from '../../components/button/index.js';
+import { Button } from '../../components/button/index.ts';
 
-export const ProfileInfoEdit = (props) => {
+// Types
+import { ProfileInfoEditType } from './types.ts';
+
+export const ProfileInfoEdit: ProfileInfoEditType = () => {
   const additionalProps = {
     button: Button({ type: 'submit', text: 'Сохранить' }),
     email: 'pochta@yandex.ru',
@@ -20,10 +23,5 @@ export const ProfileInfoEdit = (props) => {
     arrow,
   };
 
-  const combineProps = {
-    ...additionalProps,
-    ...props,
-  };
-
-  return Handlebars.compile(tmpl)(combineProps);
+  return Handlebars.compile(tmpl)(additionalProps);
 };

@@ -5,5 +5,8 @@ import { tmpl } from './main.tmpl.ts';
 // Layouts
 import { Navbar } from '../../layouts/navbar/index.ts';
 
-export const Main = (props) =>
-  Handlebars.compile(tmpl)({ ...props, navbar: Navbar() });
+// Types
+import { MainType } from './types.ts';
+
+export const Main: MainType = () =>
+  Handlebars.compile(tmpl)({ navbar: Navbar() });

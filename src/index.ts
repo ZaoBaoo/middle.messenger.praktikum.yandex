@@ -2,13 +2,13 @@ import './styles/index.scss';
 
 // Pages
 import { Main } from './pages/main/index.ts';
-import { Login } from './pages/login';
-import { Profile } from './pages/profile';
-import { Signin } from './pages/signin';
-import { ErrorPage } from './pages/errorPage/index.js';
-import { ProfileInfoEdit } from './pages/profile-info-edit/index.js';
-import { ProfilePasswordEdit } from './pages/profile-password-edit/index.js';
-import { Chatting } from './pages/chatting/index.js';
+import { Login } from './pages/login/index.ts';
+import { Profile } from './pages/profile/index.ts';
+import { SignIn } from './pages/signin/index.ts';
+import { ErrorPage } from './pages/errorPage/index.ts';
+import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
+import { ProfilePasswordEdit } from './pages/profile-password-edit/index.ts';
+import { Chatting } from './pages/chatting';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#root');
@@ -20,26 +20,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (route) {
       case '/':
-        root.innerHTML = Main({ content: 'main' });
+        root.innerHTML = Main();
         break;
+
       case '/login':
         root.innerHTML = Login();
         break;
+
       case '/sign-in':
-        root.innerHTML = Signin();
+        root.innerHTML = SignIn();
         break;
+
       case '/profile':
         root.innerHTML = Profile();
         break;
+
       case '/chatting':
         root.innerHTML = Chatting();
         break;
+
       case '/profile-info-edit':
         root.innerHTML = ProfileInfoEdit();
         break;
+
       case '/profile-password-edit':
         root.innerHTML = ProfilePasswordEdit();
         break;
+
       default:
         // В зависимости от ошибки, передаем в шаблон код и текст
         root.innerHTML = ErrorPage({

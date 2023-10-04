@@ -1,13 +1,16 @@
 import './profile.scss';
 import Handlebars from 'handlebars';
-import { tmpl } from './profile.tmpl.js';
-
-// Components
+import { tmpl } from './profile.tmpl.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
+
+// Components
 import { Link } from '../../components/link/index.ts';
 
-export const Profile = (props) => {
+// Types
+import { ProfileType } from './types.ts';
+
+export const Profile: ProfileType = () => {
   const additionalProps = {
     linkEditInfo: Link({ to: '/profile-info-edit', text: 'Изменить данные' }),
     linkEditPassword: Link({
@@ -24,10 +27,5 @@ export const Profile = (props) => {
     arrow,
   };
 
-  const combineProps = {
-    ...additionalProps,
-    ...props,
-  };
-
-  return Handlebars.compile(tmpl)(combineProps);
+  return Handlebars.compile(tmpl)(additionalProps);
 };

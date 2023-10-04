@@ -1,0 +1,1 @@
+export type ChattingType = () => string;
