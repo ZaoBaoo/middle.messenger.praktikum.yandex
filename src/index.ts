@@ -1,7 +1,7 @@
 import './styles/index.scss';
 
 // Pages
-import { Main } from './pages/main';
+import { Main } from './pages/main/index.ts';
 import { Login } from './pages/login';
 import { Profile } from './pages/profile';
 import { Signin } from './pages/signin';
@@ -54,9 +54,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   definitionRoute();
 });
-
-function addOne(i) {
-  if (i != NaN) {
-    return i++;
-  }
-}

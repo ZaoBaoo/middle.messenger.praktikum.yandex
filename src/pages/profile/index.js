@@ -5,7 +5,7 @@ import { tmpl } from './profile.tmpl.js';
 // Components
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
-import { Link } from '../../components/link/index.js';
+import { Link } from '../../components/link/index.ts';
 
 export const Profile = (props) => {
   const additionalProps = {

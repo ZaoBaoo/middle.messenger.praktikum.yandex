@@ -3,7 +3,7 @@ import Handlebars from 'handlebars';
 import { tmpl } from './errorPage.tmpl.js';
 
 // Components
-import { Link } from '../../components/link/index.js';
+import { Link } from '../../components/link/index.ts';
 
 export const ErrorPage = (props) => {
   const combineProps = {

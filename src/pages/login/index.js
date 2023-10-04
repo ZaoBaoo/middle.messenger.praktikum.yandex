@@ -5,12 +5,16 @@ import { tmpl } from './login.tmpl.js';
 // Components
 import { Button } from '../../components/button/index.js';
 import { Input } from '../../components/input/index.js';
-import { Link } from '../../components/link/index.js';
+import { Link } from '../../components/link/index.ts';
 
 export const Login = (props) => {
   const inputs = {
     inputLogin: Input({ type: 'text', label: 'Логин', name: 'login' }),
-    inputPassword: Input({ type: 'password', label: 'Пароль', name: 'password' }),
+    inputPassword: Input({
+      type: 'password',
+      label: 'Пароль',
+      name: 'password',
+    }),
   };
 
   const combineProps = {
