@@ -8,7 +8,7 @@ import { SignIn } from './pages/signin/index.ts';
 import { ErrorPage } from './pages/errorPage/index.ts';
 import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
 import { ProfilePasswordEdit } from './pages/profile-password-edit/index.ts';
-import { Chatting } from './pages/chatting';
+import { Chatting } from './pages/chatting/index.ts';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#root');
