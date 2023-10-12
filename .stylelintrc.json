@@ -4,7 +4,7 @@
   "rules": {
     "block-no-empty": null,
     "property-no-vendor-prefix": null,
-    "selector-class-pattern": null,
+    "no-use-before-define": null,
     "order/order": [
       "custom-properties",
       "declarations"
