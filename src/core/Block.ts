@@ -117,9 +117,8 @@ class Block<P extends Record<string, any> = any> {
   protected componentDidUpdate(oldProps: P, newProps: P) {
     if (JSON.stringify(oldProps) !== JSON.stringify(newProps)) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   setProps = (nextProps: P) => {
