@@ -1,1 +1,7 @@
-export type ButtonType = (props: { text: string; type: string }) => string;
+export interface ButtonType {
+  text: string;
+  type: string;
+  events: {
+    click: () => void;
+  };
+}

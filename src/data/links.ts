@@ -7,4 +7,5 @@ export const links = [
   { to: '/profile-info-edit', text: 'Редактировать профиль' },
   { to: '/profile-password-edit', text: 'Изменить пароль' },
   { to: '/null', text: 'Страница с ошибкой' },
+  { to: '/test', text: 'Test' },
 ];

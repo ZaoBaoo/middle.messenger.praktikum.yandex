@@ -1,28 +1,57 @@
 import './login.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './login.tmpl.ts';
+import Block from '../../core/Block.ts';
 
 // Components
-import { Button } from '../../components/button';
+import { Button } from '../../components/button/index.ts';
 import { Input } from '../../components/input/index.ts';
 import { Link } from '../../components/link/index.ts';
 
-export const Login = () => {
-  const inputs = {
-    inputLogin: Input({ type: 'text', label: 'Логин', name: 'login' }),
-    inputPassword: Input({
-      type: 'password',
-      label: 'Пароль',
-      name: 'password',
-    }),
-  };
+const signInInputData = [
+  { type: 'text', label: 'Логин', name: 'login' },
+  { type: 'password', label: 'Пароль', name: 'password' },
+];
 
-  const combineProps = {
-    ...inputs,
-    button: Button({ text: 'Авторизоваться', type: 'submit' }),
-    link: Link({ to: '/sign-in', text: 'Нет аккаунта?' }),
-    title: 'Вход',
-  };
+export class Login extends Block {
+  constructor() {
+    super('main', { title: 'Вход' });
+  }
 
-  return Handlebars.compile(tmpl)(combineProps);
-};
+  init() {
+    this.children.inputs = signInInputData.map((input) => new Input(input));
+    this.children.button = new Button({
+      type: 'button',
+      text: 'Авторизоваться',
+      events: { click: () => console.log('Авторизоваться') },
+    });
+    this.children.link = new Link({
+      text: 'Нет аккаунта?',
+      to: '/sign-in',
+    });
+  }
+
+  render() {
+    return this.compile(
+      `
+        <section class="login">
+          <div class="login__content">
+            <div class="login__block">
+              <h1 class="login__title">{{title}}</h1>
+              <form class="login__form">
+                {{#each inputs}}
+                    {{{this}}}
+                {{/each}}
+                <div class="login__wrapper-button">
+                  {{{button}}}
+                </div>
+              </form>
+              <div class="login__wrapper-link">
+                {{{link}}}
+              </div>
+            </div>
+          </div>
+        </section>
+    `,
+      this.props,
+    );
+  }
+}

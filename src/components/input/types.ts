@@ -1,5 +1,5 @@
-export type InputType = (props: {
+export interface InputType {
   type: string;
   label: string;
   name: string;
-}) => string;
+}

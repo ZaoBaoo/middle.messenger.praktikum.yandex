@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { nanoid } from 'nanoid';
+import { v4 as uuidv4 } from 'uuid';
 
 import { EventBus } from './EventBus.ts';
 
@@ -12,11 +12,11 @@ class Block<P extends Record<string, any> = any> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = nanoid(6);
+  public id = uuidv4();
 
   protected props: P;
 
-  public children: Record<string, Block>;
+  public children: Record<string, Block | Block[]>;
 
   private eventBus: () => EventBus;
 
@@ -24,7 +24,7 @@ class Block<P extends Record<string, any> = any> {
 
   private readonly _meta: { tagName: string; props: P };
 
-  constructor(propsWithChildren: P, tagName = 'div') {
+  constructor(tagName = 'div', propsWithChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
@@ -46,10 +46,10 @@ class Block<P extends Record<string, any> = any> {
 
   _getChildrenAndProps(childrenAndProps: P): {
     props: P;
-    children: Record<string, Block>;
+    children: Record<string, Block | Block[]>;
   } {
     const props: Record<string, unknown> = {};
-    const children: Record<string, Block> = {};
+    const children: Record<string, Block | Block[]> = {};
 
     Object.entries(childrenAndProps).forEach(([key, value]) => {
       if (value instanceof Block) {
@@ -103,9 +103,13 @@ class Block<P extends Record<string, any> = any> {
   public dispatchComponentDidMount() {
     this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 
-    Object.values(this.children).forEach((child) =>
-      child.dispatchComponentDidMount(),
-    );
+    Object.values(this.children).forEach((child) => {
+      if (Array.isArray(child)) {
+        child.forEach((item) => item.dispatchComponentDidMount());
+      } else {
+        child.dispatchComponentDidMount();
+      }
+    });
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
@@ -147,7 +151,13 @@ class Block<P extends Record<string, any> = any> {
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([name, component]) => {
-      contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+      if (Array.isArray(component)) {
+        contextAndStubs[name] = component.map(
+          (com) => `<div data-id="${com.id}"></div>`,
+        );
+      } else {
+        contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
+      }
     });
 
     const html = Handlebars.compile(template)(contextAndStubs);
@@ -157,15 +167,30 @@ class Block<P extends Record<string, any> = any> {
     temp.innerHTML = html;
 
     Object.entries(this.children).forEach(([, component]) => {
-      const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+      if (Array.isArray(component)) {
+        const stubs = component.map((com) =>
+          temp.content.querySelector(`[data-id="${com.id}"]`),
+        );
 
-      if (!stub) {
-        return;
+        if (!stubs.length) {
+          return;
+        }
+
+        stubs.forEach((stub, i) => {
+          component[i].getContent()?.append(...Array.from(stub!.childNodes));
+          stub!.replaceWith(component[i].getContent()!);
+        });
+      } else {
+        const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
+
+        if (!stub) {
+          return;
+        }
+
+        component.getContent()?.append(...Array.from(stub.childNodes));
+
+        stub.replaceWith(component.getContent()!);
       }
-
-      component.getContent()?.append(...Array.from(stub.childNodes));
-
-      stub.replaceWith(component.getContent()!);
     });
 
     return temp.content;

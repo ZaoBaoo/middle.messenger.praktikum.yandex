@@ -1,1 +1,4 @@
-export type LinkType = (props: { to: string; text: string }) => string;
+export interface LinkType {
+  to: string;
+  text: string;
+}

@@ -1,8 +1,22 @@
 import './button.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './button.tmpl.ts';
+import Block from '../../core/Block.ts';
 
 // Types
 import { ButtonType } from './types.ts';
 
-export const Button: ButtonType = (props) => Handlebars.compile(tmpl)(props);
+export class Button extends Block {
+  constructor(props: ButtonType) {
+    super('button', props);
+  }
+
+  init() {
+    const element = this.element as HTMLInputElement;
+
+    element!.type = this.props.type;
+    element!.className = 'button';
+  }
+
+  render() {
+    return this.compile(`{{text}}`, this.props);
+  }
+}
