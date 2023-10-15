@@ -1,6 +1,5 @@
 import './errorPage.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './errorPage.tmpl.ts';
+import Block from '../../core/Block.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
@@ -8,10 +7,30 @@ import { Link } from '../../components/link/index.ts';
 // Types
 import { ErrorPageType } from './types.ts';
 
-export const ErrorPage: ErrorPageType = (props) => {
-  const combineProps = {
-    link: Link({ text: props.redirectText, to: props.redirectTo }),
-    ...props,
-  };
-  return Handlebars.compile(tmpl)(combineProps);
-};
+export class ErrorPage extends Block {
+  constructor(props: ErrorPageType) {
+    super('main', props);
+  }
+
+  init() {
+    this.children.link = new Link({
+      text: this.props.redirectText,
+      to: this.props.redirectTo,
+    });
+  }
+
+  render() {
+    return this.compile(
+      `
+        <section class="error-page">
+          <div class="error-page__content">
+            <h1 class="error-page__title">{{code}}</h1>
+            <h2 class="error-page__subtitle">{{text}}</h2>
+            {{{link}}}
+          </div>
+        </section>
+      `,
+      this.props,
+    );
+  }
+}

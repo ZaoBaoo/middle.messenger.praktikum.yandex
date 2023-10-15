@@ -56,12 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       default:
         // В зависимости от ошибки, передаем в шаблон код и текст
-        root.innerHTML = ErrorPage({
-          code: '505',
-          text: 'Мы уже фиксим',
-          redirectTo: '/chatting',
-          redirectText: 'Назад к чатам',
-        });
+        root.append(
+          new ErrorPage({
+            code: '505',
+            text: 'Мы уже фиксим',
+            redirectTo: '/chatting',
+            redirectText: 'Назад к чатам',
+          }).element!,
+        );
         break;
     }
   };

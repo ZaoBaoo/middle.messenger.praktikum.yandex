@@ -15,6 +15,10 @@ export class Input extends Block {
     element!.className = 'form-input';
   }
 
+  get isValid() {
+    return (this.element! as HTMLInputElement).value.length > 10;
+  }
+
   render() {
     return this.compile(
       `

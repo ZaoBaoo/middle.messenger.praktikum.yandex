@@ -7,8 +7,26 @@ import { Input } from '../../components/input/index.ts';
 import { Link } from '../../components/link/index.ts';
 
 const signInInputData = [
-  { type: 'text', label: 'Логин', name: 'login' },
-  { type: 'password', label: 'Пароль', name: 'password' },
+  {
+    type: 'text',
+    label: 'Логин',
+    name: 'login',
+    events: {
+      focusout: function () {
+        console.log(this);
+      },
+    },
+  },
+  {
+    type: 'password',
+    label: 'Пароль',
+    name: 'password',
+    events: {
+      focusout: () => {
+        console.log(this);
+      },
+    },
+  },
 ];
 
 export class Login extends Block {
@@ -17,7 +35,10 @@ export class Login extends Block {
   }
 
   init() {
-    this.children.inputs = signInInputData.map((input) => new Input(input));
+    this.children.inputs = signInInputData.map((input) => {
+      input.events.focusout = input.events.focusout.bind(this);
+      return new Input(input);
+    });
     this.children.button = new Button({
       type: 'button',
       text: 'Авторизоваться',
@@ -38,8 +59,9 @@ export class Login extends Block {
               <h1 class="login__title">{{title}}</h1>
               <form class="login__form">
                 {{#each inputs}}
-                    {{{this}}}
+                  {{{this}}}
                 {{/each}}
+                {{{inputTest}}}
                 <div class="login__wrapper-button">
                   {{{button}}}
                 </div>

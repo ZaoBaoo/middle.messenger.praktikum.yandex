@@ -68,6 +68,7 @@ class Block<P extends Record<string, any> = any> {
     };
 
     Object.keys(events).forEach((eventName) => {
+      // console.log(this._element);
       this._element?.addEventListener(eventName, events[eventName]);
     });
   }
