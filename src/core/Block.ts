@@ -148,8 +148,8 @@ class Block<P extends Record<string, any> = any> {
     this._addEvents();
   }
 
-  protected compile(template: string, context: any) {
-    const contextAndStubs = { ...context };
+  protected compile(template: string) {
+    const contextAndStubs: Record<string, any> = { ...this.props };
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
