@@ -44,7 +44,6 @@ export class Test extends Block {
             {{{this}}}
         {{/each}}
     `,
-      this.props,
     );
   }
 }

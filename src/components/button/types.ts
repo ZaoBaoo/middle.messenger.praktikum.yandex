@@ -1,7 +1,7 @@
 export interface ButtonType {
   text: string;
   type: string;
-  events: {
-    click: () => void;
+  events?: {
+    click?: () => void;
   };
 }

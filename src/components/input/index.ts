@@ -6,28 +6,20 @@ import { InputType } from './types.ts';
 
 export class Input extends Block {
   constructor(props: InputType) {
-    super('div', props);
+    super('input', props);
   }
 
   init() {
     const element = this.element as HTMLInputElement;
 
-    element!.className = 'form-input';
-  }
-
-  get isValid() {
-    return (this.element! as HTMLInputElement).value.length > 10;
+    this.addClass('input');
+    element!.required = true;
+    element!.type = this.props.type;
+    element!.name = this.props.name;
+    element!.placeholder = ' ';
   }
 
   render() {
-    return this.compile(
-      `
-        <input class="form-input__input" type="{{type}}" required="required" name="{{name}}" placeholder=" ">
-        <label>{{label}}</label>
-      `,
-      this.props,
-    );
+    return this.compile(``);
   }
 }
-
-// export const Input: InputType = (props) => Handlebars.compile(tmpl)(props);

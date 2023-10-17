@@ -13,7 +13,7 @@ export class Link extends Block {
     const element = this.element as HTMLLinkElement;
 
     element!.href = this.props.to;
-    element!.className = 'link';
+    this.addClass('link');
   }
 
   render() {
@@ -21,7 +21,6 @@ export class Link extends Block {
       `
         {{text}}
       `,
-      this.props,
     );
   }
 }

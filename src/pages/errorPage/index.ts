@@ -30,7 +30,6 @@ export class ErrorPage extends Block {
           </div>
         </section>
       `,
-      this.props,
     );
   }
 }

@@ -99,6 +99,10 @@ class Block<P extends Record<string, any> = any> {
     this.componentDidMount();
   }
 
+  protected addClass(className: string = '') {
+    this.element!.classList.add(className);
+  }
+
   protected componentDidMount() {}
 
   public dispatchComponentDidMount() {
