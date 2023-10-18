@@ -42,7 +42,10 @@ export class Form extends Block {
                 currentInputElement.name,
               );
 
-              if (!isInputValid.isValid) {
+              if (
+                !isInputValid.isValid &&
+                !Array.isArray(inputForm.children.error)
+              ) {
                 inputForm.children.error.setProps({
                   text: isInputValid.message,
                 });

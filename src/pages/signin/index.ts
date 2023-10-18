@@ -4,33 +4,29 @@ import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
-import { Form } from '../../components/form';
+import { Form } from '../../components/form/index.ts';
 
 export class SignIn extends Block {
   constructor() {
     super('main', { title: 'Регистрация' });
   }
 
+  handlerSingIn() {
+    console.log('Запрос в api [sing-in]');
+  }
+
   init() {
-    this.children.form = new Form({
-      dataInputsForRender: signInInputsData,
-      events: {
-        submit: (e) => {
-          e.preventDefault();
-          console.log(e);
-        },
-      },
-      buttonData: {
-        type: 'click',
-        text: 'Зарегистрироваться',
-        events: {
-          click: () => console.log('Зарегистрироваться'),
-        },
-      },
-    });
     this.children.link = new Link({
       text: 'Войти',
       to: '/login',
+    });
+    this.children.form = new Form({
+      dataInputsForRender: signInInputsData,
+      buttonData: {
+        type: 'submit',
+        text: 'Зарегистрироваться',
+      },
+      submitCallback: this.handlerSingIn,
     });
   }
 

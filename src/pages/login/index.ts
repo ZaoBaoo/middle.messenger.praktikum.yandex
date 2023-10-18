@@ -12,7 +12,7 @@ export class Login extends Block {
   }
 
   handlerAuth() {
-    console.log('Запрос на api');
+    console.log('Запрос в api [auth]');
   }
 
   init() {

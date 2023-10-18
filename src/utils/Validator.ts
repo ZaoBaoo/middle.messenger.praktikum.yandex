@@ -1,6 +1,5 @@
 import { INPUT_NAME } from '../types.ts';
 
-// type ResultType = [boolean?, string?];
 type ResultType = {
   isValid?: boolean;
   message?: string;
@@ -18,12 +17,22 @@ export default class Validator {
   errors: ErrorMap = {
     [INPUT_NAME.LOGIN]: 'Некорректный логин',
     [INPUT_NAME.PASSWORD]: 'Некорректный пароль',
+    [INPUT_NAME.PASSWORD_CONFIRM]: 'Некорректный пароль',
+    [INPUT_NAME.EMAIL]: 'Неправильно введен e-mail',
+    [INPUT_NAME.FIRST_NAME]: 'Имя некорректно',
+    [INPUT_NAME.SECOND_NAME]: 'Фамилия некорректна',
+    [INPUT_NAME.PHONE]: 'Телефон указан неверно',
   };
 
   regExp: RegExpMap = {
     [INPUT_NAME.LOGIN]:
       /^(?=.*[A-Za-z])(?!.*[\s!@#$%^&*()—_+=;:,.\/?\\|`~\[\]{}])[A-Za-z0-9]{3,20}$/,
     [INPUT_NAME.PASSWORD]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
+    [INPUT_NAME.PASSWORD_CONFIRM]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
+    [INPUT_NAME.EMAIL]: /^[A-Za-z0-9_-]+@[A-Za-z]+\.[A-Za-z]+$/,
+    [INPUT_NAME.FIRST_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
+    [INPUT_NAME.SECOND_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
+    [INPUT_NAME.PHONE]: /^\+?\d{10,15}$/,
   };
 
   isFieldValid(value: string, name: string): ResultType {
