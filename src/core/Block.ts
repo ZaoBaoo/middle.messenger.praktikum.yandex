@@ -142,6 +142,10 @@ class Block<P extends Record<string, any> = any> {
     return this._element;
   }
 
+  getProps() {
+    return { ...this.props };
+  }
+
   private _render() {
     const fragment = this.render();
 

@@ -16,6 +16,8 @@
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
     "no-param-reassign": "off",
-    "default-param-last": "off"
+    "default-param-last": "off",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn"
   }
 }

@@ -1,19 +1,31 @@
 import './input-form.scss';
 import Block from '../../core/Block.ts';
+import { validator } from '../../utils/Validator.ts';
 
 // Type
-import { FormDataInput } from '../../types.ts';
+import type { FormDataInputType } from '../../types.ts';
 
 // Components
 import { Input } from '../input/index.ts';
+import { ErrorValidation } from '../error-validation/index.ts';
 
 export class InputForm extends Block {
-  constructor(props: FormDataInput) {
+  constructor(props: FormDataInputType) {
     super('div', props);
   }
 
   init() {
-    const blur = (e: Event) => console.log(e.currentTarget);
+    this.children.error = new ErrorValidation({ text: '' });
+
+    const blur = (e: Event) => {
+      if (!Array.isArray(this.children.error)) {
+        const { value, name } = e.target! as HTMLInputElement;
+
+        const isInputValid = validator.isFieldValid(value, name);
+
+        this.children.error.setProps({ text: isInputValid.message });
+      }
+    };
     const propsCombine = { ...this.props, events: { blur } };
     this.children.input = new Input(propsCombine);
 
@@ -25,7 +37,7 @@ export class InputForm extends Block {
       `
         {{{input}}}
         <label class="form-input__label">{{label}}</label>
-        <span class="form-input__error">Ошибка</span>
+        {{{error}}}
       `,
     );
   }

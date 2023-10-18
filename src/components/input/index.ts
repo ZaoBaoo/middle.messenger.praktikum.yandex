@@ -13,7 +13,7 @@ export class Input extends Block {
     const element = this.element as HTMLInputElement;
 
     this.addClass('input');
-    element!.required = true;
+    element!.required = false;
     element!.type = this.props.type;
     element!.name = this.props.name;
     element!.placeholder = ' ';

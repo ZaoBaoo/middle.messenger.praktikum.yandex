@@ -11,6 +11,10 @@ export class Login extends Block {
     super('main', { title: 'Вход' });
   }
 
+  handlerAuth() {
+    console.log('Запрос на api');
+  }
+
   init() {
     this.children.link = new Link({
       text: 'Нет аккаунта?',
@@ -19,10 +23,10 @@ export class Login extends Block {
     this.children.form = new Form({
       dataInputsForRender: loginInputsData,
       buttonData: {
-        type: 'button',
+        type: 'submit',
         text: 'Авторизоваться',
-        events: { click: () => console.log('Авторизоваться') },
       },
+      submitCallback: this.handlerAuth,
     });
   }
 
