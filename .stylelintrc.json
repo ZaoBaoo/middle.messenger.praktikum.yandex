@@ -4,6 +4,7 @@
   "rules": {
     "block-no-empty": null,
     "property-no-vendor-prefix": null,
+    "selector-class-pattern": null,
     "order/order": [
       "custom-properties",
       "declarations"

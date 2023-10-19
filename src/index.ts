@@ -10,9 +10,6 @@ import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
 import { ProfilePasswordEdit } from './pages/profile-password-edit/index.ts';
 import { Chatting } from './pages/chatting/index.ts';
 
-// Test
-import { Test } from './pages/test/index.ts';
-
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#root');
 
@@ -35,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
 
       case '/profile':
-        root.innerHTML = Profile();
+        root.append(new Profile().element!);
         break;
 
       case '/chatting':
@@ -47,11 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
 
       case '/profile-password-edit':
-        root.innerHTML = ProfilePasswordEdit();
-        break;
-
-      case '/test':
-        root.append(new Test({ title: 'Home Page' }).element!);
+        root.append(new ProfilePasswordEdit().element!);
         break;
 
       default:

@@ -1,33 +1,34 @@
-import './form.scss';
+import styles from './form-account.module.scss';
 import Block from '../../core/Block.ts';
 import { validator } from '../../utils/Validator.ts';
 
 // Types
-import type { FormType } from './types.ts';
-import type { FormDataInputType } from '../../types.ts';
+import type { FormAccountProps } from './types.ts';
+import type { WrapperAccountProps } from '../../types.ts';
 
 // Components
-import { InputForm } from '../input-form/index.ts';
+import { InputWrapperAccount } from '../input-wrapper-account/index.ts';
 import { Button } from '../button/index.ts';
 
-export class Form extends Block {
-  constructor(props: FormType) {
+export class FormAccount extends Block {
+  constructor(props: FormAccountProps) {
     super('form', props);
   }
 
   init() {
-    this.addClass('form');
+    this.addClass(styles.form);
+    this.props.styles = styles;
 
     this.children.button = new Button(this.props.buttonData);
     this.children.inputs = this.props.dataInputsForRender.map(
-      (input: FormDataInputType) => new InputForm(input),
+      (input: WrapperAccountProps) => new InputWrapperAccount(input),
     );
 
     this.setProps({
       events: {
         submit: (e: Event) => {
           e.preventDefault();
-          const elements = (e.target! as HTMLFormElement).elements;
+          const { elements } = e.target! as HTMLFormElement;
 
           if (Array.isArray(this.children.inputs)) {
             const resultValidation = this.children.inputs.map((inputForm) => {
@@ -73,7 +74,7 @@ export class Form extends Block {
         {{#each inputs}}
           {{{this}}}
         {{/each}}
-        <div class="form__wrapper-button">
+        <div class="{{styles.wrapperButton}}">
           {{{button}}}
         </div>
       `,

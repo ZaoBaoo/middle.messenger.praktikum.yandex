@@ -1,4 +1,4 @@
-import './button.scss';
+import styles from './button.module.scss';
 import Block from '../../core/Block.ts';
 
 // Types
@@ -10,10 +10,10 @@ export class Button extends Block {
   }
 
   init() {
+    this.addClass(styles.button);
     const element = this.element as HTMLInputElement;
 
     element!.type = this.props.type;
-    this.addClass('button');
   }
 
   render() {

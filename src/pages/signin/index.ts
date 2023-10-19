@@ -4,7 +4,7 @@ import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
-import { Form } from '../../components/form/index.ts';
+import { FormAccount } from '../../components/form-account/index.ts';
 
 export class SignIn extends Block {
   constructor() {
@@ -20,7 +20,7 @@ export class SignIn extends Block {
       text: 'Войти',
       to: '/login',
     });
-    this.children.form = new Form({
+    this.children.form = new FormAccount({
       dataInputsForRender: signInInputsData,
       buttonData: {
         type: 'submit',

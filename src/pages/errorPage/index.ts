@@ -1,4 +1,4 @@
-import './errorPage.scss';
+import styles from './errorPage.module.scss';
 import Block from '../../core/Block.ts';
 
 // Components
@@ -13,6 +13,8 @@ export class ErrorPage extends Block {
   }
 
   init() {
+    this.props.styles = styles;
+
     this.children.link = new Link({
       text: this.props.redirectText,
       to: this.props.redirectTo,
@@ -22,10 +24,10 @@ export class ErrorPage extends Block {
   render() {
     return this.compile(
       `
-        <section class="error-page">
-          <div class="error-page__content">
-            <h1 class="error-page__title">{{code}}</h1>
-            <h2 class="error-page__subtitle">{{text}}</h2>
+        <section class="{{styles.errorPage}}">
+          <div class="{{styles.content}}">
+            <h1 class="{{styles.title}}">{{code}}</h1>
+            <h2 class="{{styles.subtitle}}">{{text}}</h2>
             {{{link}}}
           </div>
         </section>

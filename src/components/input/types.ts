@@ -1,7 +1,12 @@
-export interface InputType {
+export interface InputPropsType {
   type: string;
   name: string;
-  events: {
-    blur: () => void;
+  option: string;
+  disabled: boolean;
+  value?: string;
+  events?: {
+    blur?: (e: Event) => void;
   };
 }
+
+export type OptionsType = Record<string, string>;

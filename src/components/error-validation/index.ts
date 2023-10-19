@@ -1,10 +1,8 @@
-import './error-validation.scss';
+import styles from './error-validation.module.scss';
 import Block from '../../core/Block.ts';
 
 // Type
-import { ErrorValidationType } from './types.ts';
-
-// Components
+import type { ErrorValidationType, OptionsType } from './types.ts';
 
 export class ErrorValidation extends Block {
   constructor(props: ErrorValidationType) {
@@ -12,7 +10,12 @@ export class ErrorValidation extends Block {
   }
 
   init() {
-    this.addClass('error-validation');
+    const options: OptionsType = {
+      left: styles.errorValidationLeft,
+      right: styles.errorValidationRight,
+    };
+
+    this.addClass(options[this.props.type]);
   }
 
   render() {

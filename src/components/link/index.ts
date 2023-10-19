@@ -1,4 +1,4 @@
-import './link.scss';
+import styles from './link.module.scss';
 import Block from '../../core/Block.ts';
 
 // Types
@@ -10,10 +10,10 @@ export class Link extends Block {
   }
 
   init() {
-    const element = this.element as HTMLLinkElement;
+    this.addClass(styles.link);
 
+    const element = this.element as HTMLLinkElement;
     element!.href = this.props.to;
-    this.addClass('link');
   }
 
   render() {

@@ -8,7 +8,7 @@ export enum INPUT_NAME {
   PHONE = 'phone',
 }
 
-export interface FormDataInputType {
+export interface WrapperAccountProps {
   type: string;
   label: string;
   name: string;

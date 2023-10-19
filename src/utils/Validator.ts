@@ -26,7 +26,7 @@ export default class Validator {
 
   regExp: RegExpMap = {
     [INPUT_NAME.LOGIN]:
-      /^(?=.*[A-Za-z])(?!.*[\s!@#$%^&*()—_+=;:,.\/?\\|`~\[\]{}])[A-Za-z0-9]{3,20}$/,
+      /^(?=.*[A-Za-z])(?!.*[\s!@#$%^&*()—_+=;:,./?\\|`~[\]{}])[A-Za-z0-9]{3,20}$/,
     [INPUT_NAME.PASSWORD]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
     [INPUT_NAME.PASSWORD_CONFIRM]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
     [INPUT_NAME.EMAIL]: /^[A-Za-z0-9_-]+@[A-Za-z]+\.[A-Za-z]+$/,

@@ -1,22 +1,32 @@
-import './input.scss';
+import styles from './input.module.scss';
 import Block from '../../core/Block.ts';
 
 // Types
-import { InputType } from './types.ts';
+import { InputPropsType, OptionsType } from './types.ts';
 
 export class Input extends Block {
-  constructor(props: InputType) {
+  constructor(props: InputPropsType) {
     super('input', props);
   }
 
   init() {
-    const element = this.element as HTMLInputElement;
+    const options: OptionsType = {
+      common: styles.inputCommon,
+      profile: styles.inputProfile,
+    };
 
-    this.addClass('input');
+    this.addClass(`${options[this.props.option]}`);
+
+    const element = this.element as HTMLInputElement;
     element!.required = true;
     element!.type = this.props.type;
     element!.name = this.props.name;
+    element!.disabled = this.props.disabled;
     element!.placeholder = ' ';
+
+    if (this.props.value) {
+      element!.value = this.props.value;
+    }
   }
 
   render() {

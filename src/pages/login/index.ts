@@ -1,10 +1,10 @@
-import './login.scss';
+import styles from './login.module.scss';
 import Block from '../../core/Block.ts';
 import { loginInputsData } from '../../data/login-inputs-data.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
-import { Form } from '../../components/form/index.ts';
+import { FormAccount } from '../../components/form-account/index.ts';
 
 export class Login extends Block {
   constructor() {
@@ -16,11 +16,12 @@ export class Login extends Block {
   }
 
   init() {
+    this.props.styles = styles;
     this.children.link = new Link({
       text: 'Нет аккаунта?',
       to: '/sign-in',
     });
-    this.children.form = new Form({
+    this.children.form = new FormAccount({
       dataInputsForRender: loginInputsData,
       buttonData: {
         type: 'submit',
@@ -33,12 +34,12 @@ export class Login extends Block {
   render() {
     return this.compile(
       `
-        <section class="login">
-          <div class="login__content">
-            <div class="login__block">
-              <h1 class="login__title">{{title}}</h1>
+        <section class="{{styles.login}}">
+          <div class="{{styles.content}}">
+            <div class="{{styles.block}}">
+              <h1 class="{{styles.title}}">{{title}}</h1>
                 {{{form}}}
-              <div class="login__wrapper-link">
+              <div class="{{styles.wrapperLink}}">
                 {{{link}}}
               </div>
             </div>
