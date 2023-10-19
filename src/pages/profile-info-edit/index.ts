@@ -1,27 +1,58 @@
-import './profile-info-edit.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './profile-info-edit.tmpl.ts';
+import styles from './profile-info-edit.module.scss';
+import Block from '../../core/Block.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 
 // Components
-import { Button } from '../../components/button/index.ts';
+import { FormProfile } from '../../components/form-profile/index.ts';
+import { FormDataResponseType } from '../../types.ts';
+import { profileInputsData } from '../../data/profile-inputs-data.ts';
+import { Avatar } from '../../components/avatar';
 
-// Types
-import { ProfileInfoEditType } from './types.ts';
+export class ProfileInfoEdit extends Block {
+  constructor() {
+    super('main', {});
+  }
 
-export const ProfileInfoEdit: ProfileInfoEditType = () => {
-  const additionalProps = {
-    button: Button({ type: 'submit', text: 'Сохранить' }),
-    email: 'pochta@yandex.ru',
-    login: 'ivanivanov',
-    firstName: 'Иван',
-    secondName: 'Иванов',
-    chatName: 'Иван',
-    phone: '+7 (909) 967 30 30',
-    avatar,
-    arrow,
-  };
+  handlerChangesInfoProfile(response: FormDataResponseType) {
+    console.log(response);
+  }
 
-  return Handlebars.compile(tmpl)(additionalProps);
-};
+  init() {
+    this.props.styles = styles;
+    this.props.avatar = avatar;
+    this.props.arrow = arrow;
+
+    this.children.avatar = new Avatar({ src: avatar, isEdit: true });
+    this.children.form = new FormProfile({
+      dataInputsForRender: profileInputsData,
+      buttonData: {
+        type: 'submit',
+        text: 'Сохранить',
+      },
+      submitCallback: this.handlerChangesInfoProfile,
+    });
+  }
+
+  render() {
+    return this.compile(
+      `
+      <section class="{{styles.profilePasswordEdit}}">
+        <a class="{{styles.backLink}}" href="/">
+          <div class="{{styles.back}}">
+             <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
+          </div>
+        </a>
+        <div class="container">
+          <div class="{{styles.content}}">
+            <div class="{{styles.info}}">
+              {{{avatar}}}
+              <p class="{{styles.name}}">Иван</p>
+              {{{form}}}
+          </div>
+        </div>
+      </section>
+    `,
+    );
+  }
+}

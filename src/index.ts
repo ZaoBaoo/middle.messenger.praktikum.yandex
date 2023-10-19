@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
 
       case '/profile-info-edit':
-        root.innerHTML = ProfileInfoEdit();
+        root.append(new ProfileInfoEdit().element!);
         break;
 
       case '/profile-password-edit':

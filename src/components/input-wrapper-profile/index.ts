@@ -5,6 +5,7 @@ import Block from '../../core/Block.ts';
 import { PropsType } from './types.ts';
 import { Input } from '../input/index.ts';
 import { ErrorValidation } from '../error-validation/index.ts';
+import { validator } from '../../utils/Validator.ts';
 
 export class InputWrapperProfile extends Block {
   constructor(props: PropsType) {
@@ -12,6 +13,16 @@ export class InputWrapperProfile extends Block {
   }
 
   init() {
+    const blur = (e: Event) => {
+      if (!Array.isArray(this.children.error)) {
+        const { value, name } = e.target! as HTMLInputElement;
+
+        const isInputValid = validator.isFieldValid(value, name);
+
+        this.children.error.setProps({ text: isInputValid.message });
+      }
+    };
+
     this.addClass(styles.row);
     this.props.styles = styles;
     this.children.input = new Input({
@@ -20,8 +31,9 @@ export class InputWrapperProfile extends Block {
       option: 'profile',
       disabled: this.props.disabled,
       value: this.props.value,
+      events: { blur },
     });
-    this.children.error = new ErrorValidation({ text: 'Говно', type: 'right' });
+    this.children.error = new ErrorValidation({ text: '', type: 'right' });
   }
 
   render() {

@@ -9,6 +9,7 @@ import { Link } from '../../components/link/index.ts';
 // Types
 import { profileInputsData } from '../../data/profile-inputs-data.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
+import { Avatar } from '../../components/avatar';
 
 export class Profile extends Block {
   constructor() {
@@ -24,6 +25,7 @@ export class Profile extends Block {
     this.props.avatar = avatar;
     this.props.arrow = arrow;
 
+    this.children.avatar = new Avatar({ src: avatar, isEdit: false });
     this.children.inputs = profileInputsData.map(
       (input) => new InputWrapperProfile({ ...input, disabled: true }),
     );
@@ -49,7 +51,7 @@ export class Profile extends Block {
         <div class="container">
           <div class="{{styles.content}}">
             <div class="{{styles.info}}">
-              <img class="{{styles.photo}}" src="{{avatar}}" alt="Фото профиля">
+              {{{avatar}}}
               <p class="{{styles.name}}">Иван</p>
         
               <div class="{{styles.rows}}">

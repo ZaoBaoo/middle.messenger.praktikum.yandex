@@ -3,5 +3,5 @@ export const profileInputsData = [
   { type: 'text', label: 'Логин', name: 'login', value: 'ivanivanov' },
   { type: 'text', label: 'Имя', name: 'first_name', value: 'Иван' },
   { type: 'text', label: 'Фамилия', name: 'second_name', value: 'Иванов' },
-  { type: 'tel', label: 'Телефон', name: 'phone', value: '+7 (909) 967 30 30' },
+  { type: 'tel', label: 'Телефон', name: 'phone', value: '+77775656007' },
 ];

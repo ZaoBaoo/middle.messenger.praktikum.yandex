@@ -28,13 +28,13 @@ export class FormAccount extends Block {
       events: {
         submit: (e: Event) => {
           e.preventDefault();
-          const { elements } = e.target! as HTMLFormElement;
+          const form = e.target! as HTMLFormElement;
 
           if (Array.isArray(this.children.inputs)) {
             const resultValidation = this.children.inputs.map((inputForm) => {
               const { name: currentInputName } = inputForm.getProps();
 
-              const currentInputElement = elements[
+              const currentInputElement = form.elements[
                 currentInputName
               ] as HTMLInputElement;
 
@@ -60,7 +60,16 @@ export class FormAccount extends Block {
             );
 
             if (allFieldsCorrect) {
-              this.props.submitCallback();
+              const formData = new FormData(form);
+              const formDataArray: [string, FormDataEntryValue][] = [];
+
+              formData.forEach((value, key) =>
+                formDataArray.push([key, value]),
+              );
+
+              const objectValues = Object.fromEntries(formDataArray);
+
+              this.props.submitCallback(objectValues);
             }
           }
         },

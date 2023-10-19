@@ -6,21 +6,16 @@ import arrow from '../../images/back-arrow-icon.svg';
 // Components
 import { FormProfile } from '../../components/form-profile/index.ts';
 import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
-import { Link } from '../../components/link/index.ts';
-
-// Types
-import { profileInputsData } from '../../data/profile-inputs-data.ts';
-import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
-import { FormAccount } from '../../components/form-account';
-import { loginInputsData } from '../../data/login-inputs-data.ts';
+import { FormDataResponseType } from '../../types.ts';
+import { Avatar } from '../../components/avatar';
 
 export class ProfilePasswordEdit extends Block {
   constructor() {
     super('main', {});
   }
 
-  handlerAuth() {
-    console.log('Запрос в api [auth]');
+  handlerChangesPassword(response: FormDataResponseType) {
+    console.log(response);
   }
 
   init() {
@@ -28,20 +23,21 @@ export class ProfilePasswordEdit extends Block {
     this.props.avatar = avatar;
     this.props.arrow = arrow;
 
+    this.children.avatar = new Avatar({ src: avatar, isEdit: false });
     this.children.form = new FormProfile({
       dataInputsForRender: passwordEditInputs,
       buttonData: {
         type: 'submit',
-        text: 'Авторизоваться',
+        text: 'Сохранить',
       },
-      // submitCallback: this.handlerAuth,
+      submitCallback: this.handlerChangesPassword,
     });
   }
 
   render() {
     return this.compile(
       `
-      <section class="{{styles.profile}}">
+      <section class="{{styles.profilePasswordEdit}}">
         <a class="{{styles.backLink}}" href="/">
           <div class="{{styles.back}}">
              <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
@@ -50,7 +46,7 @@ export class ProfilePasswordEdit extends Block {
         <div class="container">
           <div class="{{styles.content}}">
             <div class="{{styles.info}}">
-              <img class="{{styles.photo}}" src="{{avatar}}" alt="Фото профиля">
+              {{{avatar}}}
               <p class="{{styles.name}}">Иван</p>
               {{{form}}}
           </div>

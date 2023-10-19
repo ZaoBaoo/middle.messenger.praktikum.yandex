@@ -5,14 +5,15 @@ import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 // Components
 import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
+import { FormDataResponseType } from '../../types.ts';
 
 export class SignIn extends Block {
   constructor() {
     super('main', { title: 'Регистрация' });
   }
 
-  handlerSingIn() {
-    console.log('Запрос в api [sing-in]');
+  handlerSingIn(response: FormDataResponseType) {
+    console.log(response);
   }
 
   init() {

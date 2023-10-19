@@ -5,14 +5,15 @@ import { loginInputsData } from '../../data/login-inputs-data.ts';
 // Components
 import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
+import { FormDataResponseType } from '../../types.ts';
 
 export class Login extends Block {
   constructor() {
     super('main', { title: 'Вход' });
   }
 
-  handlerAuth() {
-    console.log('Запрос в api [auth]');
+  handlerAuth(response: FormDataResponseType) {
+    console.log(response);
   }
 
   init() {

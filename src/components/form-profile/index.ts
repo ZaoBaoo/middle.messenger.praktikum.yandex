@@ -7,7 +7,6 @@ import type { FormProfileProps } from './types.ts';
 import type { WrapperAccountProps } from '../../types.ts';
 
 // Components
-import { InputWrapperAccount } from '../input-wrapper-account/index.ts';
 import { Button } from '../button/index.ts';
 import { InputWrapperProfile } from '../input-wrapper-profile';
 
@@ -26,48 +25,57 @@ export class FormProfile extends Block {
         new InputWrapperProfile({ ...input, disabled: false }),
     );
 
-    // this.setProps({
-    //   events: {
-    //     submit: (e: Event) => {
-    //       e.preventDefault();
-    //       const { elements } = e.target! as HTMLFormElement;
-    //
-    //       if (Array.isArray(this.children.inputs)) {
-    //         const resultValidation = this.children.inputs.map((inputForm) => {
-    //           const { name: currentInputName } = inputForm.getProps();
-    //
-    //           const currentInputElement = elements[
-    //             currentInputName
-    //             ] as HTMLInputElement;
-    //
-    //           const isInputValid = validator.isFieldValid(
-    //             currentInputElement.value,
-    //             currentInputElement.name,
-    //           );
-    //
-    //           if (
-    //             !isInputValid.isValid &&
-    //             !Array.isArray(inputForm.children.error)
-    //           ) {
-    //             inputForm.children.error.setProps({
-    //               text: isInputValid.message,
-    //             });
-    //           }
-    //
-    //           return isInputValid.isValid;
-    //         });
-    //
-    //         const allFieldsCorrect = resultValidation.every(
-    //           (value) => value === true,
-    //         );
-    //
-    //         if (allFieldsCorrect) {
-    //           this.props.submitCallback();
-    //         }
-    //       }
-    //     },
-    //   },
-    // });
+    this.setProps({
+      events: {
+        submit: (e: Event) => {
+          e.preventDefault();
+          const form = e.target! as HTMLFormElement;
+
+          if (Array.isArray(this.children.inputs)) {
+            const resultValidation = this.children.inputs.map((inputForm) => {
+              const { name: currentInputName } = inputForm.getProps();
+
+              const currentInputElement = form.elements[
+                currentInputName
+              ] as HTMLInputElement;
+
+              const isInputValid = validator.isFieldValid(
+                currentInputElement.value,
+                currentInputElement.name,
+              );
+
+              if (
+                !isInputValid.isValid &&
+                !Array.isArray(inputForm.children.error)
+              ) {
+                inputForm.children.error.setProps({
+                  text: isInputValid.message,
+                });
+              }
+
+              return isInputValid.isValid;
+            });
+
+            const allFieldsCorrect = resultValidation.every(
+              (value) => value === true,
+            );
+
+            if (allFieldsCorrect) {
+              const formData = new FormData(form);
+              const formDataArray: [string, FormDataEntryValue][] = [];
+
+              formData.forEach((value, key) =>
+                formDataArray.push([key, value]),
+              );
+
+              const objectValues = Object.fromEntries(formDataArray);
+
+              this.props.submitCallback(objectValues);
+            }
+          }
+        },
+      },
+    });
   }
 
   render() {
