@@ -1,10 +1,9 @@
 import styles from './navbar.module.scss';
 import { linksData } from '../../data/links-data.ts';
+import Block from '../../core/Block.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
-
-import Block from '../../core/Block.ts';
 
 export class Navbar extends Block {
   constructor() {
@@ -12,7 +11,6 @@ export class Navbar extends Block {
   }
 
   init() {
-    console.log(styles);
     this.addClass(styles.navbar);
     this.props.styles = styles;
 
