@@ -9,6 +9,7 @@ export enum INPUT_NAME {
   SECOND_NAME = 'second_name',
   PHONE = 'phone',
   MESSAGE = 'message',
+  DISPLAY_NAME = 'display_name',
 }
 
 export type FormDataResponseType = { [p: string]: File | string };

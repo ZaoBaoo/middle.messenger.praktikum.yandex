@@ -68,8 +68,17 @@ class Block<P extends Record<string, any> = any> {
     };
 
     Object.keys(events).forEach((eventName) => {
-      // console.log(this._element);
       this._element?.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents() {
+    const { events = {} } = this.props as P & {
+      events: Record<string, () => void>;
+    };
+
+    Object.keys(events).forEach((eventName) => {
+      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
@@ -148,6 +157,8 @@ class Block<P extends Record<string, any> = any> {
 
   private _render() {
     const fragment = this.render();
+
+    this._removeEvents();
 
     this._element!.innerHTML = '';
 

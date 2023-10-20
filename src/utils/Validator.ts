@@ -25,6 +25,7 @@ export default class Validator {
     [INPUT_NAME.SECOND_NAME]: 'Фамилия некорректна',
     [INPUT_NAME.PHONE]: 'Телефон указан неверно',
     [INPUT_NAME.MESSAGE]: '',
+    [INPUT_NAME.DISPLAY_NAME]: 'Недопустимое имя в чате',
   };
 
   regExp: RegExpMap = {
@@ -39,6 +40,7 @@ export default class Validator {
     [INPUT_NAME.SECOND_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
     [INPUT_NAME.PHONE]: /^\+?\d{10,15}$/,
     [INPUT_NAME.MESSAGE]: /^.+$/,
+    [INPUT_NAME.DISPLAY_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
   };
 
   isFieldValid(value: string, name: string): ResultType {
