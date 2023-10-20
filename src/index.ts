@@ -9,7 +9,6 @@ import { ErrorPage } from './pages/errorPage/index.ts';
 import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
 import { ProfilePasswordEdit } from './pages/profile-password-edit/index.ts';
 import { Chatting } from './pages/chatting/index.ts';
-import { HTTPTransport } from './utils/HTTPTransport.ts';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.querySelector('#root');
@@ -61,12 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
     }
   };
-
-  const http = new HTTPTransport();
-
-  http
-    .get('https://jsonplaceholder.typicode.com/todos/1')
-    .then((data) => console.log(data.response));
 
   definitionRoute();
 });
