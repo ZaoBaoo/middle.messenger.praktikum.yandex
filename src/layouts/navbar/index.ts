@@ -1,13 +1,35 @@
-import './navbar.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './navbar.tmpl.ts';
-import { links } from '../../data/links.ts';
+import styles from './navbar.module.scss';
+import { linksData } from '../../data/links-data.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
 
-export const Navbar = (): string => {
-  const tmplLinks = links.map((link) => Link(link));
+import Block from '../../core/Block.ts';
 
-  return Handlebars.compile(tmpl)({ tmplLinks });
-};
+export class Navbar extends Block {
+  constructor() {
+    super('nav', {});
+  }
+
+  init() {
+    console.log(styles);
+    this.addClass(styles.navbar);
+    this.props.styles = styles;
+
+    this.children.links = linksData.map((link) => new Link(link));
+  }
+
+  render() {
+    return this.compile(
+      `
+        <ul class="{{styles.list}}">
+          {{#each links}}
+            <li>
+                {{{ this }}}
+            </li>
+          {{/each}}
+        </ul>
+      `,
+    );
+  }
+}

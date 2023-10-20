@@ -1,0 +1,69 @@
+.dialogControl {
+  display: grid;
+  align-items: center;
+  padding: 11px 0;
+  border-top: 1px solid var(--pale-gray-20);
+  grid-template-columns: 32px 1fr 28px;
+  gap: 10px;
+}
+
+.dialogFile {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-image: url('/src/images/file-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.12);
+    opacity: 0.8;
+  }
+
+  input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.dialogInputText {
+  height: 32px;
+  padding-left: 20px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--pale-gray-20);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dialogSendMessage {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50px;
+  background-color: transparent;
+  background-image: url('/src/images/send-arrow-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+
+  &:active {
+    outline: 1px var(--blue) solid;
+  }
+}

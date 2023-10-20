@@ -8,9 +8,10 @@ export enum INPUT_NAME {
   FIRST_NAME = 'first_name',
   SECOND_NAME = 'second_name',
   PHONE = 'phone',
+  MESSAGE = 'message',
 }
 
-export type FormDataResponseType = { [p: string]: FormDataEntryValue };
+export type FormDataResponseType = { [p: string]: File | string };
 
 export interface WrapperAccountProps {
   type: string;

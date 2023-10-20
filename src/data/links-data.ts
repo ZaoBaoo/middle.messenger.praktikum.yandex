@@ -1,4 +1,4 @@
-export const links = [
+export const linksData = [
   { to: '/', text: 'Главная' },
   { to: '/login', text: 'Логин' },
   { to: '/sign-in', text: 'Регистрация' },

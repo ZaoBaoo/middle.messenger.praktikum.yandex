@@ -1,12 +1,25 @@
-import './main.scss';
-import Handlebars from 'handlebars';
-import { tmpl } from './main.tmpl.ts';
+import styles from './main.module.scss';
+import Block from '../../core/Block.ts';
 
 // Layouts
 import { Navbar } from '../../layouts/navbar/index.ts';
 
-// Types
-import { MainType } from './types.ts';
+export class Main extends Block {
+  constructor() {
+    super('main', {});
+  }
 
-export const Main: MainType = () =>
-  Handlebars.compile(tmpl)({ navbar: Navbar() });
+  init() {
+    this.addClass(styles.main);
+
+    this.children.navbar = new Navbar();
+  }
+
+  render() {
+    return this.compile(
+      `
+        {{{ navbar }}}
+      `,
+    );
+  }
+}

@@ -2,22 +2,16 @@ import styles from './profile.module.scss';
 import Block from '../../core/Block.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
+import { profileInputsData } from '../../data/profile-inputs-data.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
-
-// Types
-import { profileInputsData } from '../../data/profile-inputs-data.ts';
+import { Avatar } from '../../components/avatar/index.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
-import { Avatar } from '../../components/avatar';
 
 export class Profile extends Block {
   constructor() {
     super('main', {});
-  }
-
-  handlerAuth() {
-    console.log('Запрос в api [auth]');
   }
 
   init() {

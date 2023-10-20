@@ -2,13 +2,13 @@ import styles from './form-profile.module.scss';
 import Block from '../../core/Block.ts';
 import { validator } from '../../utils/Validator.ts';
 
+// Components
+import { Button } from '../button/index.ts';
+import { InputWrapperProfile } from '../input-wrapper-profile/index.ts';
+
 // Types
 import type { FormProfileProps } from './types.ts';
 import type { WrapperAccountProps } from '../../types.ts';
-
-// Components
-import { Button } from '../button/index.ts';
-import { InputWrapperProfile } from '../input-wrapper-profile';
 
 export class FormProfile extends Block {
   constructor(props: FormProfileProps) {
@@ -62,7 +62,7 @@ export class FormProfile extends Block {
 
             if (allFieldsCorrect) {
               const formData = new FormData(form);
-              const formDataArray: [string, FormDataEntryValue][] = [];
+              const formDataArray: [string, File | string][] = [];
 
               formData.forEach((value, key) =>
                 formDataArray.push([key, value]),

@@ -2,12 +2,14 @@ import styles from './profile-info-edit.module.scss';
 import Block from '../../core/Block.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
+import { profileInputsData } from '../../data/profile-inputs-data.ts';
 
 // Components
 import { FormProfile } from '../../components/form-profile/index.ts';
+import { Avatar } from '../../components/avatar/index.ts';
+
+// Types
 import { FormDataResponseType } from '../../types.ts';
-import { profileInputsData } from '../../data/profile-inputs-data.ts';
-import { Avatar } from '../../components/avatar';
 
 export class ProfileInfoEdit extends Block {
   constructor() {

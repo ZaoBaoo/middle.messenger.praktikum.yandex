@@ -2,12 +2,14 @@ import styles from './profile-password-edit.module.scss';
 import Block from '../../core/Block.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
+import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
 
 // Components
 import { FormProfile } from '../../components/form-profile/index.ts';
-import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
+import { Avatar } from '../../components/avatar/index.ts';
+
+// Types
 import { FormDataResponseType } from '../../types.ts';
-import { Avatar } from '../../components/avatar';
 
 export class ProfilePasswordEdit extends Block {
   constructor() {

@@ -2,13 +2,13 @@ import styles from './form-account.module.scss';
 import Block from '../../core/Block.ts';
 import { validator } from '../../utils/Validator.ts';
 
-// Types
-import type { FormAccountProps } from './types.ts';
-import type { WrapperAccountProps } from '../../types.ts';
-
 // Components
 import { InputWrapperAccount } from '../input-wrapper-account/index.ts';
 import { Button } from '../button/index.ts';
+
+// Types
+import type { FormAccountProps } from './types.ts';
+import type { WrapperAccountProps } from '../../types.ts';
 
 export class FormAccount extends Block {
   constructor(props: FormAccountProps) {
@@ -61,7 +61,7 @@ export class FormAccount extends Block {
 
             if (allFieldsCorrect) {
               const formData = new FormData(form);
-              const formDataArray: [string, FormDataEntryValue][] = [];
+              const formDataArray: [string, File | string][] = [];
 
               formData.forEach((value, key) =>
                 formDataArray.push([key, value]),

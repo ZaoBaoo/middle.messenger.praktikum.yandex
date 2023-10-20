@@ -1,0 +1,66 @@
+.chat {
+  display: grid;
+  padding: 12px 0;
+  border-top: 1px solid var(--pale-gray-20);
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+  grid-template-columns: 47px 1fr 30px;
+  gap: 10px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}
+
+.chatAvatar {
+  width: 47px;
+  height: 47px;
+}
+
+.chatPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chatName {
+  color: var(--black);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 13px;
+}
+
+.chatMessage {
+  color: var(--gray);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+}
+
+.chatInfo {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.chatTime {
+  color: var(--gray);
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 13px;
+}
+
+.chatCountMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 12px;
+}

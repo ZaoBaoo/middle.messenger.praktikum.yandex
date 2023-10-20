@@ -5,6 +5,8 @@ import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 // Components
 import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
+
+// Types
 import { FormDataResponseType } from '../../types.ts';
 
 export class SignIn extends Block {
