@@ -4,20 +4,22 @@
 :root {
   --black: #1e1e1e;
   --blue: #3369f3;
-  --gray: #999999;
-  --white: #ffffff;
+  --gray: #999;
+  --white: #fff;
   --red: #f00;
   --pale-gray-10: #fbfbfb;
   --pale-gray-20: #eaeaea;
 }
 
 #root {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
+  overflow: hidden;
 }
 
 .container {
   max-width: 540px;
-  padding: 0 15px;
-  margin: 0 auto;
   height: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
 }
+

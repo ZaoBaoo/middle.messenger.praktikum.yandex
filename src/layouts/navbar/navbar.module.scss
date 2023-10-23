@@ -1,0 +1,15 @@
+.navbar {
+  padding: 20px 0;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 24px;
+  gap: 20px;
+}
+
+.item {
+  padding: 1px;
+}

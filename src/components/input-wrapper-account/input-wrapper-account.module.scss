@@ -1,0 +1,17 @@
+.formInputCommon {
+  position: relative;
+  width: 100%;
+}
+
+.formInputLabelCommon {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  background: #fff;
+  color: var(--gray);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  pointer-events: none;
+  transition: all 0.15s ease-in-out;
+}
