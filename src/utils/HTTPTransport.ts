@@ -5,10 +5,8 @@ const METHOD = {
   DELETE: 'DELETE',
 };
 
-type DataType = Record<string, unknown>;
-
 interface Options {
-  data?: DataType;
+  data?: unknown;
   headers?: object;
 }
 
@@ -16,40 +14,32 @@ interface OptionsWithMethod extends Options {
   method: string;
 }
 
-const queryStringify = (data: DataType) =>
-  Object.entries(data)
-    .map(([key, value]) => {
-      value = typeof value === 'object' ? value!.toString() : value;
-      return `${key}=${value}`;
-    })
-    .join('&');
-
 export class HTTPTransport {
-  get(url: string, options?: Options): Promise<XMLHttpRequest> {
-    const urlWithQueryParams = queryStringify(options?.data || {});
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
 
-    url = `${url}?${urlWithQueryParams}`;
+  protected endpoint: string;
 
-    return this.request(url, { ...options, method: METHOD.GET });
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  post(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
+  public get<Response>(url: string, options?: Options): Promise<Response> {
+    return this._request<Response>(url, { ...options, method: METHOD.GET });
   }
 
-  put(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
+  public post<Response = void>(url: string, options?: Options): Promise<Response> {
+    return this._request<Response>(url, { ...options, method: METHOD.POST });
   }
 
-  delete(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
+  public put<Response = void>(url: string, options: Options): Promise<Response> {
+    return this._request<Response>(url, { ...options, method: METHOD.PUT });
   }
 
-  request(
-    url: string,
-    options: OptionsWithMethod,
-    timeout = 5000,
-  ): Promise<XMLHttpRequest> {
+  public delete<Response = void>(url: string, options: Options): Promise<Response> {
+    return this._request<Response>(url, { ...options, method: METHOD.DELETE });
+  }
+
+  private _request<Response>(url: string, options: OptionsWithMethod, timeout = 5000): Promise<Response> {
     const { method, data = {}, headers = {} } = options;
 
     const headersArrow = Object.entries(headers);
@@ -59,7 +49,7 @@ export class HTTPTransport {
       xhr.open(method, url);
 
       xhr.onload = () => {
-        resolve(xhr);
+        resolve(xhr.response);
       };
       xhr.timeout = timeout;
 

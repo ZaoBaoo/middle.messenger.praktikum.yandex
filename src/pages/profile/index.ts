@@ -3,11 +3,13 @@ import Block from '../../core/Block.ts';
 import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 import { profileInputsData } from '../../data/profile-inputs-data.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
 
 // Components
 import { Link } from '../../components/link/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
+import { Button } from '../../components/button/index.ts';
 
 export class Profile extends Block {
   constructor() {
@@ -16,13 +18,16 @@ export class Profile extends Block {
 
   init() {
     this.props.styles = styles;
-    this.props.avatar = avatar;
     this.props.arrow = arrow;
 
+    this.children.buttonLogOut = new Button({
+      type: 'button',
+      text: 'Выйти',
+      events: { click: AuthController.logOut },
+      view: 'logout',
+    });
+    this.children.inputs = profileInputsData.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
     this.children.avatar = new Avatar({ src: avatar, isEdit: false });
-    this.children.inputs = profileInputsData.map(
-      (input) => new InputWrapperProfile({ ...input, disabled: true }),
-    );
     this.children.linkEditInfo = new Link({
       to: '/profile-info-edit',
       text: 'Изменить данные',
@@ -61,7 +66,7 @@ export class Profile extends Block {
                 <div class="{{styles.wrapperLink}}">
                   {{{linkEditPassword}}}
                 </div>
-                <button class="{{styles.button}}">Выйти</button>
+                {{{buttonLogOut}}}
                </div>
             </div>
           </div>

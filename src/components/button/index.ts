@@ -10,7 +10,12 @@ export class Button extends Block {
   }
 
   init() {
-    this.addClass(styles.button);
+    if (this.props.view === 'logout') {
+      this.addClass(styles.buttonLogOut);
+    } else {
+      this.addClass(styles.button);
+    }
+
     const element = this.element as HTMLInputElement;
 
     element!.type = this.props.type;

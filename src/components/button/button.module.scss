@@ -21,3 +21,14 @@
     opacity: 0.9;
   }
 }
+
+.buttonLogOut {
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  cursor: pointer;
+}
