@@ -46,8 +46,6 @@ export class HTTPTransport {
   ): Promise<Response> {
     const { method, data = {}, headers = {} } = options;
 
-    console.log(data);
-
     const headersArrow = Object.entries(headers);
 
     return new Promise((resolve, reject) => {
@@ -71,6 +69,7 @@ export class HTTPTransport {
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+      xhr.withCredentials = true;
 
       if (method === METHOD.GET || !data) {
         xhr.send();

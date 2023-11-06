@@ -10,8 +10,8 @@ import { Button } from '../button/index.ts';
 import type { FormAccountProps } from './types.ts';
 import type { WrapperAccountProps } from '../../types.ts';
 
-export class FormAccount extends Block {
-  constructor(props: FormAccountProps) {
+export class FormAccount<T> extends Block {
+  constructor(props: FormAccountProps<T>) {
     super(props);
   }
 

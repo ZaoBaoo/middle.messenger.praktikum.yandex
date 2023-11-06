@@ -1,4 +1,4 @@
-import './sing-in.scss';
+import './sing-up.scss';
 import Block from '../../core/Block.ts';
 import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 
@@ -7,15 +7,16 @@ import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
 
 // Types
-import { FormDataResponseType } from '../../types.ts';
+import type { SignUpType } from '../../types.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
 
-export class SignIn extends Block {
+export class SignUp extends Block {
   constructor() {
     super({ title: 'Регистрация' });
   }
 
-  handlerSingIn(response: FormDataResponseType) {
-    console.log(response);
+  async handlerSingIn(response: SignUpType) {
+    await AuthController.signUp(response);
   }
 
   init() {

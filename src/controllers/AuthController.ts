@@ -1,4 +1,5 @@
-import { authApi, SignInType, SignUpType } from '../api/AuthApi.ts';
+import { authApi } from '../api/AuthApi.ts';
+import type { SignInType, SignUpType } from '../types.ts';
 
 export class AuthController {
   static async fetchUser() {
@@ -6,7 +7,7 @@ export class AuthController {
       const user = await authApi.getUser();
       console.log(user);
     } catch (err) {
-      console.log(err, 'error get user');
+      throw err;
     }
   }
 
@@ -14,7 +15,7 @@ export class AuthController {
     try {
       await authApi.signIn(data);
     } catch (err) {
-      console.log(err, 'signin get user');
+      console.log(err, 'signup get user');
     }
   }
 

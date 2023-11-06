@@ -1,7 +1,7 @@
 export const linksData = [
   { to: '/', text: 'Главная' },
   { to: '/login', text: 'Логин' },
-  { to: '/sign-in', text: 'Регистрация' },
+  { to: '/sign-up', text: 'Регистрация' },
   { to: '/chatting', text: 'Чаты' },
   { to: '/profile', text: 'Профиль' },
   { to: '/profile-info-edit', text: 'Редактировать профиль' },

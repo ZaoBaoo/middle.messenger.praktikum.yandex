@@ -7,7 +7,7 @@ import { AuthController } from './controllers/AuthController.ts';
 // Pages
 import { Main } from './pages/main/index.ts';
 import { Login } from './pages/login/index.ts';
-import { SignIn } from './pages/signin/index.ts';
+import { SignUp } from './pages/signup/index.ts';
 import { Profile } from './pages/profile/index.ts';
 import { Chatting } from './pages/chatting/index.ts';
 import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
@@ -17,7 +17,7 @@ import { ErrorPage } from './pages/errorPage/index.ts';
 enum Routes {
   Main = '/',
   Login = '/login',
-  Register = '/sign-in',
+  Register = '/sign-up',
   Profile = '/profile',
   Chatting = '/chatting',
   ProfileInfoEdit = '/profile-info-edit',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Main, Main)
     .use(Routes.Login, Login)
-    .use(Routes.Register, SignIn)
+    .use(Routes.Register, SignUp)
     .use(Routes.Profile, Profile)
     .use(Routes.Chatting, Chatting)
     .use(Routes.ProfileInfoEdit, ProfileInfoEdit)
@@ -48,13 +48,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    // await AuthController.fetchUser();
+    // await AuthController.logOut();
+    await AuthController.fetchUser();
 
     router.start();
 
-    // if (!isProtectedRoute) {
-    //   router.go(Routes.Profile);
-    // }
+    if (!isProtectedRoute) {
+      router.go(Routes.Profile);
+    }
   } catch (err) {
     console.log(err, 'Here');
     router.start();
@@ -63,61 +64,4 @@ document.addEventListener('DOMContentLoaded', async () => {
       router.go(Routes.Main);
     }
   }
-
-  // const root = document.querySelector('#root');
-  //
-  // if (!root) return;
-  //
-  // const definitionRoute = () => {
-  //   const route = window.location.pathname;
-  //
-  //   let block;
-  //
-  //   switch (route) {
-  //     case '/':
-  //       block = new Main();
-  //       break;
-  //
-  //     case '/login':
-  //       block = new Login();
-  //       break;
-  //
-  //     case '/sign-in':
-  //       block = new SignIn();
-  //       break;
-  //
-  //     case '/profile':
-  //       block = new Profile();
-  //       break;
-  //
-  //     case '/chatting':
-  //       block = new Chatting();
-  //       break;
-  //
-  //     case '/profile-info-edit':
-  //       block = new ProfileInfoEdit();
-  //       break;
-  //
-  //     case '/profile-password-edit':
-  //       block = new ProfilePasswordEdit();
-  //       break;
-  //
-  //     default:
-  //       // В зависимости от ошибки, передаем в шаблон код и текст
-  //       block = new ErrorPage({
-  //         code: '505',
-  //         text: 'Мы уже фиксим',
-  //         redirectTo: '/chatting',
-  //         redirectText: 'Назад к чатам',
-  //       });
-  //       break;
-  //   }
-  //
-  //   if (!block) root.append('НЕТ РОУТА');
-  //
-  //   root.append(block?.getContent()!);
-  //   block?.dispatchComponentDidMount();
-  // };
-  //
-  // definitionRoute();
 });

@@ -1,8 +1,8 @@
 import type { ButtonType } from '../button/types.ts';
-import type { SignInType, WrapperAccountProps } from '../../types.ts';
+import type { WrapperAccountProps } from '../../types.ts';
 
-export interface FormAccountProps {
+export interface FormAccountProps<T> {
   dataInputsForRender: WrapperAccountProps[];
   buttonData: ButtonType;
-  submitCallback: (response: SignInType) => void;
+  submitCallback: (response: T) => void;
 }
