@@ -12,17 +12,15 @@ import type { WrapperAccountProps } from '../../types.ts';
 
 export class FormProfile extends Block {
   constructor(props: FormProfileProps) {
-    super('form', props);
+    super(props);
   }
 
   init() {
-    this.addClass(styles.rows);
     this.props.styles = styles;
 
     this.children.button = new Button(this.props.buttonData);
     this.children.inputs = this.props.dataInputsForRender.map(
-      (input: WrapperAccountProps) =>
-        new InputWrapperProfile({ ...input, disabled: false }),
+      (input: WrapperAccountProps) => new InputWrapperProfile({ ...input, disabled: false }),
     );
 
     this.setProps({
@@ -35,19 +33,11 @@ export class FormProfile extends Block {
             const resultValidation = this.children.inputs.map((inputForm) => {
               const { name: currentInputName } = inputForm.getProps();
 
-              const currentInputElement = form.elements[
-                currentInputName
-              ] as HTMLInputElement;
+              const currentInputElement = form.elements[currentInputName] as HTMLInputElement;
 
-              const isInputValid = validator.isFieldValid(
-                currentInputElement.value,
-                currentInputElement.name,
-              );
+              const isInputValid = validator.isFieldValid(currentInputElement.value, currentInputElement.name);
 
-              if (
-                !isInputValid.isValid &&
-                !Array.isArray(inputForm.children.error)
-              ) {
+              if (!isInputValid.isValid && !Array.isArray(inputForm.children.error)) {
                 inputForm.children.error.setProps({
                   text: isInputValid.message,
                 });
@@ -56,17 +46,13 @@ export class FormProfile extends Block {
               return isInputValid.isValid;
             });
 
-            const allFieldsCorrect = resultValidation.every(
-              (value) => value === true,
-            );
+            const allFieldsCorrect = resultValidation.every((value) => value === true);
 
             if (allFieldsCorrect) {
               const formData = new FormData(form);
               const formDataArray: [string, File | string][] = [];
 
-              formData.forEach((value, key) =>
-                formDataArray.push([key, value]),
-              );
+              formData.forEach((value, key) => formDataArray.push([key, value]));
 
               const objectValues = Object.fromEntries(formDataArray);
 
@@ -81,12 +67,14 @@ export class FormProfile extends Block {
   render() {
     return this.compile(
       `
-        {{#each inputs}}
-          {{{this}}}
-        {{/each}}
-        <div class="{{styles.wrapperButton}}">
-          {{{button}}}
-        </div>
+        <form class="{{styles.rows}}">
+          {{#each inputs}}
+            {{{this}}}
+          {{/each}}
+          <div class="{{styles.wrapperButton}}">
+            {{{button}}}
+          </div>
+        </form>
       `,
     );
   }

@@ -19,3 +19,7 @@ export interface WrapperAccountProps {
   label: string;
   name: string;
 }
+
+export type Indexed<T = any> = {
+  [key in string]: T;
+};

@@ -11,7 +11,7 @@ import { FormDataResponseType } from '../../types.ts';
 
 export class SignIn extends Block {
   constructor() {
-    super('main', { title: 'Регистрация' });
+    super({ title: 'Регистрация' });
   }
 
   handlerSingIn(response: FormDataResponseType) {
@@ -36,17 +36,19 @@ export class SignIn extends Block {
   render() {
     return this.compile(
       `
-        <section class="sign-in">
-          <div class="sign-in__content">
-            <div class="sign-in__block">
-              <h1 class="sign-in__title">{{title}}</h1>
-              {{{form}}}
-              <div class="sign-in__wrapper-link">
-                {{{link}}}
+        <main>
+          <section class="sign-in">
+            <div class="sign-in__content">
+              <div class="sign-in__block">
+                <h1 class="sign-in__title">{{title}}</h1>
+                {{{form}}}
+                <div class="sign-in__wrapper-link">
+                  {{{link}}}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </main>
       `,
     );
   }

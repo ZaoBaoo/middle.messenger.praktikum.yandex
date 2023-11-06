@@ -18,6 +18,9 @@
     "default-param-last": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
-    "no-console": "off"
+    "no-console": "off",
+    "no-useless-constructor": "off",
+    "new-cap": "off",
+    "no-constructor-return": "off"
   }
 }

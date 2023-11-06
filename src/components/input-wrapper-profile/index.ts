@@ -9,7 +9,7 @@ import { validator } from '../../utils/Validator.ts';
 
 export class InputWrapperProfile extends Block {
   constructor(props: PropsType) {
-    super('div', props);
+    super(props);
   }
 
   init() {
@@ -23,7 +23,6 @@ export class InputWrapperProfile extends Block {
       }
     };
 
-    this.addClass(styles.row);
     this.props.styles = styles;
     this.children.input = new Input({
       type: this.props.type,
@@ -39,9 +38,11 @@ export class InputWrapperProfile extends Block {
   render() {
     return this.compile(
       `
-        <p class="{{styles.rowLabel}}">{{label}}</p>
-        {{{input}}}
-        {{{error}}}
+        <div class="{{styles.row}}">
+          <p class="{{styles.rowLabel}}">{{label}}</p>
+          {{{input}}}
+          {{{error}}}
+        </div>
       `,
     );
   }

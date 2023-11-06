@@ -11,7 +11,7 @@ import { FormDataResponseType } from '../../types.ts';
 
 export class Login extends Block {
   constructor() {
-    super('main', { title: 'Вход' });
+    super({ title: 'Вход' });
   }
 
   handlerAuth(response: FormDataResponseType) {
@@ -20,6 +20,7 @@ export class Login extends Block {
 
   init() {
     this.props.styles = styles;
+
     this.children.link = new Link({
       text: 'Нет аккаунта?',
       to: '/sign-in',
@@ -37,18 +38,20 @@ export class Login extends Block {
   render() {
     return this.compile(
       `
-        <section class="{{styles.login}}">
-          <div class="{{styles.content}}">
-            <div class="{{styles.block}}">
-              <h1 class="{{styles.title}}">{{title}}</h1>
-                {{{form}}}
-              <div class="{{styles.wrapperLink}}">
-                {{{link}}}
+        <main class="{{styles.main}}">
+          <section class="{{styles.login}}">
+            <div class="{{styles.content}}">
+              <div class="{{styles.block}}">
+                <h1 class="{{styles.title}}">{{title}}</h1>
+                  {{{form}}}
+                <div class="{{styles.wrapperLink}}">
+                  {{{link}}}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-    `,
+          </section>
+        </main>
+      `,
     );
   }
 }

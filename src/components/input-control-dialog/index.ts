@@ -5,7 +5,7 @@ import { validator } from '../../utils/Validator.ts';
 
 export class InputControlDialog extends Block {
   constructor() {
-    super('form', {});
+    super({});
   }
 
   handlerSendMessage(response: FormDataResponseType) {
@@ -13,7 +13,6 @@ export class InputControlDialog extends Block {
   }
 
   init() {
-    this.addClass(styles.dialogControl);
     this.props.styles = styles;
 
     this.props.events = {
@@ -34,12 +33,14 @@ export class InputControlDialog extends Block {
   render() {
     return this.compile(
       `
-        <label class="{{styles.dialogFile}}" for="fileLoad">
-          <input id="fileLoad" type="file" />
-        </label>
-
-        <input class="{{styles.dialogInputText}}" type="text" placeholder="Сообщение" name="message" />
-        <button class="{{styles.dialogSendMessage}}" type="submit"></button>
+        <form class="{{styles.dialogControl}}">
+          <label class="{{styles.dialogFile}}" for="fileLoad">
+            <input id="fileLoad" type="file" />
+          </label>
+  
+          <input class="{{styles.dialogInputText}}" type="text" placeholder="Сообщение" name="message" />
+          <button class="{{styles.dialogSendMessage}}" type="submit"></button>
+        </form>
       `,
     );
   }

@@ -7,21 +7,22 @@ import { Chat } from '../chat/index.ts';
 
 export class ChatsInner extends Block {
   constructor() {
-    super('ul', {});
+    super({});
   }
 
   init() {
-    this.addClass(styles.chats);
-
+    this.props.styles = styles;
     this.children.chats = chatsData.map((data) => new Chat(data));
   }
 
   render() {
     return this.compile(
       `
-        {{#each chats}}
-          {{{this}}}
-        {{/each}}
+        <ul class="{{styles.chats}}">
+          {{#each chats}}
+            {{{this}}}
+          {{/each}}
+        </ul>
       `,
     );
   }

@@ -13,7 +13,7 @@ import { FormDataResponseType } from '../../types.ts';
 
 export class ProfilePasswordEdit extends Block {
   constructor() {
-    super('main', {});
+    super({});
   }
 
   handlerChangesPassword(response: FormDataResponseType) {
@@ -39,22 +39,24 @@ export class ProfilePasswordEdit extends Block {
   render() {
     return this.compile(
       `
-      <section class="{{styles.profilePasswordEdit}}">
-        <a class="{{styles.backLink}}" href="/">
-          <div class="{{styles.back}}">
-             <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
-          </div>
-        </a>
-        <div class="container">
-          <div class="{{styles.content}}">
-            <div class="{{styles.info}}">
-              {{{avatar}}}
-              <p class="{{styles.name}}">Иван</p>
-              {{{form}}}
-          </div>
-        </div>
-      </section>
-    `,
+        <main>
+          <section class="{{styles.profilePasswordEdit}}">
+            <a class="{{styles.backLink}}" href="/">
+              <div class="{{styles.back}}">
+                 <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
+              </div>
+            </a>
+            <div class="container">
+              <div class="{{styles.content}}">
+                <div class="{{styles.info}}">
+                  {{{avatar}}}
+                  <p class="{{styles.name}}">Иван</p>
+                  {{{form}}}
+              </div>
+            </div>
+          </section>
+        </main>
+      `,
     );
   }
 }

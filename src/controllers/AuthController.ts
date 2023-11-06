@@ -4,6 +4,7 @@ export class AuthController {
   static async fetchUser() {
     try {
       const user = await authApi.getUser();
+      console.log(user);
     } catch (err) {
       console.log(err, 'error get user');
     }

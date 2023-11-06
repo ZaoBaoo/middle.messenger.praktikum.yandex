@@ -6,17 +6,19 @@ import type { PropsType } from './types.ts';
 
 export class Message extends Block {
   constructor(props: PropsType) {
-    super('li', props);
+    super(props);
   }
 
   init() {
-    this.addClass(styles.message);
+    this.props.styles = styles;
   }
 
   render() {
     return this.compile(
       `
-        {{{content}}}
+        <li class="{{styles.message}}">
+          {{{content}}}
+        </li>
       `,
     );
   }

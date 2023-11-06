@@ -13,7 +13,7 @@ import { Button } from '../../components/button/index.ts';
 
 export class Profile extends Block {
   constructor() {
-    super('main', {});
+    super({});
   }
 
   init() {
@@ -41,38 +41,40 @@ export class Profile extends Block {
   render() {
     return this.compile(
       `
-      <section class="{{styles.profile}}">
-        <a class="{{styles.backLink}}" href="/">
-          <div class="{{styles.back}}">
-             <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
-          </div>
-        </a>
-        <div class="container">
-          <div class="{{styles.content}}">
-            <div class="{{styles.info}}">
-              {{{avatar}}}
-              <p class="{{styles.name}}">Иван</p>
-        
-              <div class="{{styles.rows}}">
-                {{#each inputs}}
-                  {{{this}}}
-                {{/each}}
+        <main>
+          <section class="{{styles.profile}}">
+            <a class="{{styles.backLink}}" href="/">
+              <div class="{{styles.back}}">
+                 <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
               </div>
-              
-              <div class="{{styles.wrapperControl}}">
-                <div class="{{styles.wrapperLink}}">
-                  {{{linkEditInfo}}}
+            </a>
+            <div class="container">
+              <div class="{{styles.content}}">
+                <div class="{{styles.info}}">
+                  {{{avatar}}}
+                  <p class="{{styles.name}}">Иван</p>
+            
+                  <div class="{{styles.rows}}">
+                    {{#each inputs}}
+                      {{{this}}}
+                    {{/each}}
+                  </div>
+                  
+                  <div class="{{styles.wrapperControl}}">
+                    <div class="{{styles.wrapperLink}}">
+                      {{{linkEditInfo}}}
+                    </div>
+                    <div class="{{styles.wrapperLink}}">
+                      {{{linkEditPassword}}}
+                    </div>
+                    {{{buttonLogOut}}}
+                   </div>
                 </div>
-                <div class="{{styles.wrapperLink}}">
-                  {{{linkEditPassword}}}
-                </div>
-                {{{buttonLogOut}}}
-               </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    `,
+          </section>
+        </main>
+      `,
     );
   }
 }

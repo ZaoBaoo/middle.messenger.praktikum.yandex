@@ -5,11 +5,18 @@ import Block from '../../core/Block.ts';
 import { Link } from '../../components/link/index.ts';
 
 // Types
-import { ErrorPageType } from './types.ts';
+// import { ErrorPageType } from './types.ts';
+
+// const def = {
+//   code: '505',
+//   text: 'Мы уже фиксим',
+//   redirectTo: '/chatting',
+//   redirectText: 'Назад к чатам',
+// };
 
 export class ErrorPage extends Block {
-  constructor(props: ErrorPageType) {
-    super('main', props);
+  constructor() {
+    super({});
   }
 
   init() {
@@ -24,13 +31,15 @@ export class ErrorPage extends Block {
   render() {
     return this.compile(
       `
-        <section class="{{styles.errorPage}}">
-          <div class="{{styles.content}}">
-            <h1 class="{{styles.title}}">{{code}}</h1>
-            <h2 class="{{styles.subtitle}}">{{text}}</h2>
-            {{{link}}}
-          </div>
-        </section>
+        <main>
+          <section class="{{styles.errorPage}}">
+            <div class="{{styles.content}}">
+              <h1 class="{{styles.title}}">{{code}}</h1>
+              <h2 class="{{styles.subtitle}}">{{text}}</h2>
+              {{{link}}}
+            </div>
+          </section>
+        </main>
       `,
     );
   }

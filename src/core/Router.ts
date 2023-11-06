@@ -3,8 +3,11 @@ import { Route } from './Route.ts';
 
 class Router {
   private static __instance: Router;
+
   private routes: Route[] = [];
+
   private currentRoute: Route | null = null;
+
   private history = window.history;
 
   constructor(private readonly rootQuery: string) {
@@ -69,4 +72,4 @@ class Router {
   }
 }
 
-export default new Router('#app');
+export const router = new Router('#root');

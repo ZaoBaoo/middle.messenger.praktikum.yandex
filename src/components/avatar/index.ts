@@ -6,14 +6,16 @@ import type { AvatarProps } from './types.ts';
 
 export class Avatar extends Block {
   constructor(props: AvatarProps) {
-    super('label', props);
+    super(props);
   }
 
   init() {
     this.props.styles = styles;
-    this.addClass(styles.label);
+  }
+
+  componentDidMount() {
     if (!this.props.isEdit) {
-      this.addClass(styles.disabled);
+      this.element?.classList.add(styles.disabled);
     }
 
     const element = this.element as HTMLLabelElement;
@@ -23,8 +25,10 @@ export class Avatar extends Block {
   render() {
     return this.compile(
       `
-        <img class="{{styles.photo}}" src="{{src}}" alt="Фото профиля">
-        <input class="{{styles.input}}" id="loadImage" type="file" name="avatar">
+        <label class="{{styles.label}}">
+          <img class="{{styles.photo}}" src="{{src}}" alt="Фото профиля">
+          <input class="{{styles.input}}" id="loadImage" type="file" name="avatar">
+        </label>
       `,
     );
   }

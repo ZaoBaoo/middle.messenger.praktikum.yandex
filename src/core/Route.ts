@@ -1,8 +1,6 @@
 import Block from './Block.ts';
 
-function isEqual(lhs: string, rhs: string): boolean {
-  return lhs === rhs;
-}
+const isEqual = (lhs: string, rhs: string) => lhs === rhs;
 
 function render(query: string, block: Block) {
   const root = document.querySelector(query);
@@ -14,6 +12,8 @@ function render(query: string, block: Block) {
   root.innerHTML = '';
 
   root.append(block.getContent()!);
+
+  block.dispatchComponentDidMount();
 
   return root;
 }

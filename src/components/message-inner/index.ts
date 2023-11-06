@@ -7,21 +7,22 @@ import { Message } from '../message/index.ts';
 
 export class MessageInner extends Block {
   constructor() {
-    super('ul', {});
+    super({});
   }
 
   init() {
-    this.addClass(styles.messageInner);
-
+    this.props.styles = styles;
     this.children.messages = messagesData.map((data) => new Message(data));
   }
 
   render() {
     return this.compile(
       `
-        {{#each messages}}
-          {{{this}}}
-        {{/each}}
+        <ul class="{{styles.messageInner}}">
+          {{#each messages}}
+            {{{this}}}
+          {{/each}}
+        </ul>
       `,
     );
   }

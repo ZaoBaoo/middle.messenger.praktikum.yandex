@@ -6,22 +6,20 @@ import { LinkType } from './types.ts';
 
 export class Link extends Block {
   constructor(props: LinkType) {
-    super('a', props);
+    super(props);
   }
 
   init() {
-    this.addClass(styles.link);
-
-    const element = this.element as HTMLLinkElement;
-    element!.href = this.props.to;
+    this.props.styles = styles;
   }
 
   render() {
     return this.compile(
       `
-        {{text}}
+        <a class="{{styles.link}}" href="{{to}}">
+          {{text}}
+        </a>
       `,
     );
   }
 }
-// export const Link: LinkType = (props) => Handlebars.compile(tmpl)(props);

@@ -7,11 +7,10 @@ import { Link } from '../../components/link/index.ts';
 
 export class Navbar extends Block {
   constructor() {
-    super('nav', {});
+    super({});
   }
 
   init() {
-    this.addClass(styles.navbar);
     this.props.styles = styles;
 
     this.children.links = linksData.map((link) => new Link(link));
@@ -20,13 +19,15 @@ export class Navbar extends Block {
   render() {
     return this.compile(
       `
-        <ul class="{{styles.list}}">
-          {{#each links}}
-            <li>
-                {{{ this }}}
-            </li>
-          {{/each}}
-        </ul>
+        <nav class="{{styles.navbar}}">
+          <ul class="{{styles.list}}">
+            {{#each links}}
+              <li>
+                  {{{ this }}}
+              </li>
+            {{/each}}
+          </ul>
+        </nav>
       `,
     );
   }
