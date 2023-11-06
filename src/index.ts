@@ -1,6 +1,9 @@
 import './styles/index.scss';
 import { router } from './core/Router.ts';
 
+// Controller
+import { AuthController } from './controllers/AuthController.ts';
+
 // Pages
 import { Main } from './pages/main/index.ts';
 import { Login } from './pages/login/index.ts';
@@ -22,7 +25,7 @@ enum Routes {
   ErrorPage = '/404',
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   router
     .use(Routes.Main, Main)
     .use(Routes.Login, Login)

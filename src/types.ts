@@ -23,3 +23,8 @@ export interface WrapperAccountProps {
 export type Indexed<T = any> = {
   [key in string]: T;
 };
+
+export interface SignInType {
+  login: string;
+  password: string;
+}

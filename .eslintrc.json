@@ -21,6 +21,9 @@
     "no-console": "off",
     "no-useless-constructor": "off",
     "new-cap": "off",
-    "no-constructor-return": "off"
+    "no-constructor-return": "off",
+    "no-restricted-syntax": "off",
+    "no-prototype-builtins": "off",
+    "no-continue": "off"
   }
 }

@@ -1,4 +1,5 @@
 import { API } from './api.ts';
+import type { SignInType } from '../types.ts';
 
 export interface SignUpType {
   first_name: string;
@@ -7,11 +8,6 @@ export interface SignUpType {
   email: string;
   password: string;
   phone: string;
-}
-
-export interface SignInType {
-  login: string;
-  password: string;
 }
 
 export interface UserType {

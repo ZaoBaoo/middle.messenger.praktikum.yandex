@@ -23,12 +23,12 @@ export class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(url: string, options?: Options): Promise<Response> {
-    return this._request<Response>(url, { ...options, method: METHOD.GET });
+  public get<Response>(path = '/'): Promise<Response> {
+    return this._request<Response>(this.endpoint + path);
   }
 
-  public post<Response = void>(url: string, options?: Options): Promise<Response> {
-    return this._request<Response>(url, { ...options, method: METHOD.POST });
+  public post<Response = void>(path: string, options?: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.POST });
   }
 
   public put<Response = void>(url: string, options: Options): Promise<Response> {
@@ -39,8 +39,14 @@ export class HTTPTransport {
     return this._request<Response>(url, { ...options, method: METHOD.DELETE });
   }
 
-  private _request<Response>(url: string, options: OptionsWithMethod, timeout = 5000): Promise<Response> {
+  private _request<Response>(
+    url: string,
+    options: OptionsWithMethod = { method: METHOD.GET },
+    timeout = 5000,
+  ): Promise<Response> {
     const { method, data = {}, headers = {} } = options;
+
+    console.log(data);
 
     const headersArrow = Object.entries(headers);
 
@@ -58,6 +64,9 @@ export class HTTPTransport {
       };
 
       headersArrow.forEach(([key, value]) => xhr.setRequestHeader(key, value));
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
 
       xhr.onabort = reject;
       xhr.onerror = reject;

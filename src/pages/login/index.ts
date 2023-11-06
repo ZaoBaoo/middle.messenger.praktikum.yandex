@@ -7,15 +7,16 @@ import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
 
 // Types
-import { FormDataResponseType } from '../../types.ts';
+import { SignInType } from '../../types.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
 
 export class Login extends Block {
   constructor() {
     super({ title: 'Вход' });
   }
 
-  handlerAuth(response: FormDataResponseType) {
-    console.log(response);
+  async handlerAuth(response: SignInType) {
+    await AuthController.signIn(response);
   }
 
   init() {
