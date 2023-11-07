@@ -27,7 +27,7 @@ export class Avatar extends Block {
       `
         <label class="{{styles.label}}">
           <img class="{{styles.photo}}" src="{{src}}" alt="Фото профиля">
-          <input class="{{styles.input}}" id="loadImage" type="file" name="avatar">
+          <input class="{{styles.input}}" id="loadImage" type="file" name="avatar" accept="image/*">
         </label>
       `,
     );

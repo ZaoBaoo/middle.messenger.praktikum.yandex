@@ -33,7 +33,7 @@ export function withStore(mapStateToProps: (state: StateType) => any) {
         store.on(StorageEvent.UpdateState, () => {
           const propsFromState = mapStateToProps(store.getState());
 
-          console.log(propsFromState);
+          console.log('STORE: ', propsFromState);
           this.setProps(propsFromState);
         });
       }

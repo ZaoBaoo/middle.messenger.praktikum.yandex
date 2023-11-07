@@ -1,6 +1,6 @@
 import styles from './profile-info-edit.module.scss';
 import Block from '../../core/Block.ts';
-import avatar from '../../images/placeholder-photo-icon.svg';
+// import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 import { profileInputsData } from '../../data/profile-inputs-data.ts';
 
@@ -9,12 +9,12 @@ import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 
 // Types
-import { FormDataResponseType } from '../../types.ts';
+import { FormDataResponseType, StateType } from '../../types.ts';
 import { UsersController } from '../../controllers/UsersController.ts';
-import { AuthController } from '../../controllers/AuthController.ts';
-import store from '../../core/Store.ts';
+// import { AuthController } from '../../controllers/AuthController.ts';
+import store, { withStore } from '../../core/Store.ts';
 
-export class ProfileInfoEdit extends Block {
+export class BaseProfileInfoEdit extends Block {
   constructor() {
     super({});
   }
@@ -49,14 +49,19 @@ export class ProfileInfoEdit extends Block {
     });
   }
 
-  async componentDidMount() {
+  async componentDidMount() {}
+
+  componentDidUpdate() {
+    console.log('UPDATE');
+
     const user = store.getState()!.user;
 
-    const src = `https://ya-praktikum.tech/api/v2/resources${user.avatar}`;
+    const src = `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`;
 
     if (user) {
       this.children.avatar = new Avatar({ src, isEdit: true, events: { change: this.handlerChangesAvatar } });
     }
+    return true;
   }
 
   render() {
@@ -83,3 +88,17 @@ export class ProfileInfoEdit extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  user: {
+    login: state.user?.login,
+    phone: state.user?.phone,
+    email: state.user?.email,
+    avatar: state.user?.avatar,
+    first_name: state.user?.first_name,
+    second_name: state.user?.second_name,
+    display_name: state.user?.display_name,
+  },
+});
+
+export const ProfileInfoEdit = withStore(mapStateToProps)(BaseProfileInfoEdit);
