@@ -1,16 +1,5 @@
 import { API } from './api.ts';
-import type { SignInType, SignUpType } from '../types.ts';
-
-export interface UserType {
-  id: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  phone: string;
-  login: string;
-  avatar: string;
-  email: string;
-}
+import type { SignInType, SignUpType, UserType } from '../types.ts';
 
 class AuthApi extends API {
   constructor() {

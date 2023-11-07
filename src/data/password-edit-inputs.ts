@@ -3,18 +3,18 @@ export const passwordEditInputs = [
     type: 'password',
     label: 'Старый пароль',
     name: 'oldPassword',
-    value: '*****',
+    value: '',
   },
   {
     type: 'password',
     label: 'Новый пароль',
     name: 'newPassword',
-    value: '*****',
+    value: '',
   },
   {
     type: 'password',
     label: 'Повторите новый пароль',
     name: 'password_confirm',
-    value: '*****',
+    value: '',
   },
 ];

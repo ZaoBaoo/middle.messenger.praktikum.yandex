@@ -10,8 +10,8 @@ import { InputWrapperProfile } from '../input-wrapper-profile/index.ts';
 import type { FormProfileProps } from './types.ts';
 import type { WrapperAccountProps } from '../../types.ts';
 
-export class FormProfile extends Block {
-  constructor(props: FormProfileProps) {
+export class FormProfile<T> extends Block {
+  constructor(props: FormProfileProps<T>) {
     super(props);
   }
 

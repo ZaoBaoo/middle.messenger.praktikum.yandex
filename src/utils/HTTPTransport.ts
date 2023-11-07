@@ -31,12 +31,12 @@ export class HTTPTransport {
     return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.POST });
   }
 
-  public put<Response = void>(url: string, options: Options): Promise<Response> {
-    return this._request<Response>(url, { ...options, method: METHOD.PUT });
+  public put<Response = void>(path: string, options: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.PUT });
   }
 
-  public delete<Response = void>(url: string, options: Options): Promise<Response> {
-    return this._request<Response>(url, { ...options, method: METHOD.DELETE });
+  public delete<Response = void>(path: string, options: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.DELETE });
   }
 
   private _request<Response>(
@@ -51,6 +51,16 @@ export class HTTPTransport {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
 
       xhr.onload = () => {
         resolve(xhr.response);
@@ -70,11 +80,12 @@ export class HTTPTransport {
       xhr.onerror = reject;
       xhr.ontimeout = reject;
       xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   }

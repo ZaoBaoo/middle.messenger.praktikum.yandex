@@ -10,8 +10,12 @@ import { Link } from '../../components/link/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
 import { Button } from '../../components/button/index.ts';
+import { StateType } from '../../types.ts';
 
-export class Profile extends Block {
+// Store
+import { withStore } from '../../core/Store.ts';
+
+class BaseProfile extends Block {
   constructor() {
     super({});
   }
@@ -19,6 +23,7 @@ export class Profile extends Block {
   init() {
     this.props.styles = styles;
     this.props.arrow = arrow;
+    this.children.inputs = [];
 
     this.children.buttonLogOut = new Button({
       type: 'button',
@@ -26,7 +31,6 @@ export class Profile extends Block {
       events: { click: AuthController.logOut },
       view: 'logout',
     });
-    this.children.inputs = profileInputsData.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
     this.children.avatar = new Avatar({ src: avatar, isEdit: false });
     this.children.linkEditInfo = new Link({
       to: '/profile-info-edit',
@@ -36,6 +40,30 @@ export class Profile extends Block {
       to: '/profile-password-edit',
       text: 'Изменить пароль',
     });
+  }
+
+  async componentDidMount() {
+    await AuthController.fetchUser();
+  }
+
+  componentDidUpdate() {
+    // this.children.inputs = profileInputsData.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
+
+    if (this.props.user) {
+      const dataForRender = profileInputsData.map((inputData) => {
+        const value = this.props.user[inputData.name];
+
+        return {
+          ...inputData,
+          value,
+        };
+      });
+
+      this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
+      this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
+    }
+
+    return true;
   }
 
   render() {
@@ -78,3 +106,17 @@ export class Profile extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  user: {
+    login: state.user?.login,
+    phone: state.user?.phone,
+    email: state.user?.email,
+    avatar: state.user?.avatar,
+    first_name: state.user?.first_name,
+    second_name: state.user?.second_name,
+    display_name: state.user?.display_name,
+  },
+});
+
+export const Profile = withStore(mapStateToProps)(BaseProfile);

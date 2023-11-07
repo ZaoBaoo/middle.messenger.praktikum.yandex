@@ -14,16 +14,8 @@ import { ProfileInfoEdit } from './pages/profile-info-edit/index.ts';
 import { ProfilePasswordEdit } from './pages/profile-password-edit/index.ts';
 import { ErrorPage } from './pages/errorPage/index.ts';
 
-enum Routes {
-  Main = '/',
-  Login = '/login',
-  Register = '/sign-up',
-  Profile = '/profile',
-  Chatting = '/chatting',
-  ProfileInfoEdit = '/profile-info-edit',
-  ProfilePasswordEdit = '/profile-password-edit',
-  ErrorPage = '/404',
-}
+// Types
+import { Routes } from './types.ts';
 
 document.addEventListener('DOMContentLoaded', async () => {
   router
@@ -54,10 +46,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     router.start();
 
     if (!isProtectedRoute) {
-      router.go(Routes.Profile);
+      router.go(Routes.Chatting);
     }
   } catch (err) {
     console.log(err, 'Here');
+
     router.start();
 
     if (isProtectedRoute) {

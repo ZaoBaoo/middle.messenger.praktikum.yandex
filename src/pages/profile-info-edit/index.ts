@@ -10,6 +10,9 @@ import { Avatar } from '../../components/avatar/index.ts';
 
 // Types
 import { FormDataResponseType } from '../../types.ts';
+import { UsersController } from '../../controllers/UsersController.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
+import store from '../../core/Store.ts';
 
 export class ProfileInfoEdit extends Block {
   constructor() {
@@ -20,12 +23,22 @@ export class ProfileInfoEdit extends Block {
     console.log(response);
   }
 
+  async handlerChangesAvatar(e: Event) {
+    const input = e.target as HTMLInputElement;
+
+    const formData = new FormData();
+
+    if (input.files) {
+      formData.append('avatar', input.files[0]);
+
+      await UsersController.avatarChange(formData);
+    }
+  }
+
   init() {
     this.props.styles = styles;
-    this.props.avatar = avatar;
     this.props.arrow = arrow;
 
-    this.children.avatar = new Avatar({ src: avatar, isEdit: true });
     this.children.form = new FormProfile({
       dataInputsForRender: profileInputsData,
       buttonData: {
@@ -34,6 +47,16 @@ export class ProfileInfoEdit extends Block {
       },
       submitCallback: this.handlerChangesInfoProfile,
     });
+  }
+
+  async componentDidMount() {
+    const user = store.getState()!.user;
+
+    const src = `https://ya-praktikum.tech/api/v2/resources${user.avatar}`;
+
+    if (user) {
+      this.children.avatar = new Avatar({ src, isEdit: true, events: { change: this.handlerChangesAvatar } });
+    }
   }
 
   render() {

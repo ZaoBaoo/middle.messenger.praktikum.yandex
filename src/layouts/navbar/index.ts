@@ -12,7 +12,6 @@ export class Navbar extends Block {
 
   init() {
     this.props.styles = styles;
-
     this.children.links = linksData.map((link) => new Link(link));
   }
 

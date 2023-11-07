@@ -9,15 +9,18 @@ import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 
 // Types
-import { FormDataResponseType } from '../../types.ts';
+import type { PasswordChangeType } from '../../types.ts';
+
+// Controller
+import { UsersController } from '../../controllers/UsersController.ts';
 
 export class ProfilePasswordEdit extends Block {
   constructor() {
     super({});
   }
 
-  handlerChangesPassword(response: FormDataResponseType) {
-    console.log(response);
+  async handlerChangesPassword(response: PasswordChangeType) {
+    await UsersController.passwordChange(response);
   }
 
   init() {

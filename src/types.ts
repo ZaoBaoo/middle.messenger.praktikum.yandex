@@ -12,6 +12,17 @@ export enum INPUT_NAME {
   DISPLAY_NAME = 'display_name',
 }
 
+export enum Routes {
+  Main = '/',
+  Login = '/login',
+  Register = '/sign-up',
+  Profile = '/profile',
+  Chatting = '/chatting',
+  ProfileInfoEdit = '/profile-info-edit',
+  ProfilePasswordEdit = '/profile-password-edit',
+  ErrorPage = '/404',
+}
+
 export type FormDataResponseType = { [p: string]: File | string };
 
 export interface WrapperAccountProps {
@@ -36,4 +47,24 @@ export interface SignUpType {
   email: string;
   password: string;
   phone: string;
+}
+
+export interface UserType {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+  login: string;
+  avatar: string;
+  email: string;
+}
+
+export interface StateType {
+  user?: UserType;
+}
+
+export interface PasswordChangeType {
+  oldPassword: string;
+  newPassword: string;
 }
