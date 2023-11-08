@@ -1,4 +1,13 @@
-export const profileInputsData = [
+interface ProfileInputType {
+  type: string;
+  label: string;
+  value: string;
+  name: 'email' | 'login' | 'first_name' | 'second_name' | 'display_name' | 'phone';
+}
+
+type ProfileInputsType = ProfileInputType[];
+
+export const profileInputsData: ProfileInputsType = [
   { type: 'email', label: 'Почта', name: 'email', value: '1' },
   { type: 'text', label: 'Логин', name: 'login', value: '2' },
   { type: 'text', label: 'Имя', name: 'first_name', value: '3' },

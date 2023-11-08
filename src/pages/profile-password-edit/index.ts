@@ -1,6 +1,5 @@
 import styles from './profile-password-edit.module.scss';
 import Block from '../../core/Block.ts';
-import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
 
@@ -13,24 +12,23 @@ import type { PasswordChangeType } from '../../types.ts';
 
 // Controller
 import { UsersController } from '../../controllers/UsersController.ts';
+import { StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
 
-export class ProfilePasswordEdit extends Block {
+class BaseProfilePasswordEdit extends Block {
   constructor() {
     super({});
   }
 
   async handlerChangesPassword(response: PasswordChangeType) {
-    const res = await UsersController.passwordChange(response);
-
-    console.log('res: ', res);
+    await UsersController.passwordChange(response);
   }
 
   init() {
     this.props.styles = styles;
-    this.props.avatar = avatar;
     this.props.arrow = arrow;
 
-    this.children.avatar = new Avatar({ src: avatar, isEdit: false });
     this.children.form = new FormProfile({
       dataInputsForRender: passwordEditInputs,
       buttonData: {
@@ -39,6 +37,21 @@ export class ProfilePasswordEdit extends Block {
       },
       submitCallback: this.handlerChangesPassword,
     });
+  }
+
+  async componentDidMount() {
+    await AuthController.fetchUser();
+  }
+
+  componentDidUpdate() {
+    const { user } = this.props;
+
+    if (user) {
+      this.children.avatar = new Avatar({ src: user.avatar, isEdit: false });
+      this.children.avatar.dispatchComponentDidMount();
+    }
+
+    return true;
   }
 
   render() {
@@ -65,3 +78,11 @@ export class ProfilePasswordEdit extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  user: {
+    avatar: state.user?.avatar,
+  },
+});
+
+export const ProfilePasswordEdit = withStore(mapStateToProps)(BaseProfilePasswordEdit);

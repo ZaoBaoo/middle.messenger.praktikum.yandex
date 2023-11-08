@@ -1,6 +1,6 @@
 import styles from './profile.module.scss';
 import Block from '../../core/Block.ts';
-import avatar from '../../images/placeholder-photo-icon.svg';
+// import avatar from '../../images/placeholder-photo-icon.svg';
 import arrow from '../../images/back-arrow-icon.svg';
 import { profileInputsData } from '../../data/profile-inputs-data.ts';
 import { AuthController } from '../../controllers/AuthController.ts';
@@ -31,7 +31,6 @@ class BaseProfile extends Block {
       events: { click: AuthController.logOut },
       view: 'logout',
     });
-    this.children.avatar = new Avatar({ src: avatar, isEdit: false });
     this.children.linkEditInfo = new Link({
       to: '/profile-info-edit',
       text: 'Изменить данные',
@@ -47,11 +46,11 @@ class BaseProfile extends Block {
   }
 
   componentDidUpdate() {
-    // this.children.inputs = profileInputsData.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
+    const { user } = this.props;
 
-    if (this.props.user) {
+    if (user) {
       const dataForRender = profileInputsData.map((inputData) => {
-        const value = this.props.user[inputData.name];
+        const value = user[inputData.name];
 
         return {
           ...inputData,
@@ -59,6 +58,8 @@ class BaseProfile extends Block {
         };
       });
 
+      this.children.avatar = new Avatar({ src: user.avatar, isEdit: false });
+      this.children.avatar.dispatchComponentDidMount();
       this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
       this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
     }

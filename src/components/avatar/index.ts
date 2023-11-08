@@ -6,7 +6,7 @@ import type { AvatarProps } from './types.ts';
 
 export class Avatar extends Block {
   constructor(props: AvatarProps) {
-    super(props);
+    super({ ...props, src: `https://ya-praktikum.tech/api/v2/resources${props.src}` });
   }
 
   init() {

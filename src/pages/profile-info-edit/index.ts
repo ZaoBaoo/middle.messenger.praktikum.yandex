@@ -11,7 +11,6 @@ import { Avatar } from '../../components/avatar/index.ts';
 // Types
 import { StateType, UserChangeType } from '../../types.ts';
 import { UsersController } from '../../controllers/UsersController.ts';
-// import { AuthController } from '../../controllers/AuthController.ts';
 import store, { withStore } from '../../core/Store.ts';
 
 export class BaseProfileInfoEdit extends Block {
@@ -38,28 +37,29 @@ export class BaseProfileInfoEdit extends Block {
   init() {
     this.props.styles = styles;
     this.props.arrow = arrow;
-
-    // this.children.form = new FormProfile({
-    //   dataInputsForRender: profileInputsData,
-    //   buttonData: {
-    //     type: 'submit',
-    //     text: 'Сохранить',
-    //   },
-    //   submitCallback: this.handlerChangesInfoProfile,
-    // });
   }
 
-  componentDidUpdate() {
-    const { user } = store.getState()!;
+  // async componentDidMount() {
+  //   await AuthController.fetchUser();
+  // }
 
-    console.log(user);
+  componentDidUpdate() {
+    const { user } = store.getState();
 
     if (user) {
-      const src = `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`;
-      this.children.avatar = new Avatar({ src, isEdit: true, events: { change: this.handlerChangesAvatar } });
+      this.children.avatar = new Avatar({
+        src: user?.avatar,
+        isEdit: true,
+        events: { change: this.handlerChangesAvatar },
+      });
+
+      const dataForRender = profileInputsData.map((inputData) => {
+        const value = user[inputData.name];
+        return { ...inputData, value };
+      });
 
       this.children.form = new FormProfile({
-        dataInputsForRender: profileInputsData,
+        dataInputsForRender: dataForRender,
         buttonData: {
           type: 'submit',
           text: 'Сохранить',
