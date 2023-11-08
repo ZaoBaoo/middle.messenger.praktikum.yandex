@@ -49,7 +49,7 @@ export interface SignUpType {
   phone: string;
 }
 
-export interface UserType {
+export interface UserStateType {
   id: number;
   first_name: string;
   second_name: string;
@@ -60,11 +60,29 @@ export interface UserType {
   email: string;
 }
 
+export interface ErrorStateType {
+  password: string;
+}
+
 export interface StateType {
-  user?: UserType;
+  user?: UserStateType;
+  errors?: ErrorStateType;
 }
 
 export interface PasswordChangeType {
   oldPassword: string;
   newPassword: string;
+}
+
+export interface UserChangeType {
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  phone: string;
+}
+
+export interface ParseResponseType {
+  reason: string;
 }

@@ -20,7 +20,9 @@ export class ProfilePasswordEdit extends Block {
   }
 
   async handlerChangesPassword(response: PasswordChangeType) {
-    await UsersController.passwordChange(response);
+    const res = await UsersController.passwordChange(response);
+
+    console.log('res: ', res);
   }
 
   init() {

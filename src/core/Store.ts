@@ -25,7 +25,7 @@ class Store extends EventBus {
 const store = new Store();
 
 export function withStore(mapStateToProps: (state: StateType) => any) {
-  return (Component: typeof Block) =>
+  return <P extends Record<string, unknown>>(Component: typeof Block<P>) =>
     class extends Component {
       constructor(props: any) {
         super({ ...props, ...mapStateToProps(store.getState()) });

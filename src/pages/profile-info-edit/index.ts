@@ -9,7 +9,7 @@ import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 
 // Types
-import { FormDataResponseType, StateType } from '../../types.ts';
+import { StateType, UserChangeType } from '../../types.ts';
 import { UsersController } from '../../controllers/UsersController.ts';
 // import { AuthController } from '../../controllers/AuthController.ts';
 import store, { withStore } from '../../core/Store.ts';
@@ -19,8 +19,8 @@ export class BaseProfileInfoEdit extends Block {
     super({});
   }
 
-  handlerChangesInfoProfile(response: FormDataResponseType) {
-    console.log(response);
+  async handlerChangesInfoProfile(response: UserChangeType) {
+    await UsersController.userChange(response);
   }
 
   async handlerChangesAvatar(e: Event) {
@@ -39,28 +39,35 @@ export class BaseProfileInfoEdit extends Block {
     this.props.styles = styles;
     this.props.arrow = arrow;
 
-    this.children.form = new FormProfile({
-      dataInputsForRender: profileInputsData,
-      buttonData: {
-        type: 'submit',
-        text: 'Сохранить',
-      },
-      submitCallback: this.handlerChangesInfoProfile,
-    });
+    // this.children.form = new FormProfile({
+    //   dataInputsForRender: profileInputsData,
+    //   buttonData: {
+    //     type: 'submit',
+    //     text: 'Сохранить',
+    //   },
+    //   submitCallback: this.handlerChangesInfoProfile,
+    // });
   }
 
-  async componentDidMount() {}
-
   componentDidUpdate() {
-    console.log('UPDATE');
+    const { user } = store.getState()!;
 
-    const user = store.getState()!.user;
-
-    const src = `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`;
+    console.log(user);
 
     if (user) {
+      const src = `https://ya-praktikum.tech/api/v2/resources${user?.avatar}`;
       this.children.avatar = new Avatar({ src, isEdit: true, events: { change: this.handlerChangesAvatar } });
+
+      this.children.form = new FormProfile({
+        dataInputsForRender: profileInputsData,
+        buttonData: {
+          type: 'submit',
+          text: 'Сохранить',
+        },
+        submitCallback: this.handlerChangesInfoProfile,
+      });
     }
+
     return true;
   }
 

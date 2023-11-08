@@ -1,5 +1,5 @@
 import { API } from './api.ts';
-import type { PasswordChangeType } from '../types.ts';
+import type { PasswordChangeType, UserChangeType } from '../types.ts';
 
 class UsersApi extends API {
   constructor() {
@@ -12,6 +12,10 @@ class UsersApi extends API {
 
   async avatarChangeRequest(data: FormData) {
     return this.http.put('/profile/avatar', { data });
+  }
+
+  async userChangeRequest(data: UserChangeType) {
+    return this.http.put('/profile', { data });
   }
 
   // async signUp(data: SignUpType) {

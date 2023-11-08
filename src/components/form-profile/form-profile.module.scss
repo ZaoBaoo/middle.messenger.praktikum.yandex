@@ -1,14 +1,24 @@
 .rows {
   display: flex;
   flex-direction: column;
-  gap: 20px;
   width: 100%;
   margin-top: 60px;
+  gap: 20px;
 }
 
 .wrapperButton {
   display: flex;
+  position: relative;
   justify-content: center;
   width: 100%;
   margin-top: 60px;
+}
+
+.errorPassword {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  color: red;
+  font-size: 12px;
+  transform: translateX(-50%);
 }

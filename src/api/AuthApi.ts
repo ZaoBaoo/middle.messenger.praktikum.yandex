@@ -1,5 +1,5 @@
 import { API } from './api.ts';
-import type { SignInType, SignUpType, UserType } from '../types.ts';
+import type { SignInType, SignUpType, UserStateType } from '../types.ts';
 
 class AuthApi extends API {
   constructor() {
@@ -19,7 +19,7 @@ class AuthApi extends API {
   }
 
   async getUser() {
-    return this.http.get<UserType>('/user');
+    return this.http.get<UserStateType>('/user');
   }
 }
 
