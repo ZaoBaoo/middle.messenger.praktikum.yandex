@@ -8,12 +8,18 @@ import { ChatsInner } from '../../components/chats-inner/index.ts';
 import { MessageInner } from '../../components/message-inner/index.ts';
 import { ChatSettings } from '../../components/chat-settings/index.ts';
 import { StateType } from '../../types.ts';
-import { withStore } from '../../core/Store.ts';
+import store, { withStore } from '../../core/Store.ts';
 import { PopupChat } from '../../components/popup-chat/index.ts';
+import { Button } from '../../components/button/index.ts';
+import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
 
 export class BaseChatting extends Block {
   constructor() {
     super({});
+  }
+
+  handlerOpenPopup() {
+    store.set('popup.chat', { isShow: true, type: 'addChat' });
   }
 
   init() {
@@ -24,7 +30,16 @@ export class BaseChatting extends Block {
     this.children.chatsInner = new ChatsInner();
     this.children.messageInner = new MessageInner();
     this.children.chatSettings = new ChatSettings();
-    // this.children.popup = new PopupChat();
+    this.children.buttonAddChat = new Button({
+      type: 'button',
+      text: 'Добавить чат',
+      view: 'addChat',
+      events: { click: this.handlerOpenPopup },
+    });
+  }
+
+  async componentDidMount() {
+    await ChatsControllers.fetchingChats();
   }
 
   componentDidUpdate() {
@@ -38,7 +53,6 @@ export class BaseChatting extends Block {
   }
 
   render() {
-    console.log('CHATTING', this.props);
     return this.compile(
       `
         <main>
@@ -47,6 +61,7 @@ export class BaseChatting extends Block {
               <aside class="{{styles.aside}}">
                 <div class="{{styles.asideHeader}}">
                   <div class="{{styles.asideProfile}}">
+                    {{{buttonAddChat}}}
                     <a href="/profile">
                       <p class="{{styles.asideProfileText}}">Профиль</p>
                     </a>

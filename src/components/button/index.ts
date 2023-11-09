@@ -19,9 +19,15 @@ export class Button extends Block {
   protected afterRender() {
     if (this.props.view === 'logout') {
       this.element?.classList.add(styles.buttonLogOut);
-    } else {
-      this.element?.classList.add(styles.button);
+      return;
     }
+
+    if (this.props.view === 'addChat') {
+      this.element?.classList.add(styles.addChat);
+      return;
+    }
+
+    this.element?.classList.add(styles.button);
   }
 
   render() {

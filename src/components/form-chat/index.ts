@@ -7,30 +7,20 @@ import { InputWrapperAccount } from '../input-wrapper-account/index.ts';
 import { Button } from '../button/index.ts';
 import { FormChatType } from './types.ts';
 
-// Types
-// import type { FormAccountProps } from './types.ts';
-// import type { WrapperAccountProps } from '../../types.ts';
-
 export class FormChat extends Block {
   constructor(props: FormChatType) {
     super(props);
   }
 
-  handlerAddUser(props: unknown) {
-    console.log('USER добавлен :', props);
-  }
-
   init() {
     this.props.styles = styles;
 
-    const { textButton, name } = this.props;
+    const { textButton, name, label } = this.props;
 
-    this.children.inputs = [new InputWrapperAccount({ type: 'text', name, label: 'Логин' })];
+    this.children.input = new InputWrapperAccount({ type: 'text', name, label });
     this.children.button = new Button({ type: 'button', text: textButton });
     this.children.button.dispatchComponentDidMount();
-    if (Array.isArray(this.children.inputs)) {
-      this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
-    }
+    this.children.input.dispatchComponentDidMount();
 
     this.setProps({
       events: {
@@ -38,36 +28,23 @@ export class FormChat extends Block {
           e.preventDefault();
           const form = e.target! as HTMLFormElement;
 
-          if (Array.isArray(this.children.inputs)) {
-            const resultValidation = this.children.inputs.map((inputForm) => {
-              const { name: currentInputName } = inputForm.getProps();
+          const { input } = this.children;
 
-              const currentInputElement = form.elements[currentInputName] as HTMLInputElement;
+          if (!Array.isArray(input)) {
+            const { name: currentInputName } = input.getProps();
 
-              const isInputValid = validator.isFieldValid(currentInputElement.value, currentInputElement.name);
+            const currentInputElement = form.elements[currentInputName] as HTMLInputElement;
 
-              if (!isInputValid.isValid && !Array.isArray(inputForm.children.error)) {
-                inputForm.children.error.setProps({
-                  text: isInputValid.message,
-                });
-              }
+            const isInputValid = validator.isFieldValid(currentInputElement.value, currentInputElement.name);
 
-              return isInputValid.isValid;
-            });
+            if (!isInputValid.isValid && !Array.isArray(input.children.error)) {
+              input.children.error.setProps({
+                text: isInputValid.message,
+              });
+            }
 
-            const allFieldsCorrect = resultValidation.every((value) => value === true);
-
-            if (allFieldsCorrect) {
-              const formData = new FormData(form);
-              const formDataArray: [string, File | string][] = [];
-
-              formData.forEach((value, key) => formDataArray.push([key, value]));
-
-              const objectValues = Object.fromEntries(formDataArray);
-
-              this.handlerAddUser(objectValues);
-
-              // this.props.submitCallback(objectValues);
+            if (isInputValid.isValid) {
+              this.props.callback(this.props.type, currentInputElement.value);
             }
           }
         },
@@ -81,7 +58,7 @@ export class FormChat extends Block {
     return this.compile(
       `
         <form class="{{styles.form}}">
-          {{{inputs}}}
+          {{{input}}}
           {{{button}}}
         </form>
       `,

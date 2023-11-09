@@ -2,20 +2,27 @@ import styles from './popup-chat.module.scss';
 import Block from '../../core/Block.ts';
 import store from '../../core/Store.ts';
 import { ChatSettingsType, PopupOptionsType } from './types.ts';
-import { Button } from '../button/index.ts';
-import { InputWrapperAccount } from '../input-wrapper-account/index.ts';
 import { FormChat } from '../form-chat/index.ts';
+import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
 
 export const popupOptions: PopupOptionsType = {
   addUser: {
     title: 'Добавить пользователя',
     textButton: 'Добавить',
-    name: 'popupUserChat',
+    name: 'popupUser',
+    label: 'Логин',
   },
   removeUser: {
     title: 'Удалить пользователя',
     textButton: 'Удалить',
-    name: 'popupUserChat',
+    name: 'popupUser',
+    label: 'Логин',
+  },
+  addChat: {
+    title: 'Создать чат',
+    textButton: 'Создать',
+    name: 'popupChat',
+    label: 'Название чата',
   },
 };
 
@@ -35,17 +42,35 @@ export class PopupChat extends Block {
     }
   }
 
+  async handlerSuccessfulAction(type: string, title: string) {
+    console.log(type, title);
+
+    switch (this.props.type) {
+      case 'addChat':
+        await ChatsControllers.createChat({ title });
+        break;
+      default:
+        break;
+    }
+  }
+
   init() {
     this.props.styles = styles;
 
     const { type } = this.props;
-    const { title, textButton, name } = popupOptions[type];
+    const { title, textButton, name, label } = popupOptions[type];
 
     this.props.title = title;
     this.props.events = {
       click: this.handlerPopupClose,
     };
-    this.children.form = new FormChat({ textButton, name });
+    this.children.form = new FormChat({
+      textButton,
+      name,
+      label,
+      type,
+      callback: this.handlerSuccessfulAction.bind(this),
+    });
   }
 
   render() {

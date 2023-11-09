@@ -10,7 +10,8 @@ export enum INPUT_NAME {
   PHONE = 'phone',
   MESSAGE = 'message',
   DISPLAY_NAME = 'display_name',
-  POPUP_USER_CHAT = 'popupUserChat',
+  POPUP_USER = 'popupUser',
+  POPUP_CHAT = 'popupChat',
 }
 
 export enum Routes {
@@ -94,4 +95,32 @@ export interface UserChangeType {
 
 export interface ParseResponseType {
   reason: string;
+}
+
+export interface ChatsType {
+  id: number;
+  title: string;
+  avatar: string;
+  unread_count: number;
+  created_by: number;
+  last_message: {
+    user: {
+      first_name: string;
+      second_name: string;
+      avatar: string;
+      email: string;
+      login: string;
+      phone: string;
+    };
+    time: Date;
+    content: string;
+  };
+}
+
+// export interface ChatCreateSuccessfulType {
+//   reason: string;
+// }
+
+export interface ChatCreateType {
+  title: string;
 }

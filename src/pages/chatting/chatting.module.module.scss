@@ -23,8 +23,9 @@
 
 .asideProfile {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px 22px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 22px 20px 0;
 }
 
 .asideProfileText {
@@ -37,6 +38,7 @@
   transition: opacity 0.2s ease-in-out;
 
   &::after {
+    content: '';
     position: absolute;
     top: 0;
     right: -21px;
@@ -46,7 +48,6 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
-    content: '';
   }
 
   &:hover {
