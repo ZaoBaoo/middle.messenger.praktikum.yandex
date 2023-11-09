@@ -26,11 +26,11 @@ export default class Validator {
     [INPUT_NAME.PHONE]: 'Телефон указан неверно',
     [INPUT_NAME.MESSAGE]: '',
     [INPUT_NAME.DISPLAY_NAME]: 'Недопустимое имя в чате',
+    [INPUT_NAME.POPUP_USER_CHAT]: 'Неправильно ввел имя',
   };
 
   regExp: RegExpMap = {
-    [INPUT_NAME.LOGIN]:
-      /^(?=.*[A-Za-z])(?!.*[\s!@#$%^&*()—_+=;:,./?\\|`~[\]{}])[A-Za-z0-9]{3,20}$/,
+    [INPUT_NAME.LOGIN]: /^(?=.*[A-Za-z])(?!.*[\s!@#$%^&*()—_+=;:,./?\\|`~[\]{}])[A-Za-z0-9]{3,20}$/,
     [INPUT_NAME.PASSWORD]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
     [INPUT_NAME.PASSWORD_CONFIRM]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
     [INPUT_NAME.PASSWORD_OLD]: /^(?=.*\d)(?=.*[A-Z]).{8,40}$/,
@@ -41,6 +41,7 @@ export default class Validator {
     [INPUT_NAME.PHONE]: /^\+?\d{10,15}$/,
     [INPUT_NAME.MESSAGE]: /^.+$/,
     [INPUT_NAME.DISPLAY_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
+    [INPUT_NAME.POPUP_USER_CHAT]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
   };
 
   isFieldValid(value: string, name: string): ResultType {

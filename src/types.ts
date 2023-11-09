@@ -10,6 +10,7 @@ export enum INPUT_NAME {
   PHONE = 'phone',
   MESSAGE = 'message',
   DISPLAY_NAME = 'display_name',
+  POPUP_USER_CHAT = 'popupUserChat',
 }
 
 export enum Routes {
@@ -64,9 +65,17 @@ export interface ErrorStateType {
   password: string;
 }
 
+export interface PopupStateType {
+  chat: {
+    isShow: boolean;
+    type: 'add' | 'remove';
+  };
+}
+
 export interface StateType {
   user?: UserStateType;
   errors?: ErrorStateType;
+  popup?: PopupStateType;
 }
 
 export interface PasswordChangeType {

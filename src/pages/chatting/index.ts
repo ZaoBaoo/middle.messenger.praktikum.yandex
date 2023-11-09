@@ -6,8 +6,12 @@ import avatar from '../../images/placeholder-photo-icon.svg';
 import { InputControlDialog } from '../../components/input-control-dialog/index.ts';
 import { ChatsInner } from '../../components/chats-inner/index.ts';
 import { MessageInner } from '../../components/message-inner/index.ts';
+import { ChatSettings } from '../../components/chat-settings/index.ts';
+import { StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
+import { PopupChat } from '../../components/popup-chat/index.ts';
 
-export class Chatting extends Block {
+export class BaseChatting extends Block {
   constructor() {
     super({});
   }
@@ -19,9 +23,22 @@ export class Chatting extends Block {
     this.children.dialogControl = new InputControlDialog();
     this.children.chatsInner = new ChatsInner();
     this.children.messageInner = new MessageInner();
+    this.children.chatSettings = new ChatSettings();
+    // this.children.popup = new PopupChat();
+  }
+
+  componentDidUpdate() {
+    const { popupData } = this.props;
+
+    if (popupData) {
+      this.children.popup = new PopupChat({ type: popupData.type });
+    }
+
+    return true;
   }
 
   render() {
+    console.log('CHATTING', this.props);
     return this.compile(
       `
         <main>
@@ -46,15 +63,24 @@ export class Chatting extends Block {
                     <img class="{{styles.dialogUserAvatar}}" src="{{avatar}}" alt="Аватар" />
                     <p class="{{styles.dialogUserName}}">Вадим</p>
                   </div>
-                  <button class="{{styles.dialogMoreButton}}"></button>
+                  {{{chatSettings}}}
                 </div>
                 {{{messageInner}}}
                 {{{dialogControl}}}
               </div>
             </div>
           </section>
+          {{#if popupData.isShow}}
+            {{{popup}}}
+          {{/if}}
         </main>
       `,
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  popupData: state.popup?.chat,
+});
+
+export const Chatting = withStore(mapStateToProps)(BaseChatting);

@@ -119,19 +119,3 @@
   font-weight: 600;
   line-height: 13px;
 }
-
-.dialogMoreButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25px;
-  height: 25px;
-  border: none;
-  border-radius: 50%;
-  background-color: transparent;
-  background-image: url('/src/images/more-vertical-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 15%;
-  cursor: pointer;
-}

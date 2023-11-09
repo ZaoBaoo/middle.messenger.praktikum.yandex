@@ -24,6 +24,9 @@ export class BaseFormProfile<T> extends Block {
     this.children.inputs = this.props.dataInputsForRender.map(
       (input: WrapperAccountProps) => new InputWrapperProfile({ ...input, disabled: false }),
     );
+    if (Array.isArray(this.children.inputs)) {
+      this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
+    }
 
     this.setProps({
       events: {
@@ -95,6 +98,8 @@ export class BaseFormProfile<T> extends Block {
       },
     });
   }
+
+  componentDidMount() {}
 
   render() {
     return this.compile(

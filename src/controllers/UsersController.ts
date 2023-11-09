@@ -24,7 +24,7 @@ export class UsersController {
     try {
       const user = await usersApi.avatarChangeRequest(data);
 
-      store.set('user', user);
+      store.set('user.avatar', user?.avatar);
     } catch (err) {
       console.log('avatarChange', err);
     }

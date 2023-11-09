@@ -9,7 +9,14 @@ export class Button extends Block {
     super(props);
   }
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   if (this.props.view === 'logout') {
+  //     this.element?.classList.add(styles.buttonLogOut);
+  //   } else {
+
+  // }
+
+  protected afterRender() {
     if (this.props.view === 'logout') {
       this.element?.classList.add(styles.buttonLogOut);
     } else {

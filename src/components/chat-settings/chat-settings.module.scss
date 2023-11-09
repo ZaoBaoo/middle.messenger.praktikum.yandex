@@ -1,0 +1,80 @@
+.settingsWrapper {
+  position: relative;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  background-image: url('/src/images/more-vertical-icon.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 15%;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+
+  &:active {
+    transform: scale(0.8);
+  }
+}
+
+.modal {
+  display: flex;
+  gap: 16px;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  flex-direction: column;
+  width: 210px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #FFF;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+}
+
+.modal_show {
+  display: flex;
+}
+
+.setting {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  cursor: pointer;
+  font-style: normal;
+  gap: 15px;
+  transition: opacity 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.setting_add {
+  &::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-image: url('/src/images/setting-add.svg');
+  }
+}
+
+.setting_remove {
+  &::before {
+    content: "";
+    width: 22px;
+    height: 22px;
+    background-image: url('/src/images/setting-remove.svg');
+  }
+}

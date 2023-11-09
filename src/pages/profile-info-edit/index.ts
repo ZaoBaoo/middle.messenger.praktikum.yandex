@@ -105,6 +105,7 @@ const mapStateToProps = (state: StateType) => ({
     first_name: state.user?.first_name,
     second_name: state.user?.second_name,
     display_name: state.user?.display_name,
+    id: state.user?.id,
   },
 });
 
