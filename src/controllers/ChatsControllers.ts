@@ -1,5 +1,5 @@
 import { chatsApi } from '../api/ChatsApi.ts';
-import { AvatarUpdateType, ChatCreateType, ChatDeleteType, ChatType } from '../types.ts';
+import { AvatarUpdateType, ChatCreateType } from '../types.ts';
 import store from '../core/Store.ts';
 
 export class ChatsControllers {
@@ -21,9 +21,16 @@ export class ChatsControllers {
     }
   }
 
-  static async deleteChat(data: ChatDeleteType) {
+  static async deleteChat() {
     try {
-      await chatsApi.deleteChatRequest(data);
+      const { currentChat, chats } = store.getState();
+      if (currentChat) {
+        const { id } = currentChat[0];
+        await chatsApi.deleteChatRequest({ chatId: id });
+        const updatedChats = chats?.filter((chat) => chat.id !== id);
+        store.set('chats', updatedChats);
+        store.set('currentChat', undefined);
+      }
     } catch (err) {
       console.log('deleteChat', err);
     }
@@ -34,16 +41,21 @@ export class ChatsControllers {
       const updatedChat = await chatsApi.updateAvatarChatRequest(data);
 
       const { avatar, id } = updatedChat;
-
       const { chats, currentChat } = store.getState();
 
-      store.set('currentChat', [{ ...currentChat, avatar }]);
+      const updatedChats = chats?.map((chat) => (chat.id !== id ? chat : { ...chat, avatar }));
+
+      if (updatedChats) store.set('chats', updatedChats);
+      if (currentChat) store.set('currentChat', [{ ...currentChat[0], avatar }]);
     } catch (err) {
       console.log('changeAvatarChat', err);
     }
   }
 
-  static currentChat(data: ChatType) {
-    store.set('currentChat', data);
+  static currentChat(id: number) {
+    const { chats } = store.getState();
+
+    const targetChat = chats?.find((chat) => chat.id === id);
+    store.set('currentChat', [targetChat]);
   }
 }

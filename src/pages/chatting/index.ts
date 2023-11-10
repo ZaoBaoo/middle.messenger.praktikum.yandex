@@ -15,8 +15,8 @@ import type { StateType } from '../../types.ts';
 import { DialogWindow } from '../../components/dialog-window/index.ts';
 
 export class BaseChatting extends Block {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super({});
   }
 
   handlerOpenPopup() {
@@ -50,8 +50,11 @@ export class BaseChatting extends Block {
     }
 
     if (currentChat) {
-      console.log('currentChat');
-      this.children.dialogWindow = new DialogWindow({ currentChat });
+      this.children.dialogWindow = new DialogWindow({ currentChat: currentChat[0] });
+    } else {
+      if (!Array.isArray(this.children.dialogWindow)) {
+        this.children.dialogWindow?.hide();
+      }
     }
 
     return true;
@@ -75,9 +78,7 @@ export class BaseChatting extends Block {
                 </div>
                 {{{chatsInner}}}
               </aside>
-              
               {{{dialogWindow}}}
-       
             </div>
           </section>
           {{#if popupData.isShow}}

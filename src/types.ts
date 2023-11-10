@@ -80,7 +80,7 @@ export interface StateType {
   errors?: ErrorStateType;
   popup?: PopupStateType;
   chats?: ChatType[];
-  currentChat?: ChatType;
+  currentChat?: [ChatType];
 }
 
 export interface PasswordChangeType {

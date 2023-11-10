@@ -17,7 +17,7 @@ export class ChatsInner extends Block {
     this.props.styles = styles;
     const { chats } = this.props;
 
-    this.children.chats = chats.map((chat: ChatType) => new Chat({ chat }));
+    this.children.chats = chats.map((chat: ChatType) => new Chat(chat));
   }
 
   render() {

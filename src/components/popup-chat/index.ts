@@ -57,7 +57,7 @@ export class PopupChat extends Block {
         await ChatsControllers.fetchingChats();
         break;
       case 'removeChat':
-        await ChatsControllers.deleteChat({ chatId: 33477 });
+        await ChatsControllers.deleteChat();
         await ChatsControllers.fetchingChats();
         break;
       default:

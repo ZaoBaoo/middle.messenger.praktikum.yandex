@@ -21,7 +21,6 @@ class BaseProfile extends Block {
   }
 
   init() {
-    console.log('BaseProfile', this.props);
     this.props.styles = styles;
     this.props.arrow = arrow;
     this.children.inputs = [];

@@ -30,8 +30,6 @@ class BaseProfilePasswordEdit extends Block {
     this.props.styles = styles;
     this.props.arrow = arrow;
 
-    console.log(this.props);
-
     this.children.avatar = new Avatar({ src: this.props.avatar, isEdit: false, size: 'large' });
     this.children.form = new FormProfile({
       dataInputsForRender: passwordEditInputs,

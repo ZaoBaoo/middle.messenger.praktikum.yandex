@@ -35,12 +35,8 @@ export function withStore(mapStateToProps: (state: StateType) => any) {
 
         store.on(StorageEvent.UpdateState, () => {
           const propsFromState = mapStateToProps(store.getState());
-
-          console.log('СТАРЫЕ', oldPartState);
-          console.log('НОВЫЕ', propsFromState);
-
           if (!isEqual(oldPartState, propsFromState)) {
-            console.log('ПРОПСЫ ИЗМЕНИЛИСЬ', propsFromState);
+            console.log('НОВЫЙ STORE: ', propsFromState);
             this.setProps({ ...propsFromState });
           }
 

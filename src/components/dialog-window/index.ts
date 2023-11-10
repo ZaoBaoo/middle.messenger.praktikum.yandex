@@ -50,7 +50,7 @@ export class DialogWindow extends Block {
           <div class="{{styles.dialogHeader}}">
             <div class="{{styles.dialogUserInfo}}">
               {{{avatar}}}
-              <p class="{{styles.dialogUserName}}">Вадим</p>
+              <p class="{{styles.dialogUserName}}">{{currentChat.title}}</p>
             </div>
             {{{chatSettings}}}
           </div>

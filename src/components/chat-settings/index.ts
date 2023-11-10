@@ -1,6 +1,7 @@
 import styles from './chat-settings.module.scss';
 import Block from '../../core/Block.ts';
 import store from '../../core/Store.ts';
+import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
 
 export class ChatSettings extends Block {
   constructor() {
@@ -33,7 +34,7 @@ export class ChatSettings extends Block {
 
     if (attribute === 'removeChat') {
       this.props.isModalShow = false;
-      store.set('popup.chat', { isShow: true, type: 'removeChat' });
+      ChatsControllers.deleteChat();
     }
   }
 
