@@ -29,15 +29,18 @@ export function withStore(mapStateToProps: (state: StateType) => any) {
   return <P extends Record<string, unknown>>(Component: typeof Block<P>) =>
     class extends Component {
       constructor(props: any) {
-        super({ ...props, ...mapStateToProps(store.getState()) });
-
         let oldPartState = mapStateToProps(store.getState());
+
+        super({ ...props, ...mapStateToProps(store.getState()) });
 
         store.on(StorageEvent.UpdateState, () => {
           const propsFromState = mapStateToProps(store.getState());
 
+          console.log('СТАРЫЕ', oldPartState);
+          console.log('НОВЫЕ', propsFromState);
+
           if (!isEqual(oldPartState, propsFromState)) {
-            console.log(propsFromState);
+            console.log('ПРОПСЫ ИЗМЕНИЛИСЬ', propsFromState);
             this.setProps({ ...propsFromState });
           }
 

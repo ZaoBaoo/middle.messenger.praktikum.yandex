@@ -37,7 +37,7 @@ export class ChatsControllers {
 
       const { chats, currentChat } = store.getState();
 
-      store.set('currentChat', { ...currentChat, avatar });
+      store.set('currentChat', [{ ...currentChat, avatar }]);
     } catch (err) {
       console.log('changeAvatarChat', err);
     }
