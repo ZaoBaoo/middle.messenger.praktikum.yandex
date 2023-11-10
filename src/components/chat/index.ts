@@ -2,30 +2,30 @@ import styles from './chat.module.scss';
 import Block from '../../core/Block.ts';
 
 // Type
-import type { PropsType } from './types.ts';
+import type { ChatType } from '../../types.ts';
+import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
+import { Avatar } from '../avatar';
 
 export class Chat extends Block {
-  constructor(props: PropsType) {
+  constructor(props: ChatType) {
     super(props);
   }
 
   init() {
     this.props.styles = styles;
+    this.props.events = {
+      click: () => ChatsControllers.currentChat(this.props),
+    };
+    this.children.avatar = new Avatar({ src: this.props.avatar, isEdit: false, size: 'medium' });
   }
 
   render() {
     return this.compile(
       `
         <li class="{{styles.chat}}">
-          <img
-            class="{{styles.chatAvatar}}"
-            src="{{srcImage}}"
-            alt="Аватар"
-            width="47"
-            height="47"
-          />
+          {{{avatar}}}
           <div class="{{styles.chatPreview}}">
-            <p class="{{styles.chatName}}">{{name}}</p>
+            <p class="{{styles.chatTitle}}">{{title}}</p>
             <p class="{{styles.chatMessage}}">{{message}}</p>
           </div>
           <div class="{{styles.chatInfo}}">

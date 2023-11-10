@@ -73,10 +73,14 @@ export interface PopupStateType {
   };
 }
 
+export type AvatarUpdateType = FormData;
+
 export interface StateType {
   user?: UserStateType;
   errors?: ErrorStateType;
   popup?: PopupStateType;
+  chats?: ChatType[];
+  currentChat?: ChatType;
 }
 
 export interface PasswordChangeType {
@@ -97,10 +101,10 @@ export interface ParseResponseType {
   reason: string;
 }
 
-export interface ChatsType {
+export interface ChatType {
   id: number;
   title: string;
-  avatar: string;
+  avatar: string | null;
   unread_count: number;
   created_by: number;
   last_message: {
@@ -111,7 +115,7 @@ export interface ChatsType {
       email: string;
       login: string;
       phone: string;
-    };
+    } | null;
     time: Date;
     content: string;
   };
@@ -123,4 +127,8 @@ export interface ChatsType {
 
 export interface ChatCreateType {
   title: string;
+}
+
+export interface ChatDeleteType {
+  chatId: number;
 }

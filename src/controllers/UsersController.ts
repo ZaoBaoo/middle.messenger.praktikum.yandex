@@ -4,6 +4,7 @@ import store from '../core/Store.ts';
 import { router } from '../core/Router.ts';
 import { ParseResponseType, Routes } from '../types.ts';
 import { parseResponse } from '../utils/parseResponse.ts';
+import { AuthController } from './AuthController.ts';
 
 export class UsersController {
   static async passwordChange(data: PasswordChangeType) {
@@ -33,6 +34,8 @@ export class UsersController {
   static async userChange(data: UserChangeType) {
     try {
       await usersApi.userChangeRequest(data);
+
+      await AuthController.fetchUser();
 
       router.go(Routes.Profile);
     } catch (err) {

@@ -6,6 +6,7 @@ import store from '../core/Store.ts';
 
 export class AuthController {
   static async fetchUser() {
+    console.log('fetchUser');
     const user = await authApi.getUser();
 
     store.set('user', user);
@@ -13,6 +14,7 @@ export class AuthController {
 
   static async signIn(data: SignInType) {
     try {
+      console.log('signIn');
       await authApi.signIn(data);
 
       await this.fetchUser();

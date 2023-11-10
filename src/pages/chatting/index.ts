@@ -1,17 +1,18 @@
 import styles from './chatting.module.module.scss';
 import Block from '../../core/Block.ts';
-import avatar from '../../images/placeholder-photo-icon.svg';
 
 // Components
-import { InputControlDialog } from '../../components/input-control-dialog/index.ts';
 import { ChatsInner } from '../../components/chats-inner/index.ts';
-import { MessageInner } from '../../components/message-inner/index.ts';
-import { ChatSettings } from '../../components/chat-settings/index.ts';
-import { StateType } from '../../types.ts';
-import store, { withStore } from '../../core/Store.ts';
 import { PopupChat } from '../../components/popup-chat/index.ts';
 import { Button } from '../../components/button/index.ts';
 import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
+
+// Store
+import store, { withStore } from '../../core/Store.ts';
+
+// Type
+import type { StateType } from '../../types.ts';
+import { DialogWindow } from '../../components/dialog-window/index.ts';
 
 export class BaseChatting extends Block {
   constructor() {
@@ -24,12 +25,7 @@ export class BaseChatting extends Block {
 
   init() {
     this.props.styles = styles;
-    this.props.avatar = avatar;
 
-    this.children.dialogControl = new InputControlDialog();
-    this.children.chatsInner = new ChatsInner();
-    this.children.messageInner = new MessageInner();
-    this.children.chatSettings = new ChatSettings();
     this.children.buttonAddChat = new Button({
       type: 'button',
       text: 'Добавить чат',
@@ -43,10 +39,18 @@ export class BaseChatting extends Block {
   }
 
   componentDidUpdate() {
-    const { popupData } = this.props;
+    const { popupData, chats, currentChat } = this.props;
 
     if (popupData) {
       this.children.popup = new PopupChat({ type: popupData.type });
+    }
+
+    if (chats) {
+      this.children.chatsInner = new ChatsInner({ chats });
+    }
+
+    if (currentChat) {
+      this.children.dialogWindow = new DialogWindow({ currentChat });
     }
 
     return true;
@@ -68,21 +72,11 @@ export class BaseChatting extends Block {
                   </div>
                   <input class="{{styles.search}}" type="text" placeholder="Поиск" />
                 </div>
-        
                 {{{chatsInner}}}
               </aside>
-        
-              <div class="{{styles.dialogWindow}}">
-                <div class="{{styles.dialogHeader}}">
-                  <div class="{{styles.dialogUserInfo}}">
-                    <img class="{{styles.dialogUserAvatar}}" src="{{avatar}}" alt="Аватар" />
-                    <p class="{{styles.dialogUserName}}">Вадим</p>
-                  </div>
-                  {{{chatSettings}}}
-                </div>
-                {{{messageInner}}}
-                {{{dialogControl}}}
-              </div>
+              
+              {{{dialogWindow}}}
+       
             </div>
           </section>
           {{#if popupData.isShow}}
@@ -96,6 +90,8 @@ export class BaseChatting extends Block {
 
 const mapStateToProps = (state: StateType) => ({
   popupData: state.popup?.chat,
+  chats: state.chats,
+  currentChat: state.currentChat,
 });
 
 export const Chatting = withStore(mapStateToProps)(BaseChatting);

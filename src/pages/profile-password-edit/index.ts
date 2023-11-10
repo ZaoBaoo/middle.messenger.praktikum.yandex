@@ -7,18 +7,19 @@ import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
 import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 
-// Types
-import type { PasswordChangeType } from '../../types.ts';
+// Store
+import { withStore } from '../../core/Store.ts';
 
 // Controller
 import { UsersController } from '../../controllers/UsersController.ts';
-import { StateType } from '../../types.ts';
-import { withStore } from '../../core/Store.ts';
-import { AuthController } from '../../controllers/AuthController.ts';
+
+// Types
+import type { StateType, PasswordChangeType } from '../../types.ts';
+import type { ProfilePasswordEditPropsType } from './types.ts';
 
 class BaseProfilePasswordEdit extends Block {
-  constructor() {
-    super({});
+  constructor(props: ProfilePasswordEditPropsType) {
+    super(props);
   }
 
   async handlerChangesPassword(response: PasswordChangeType) {
@@ -29,6 +30,9 @@ class BaseProfilePasswordEdit extends Block {
     this.props.styles = styles;
     this.props.arrow = arrow;
 
+    console.log(this.props);
+
+    this.children.avatar = new Avatar({ src: this.props.avatar, isEdit: false, size: 'large' });
     this.children.form = new FormProfile({
       dataInputsForRender: passwordEditInputs,
       buttonData: {
@@ -37,21 +41,6 @@ class BaseProfilePasswordEdit extends Block {
       },
       submitCallback: this.handlerChangesPassword,
     });
-  }
-
-  async componentDidMount() {
-    await AuthController.fetchUser();
-  }
-
-  componentDidUpdate() {
-    const { user } = this.props;
-
-    if (user) {
-      this.children.avatar = new Avatar({ src: user.avatar, isEdit: false });
-      this.children.avatar.dispatchComponentDidMount();
-    }
-
-    return true;
   }
 
   render() {
@@ -80,9 +69,7 @@ class BaseProfilePasswordEdit extends Block {
 }
 
 const mapStateToProps = (state: StateType) => ({
-  user: {
-    avatar: state.user?.avatar,
-  },
+  avatar: state.user?.avatar,
 });
 
 export const ProfilePasswordEdit = withStore(mapStateToProps)(BaseProfilePasswordEdit);

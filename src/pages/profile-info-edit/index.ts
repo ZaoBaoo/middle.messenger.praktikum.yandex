@@ -51,6 +51,7 @@ export class BaseProfileInfoEdit extends Block {
         src: user?.avatar,
         isEdit: true,
         events: { change: this.handlerChangesAvatar },
+        size: 'large',
       });
 
       const dataForRender = profileInputsData.map((inputData) => {

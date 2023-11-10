@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // await AuthController.logOut();
+
     await AuthController.fetchUser();
 
     router.start();

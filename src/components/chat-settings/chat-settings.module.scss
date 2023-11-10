@@ -59,22 +59,34 @@
   &:hover {
     opacity: 0.6;
   }
-}
 
-.setting_add {
   &::before {
     content: "";
     width: 22px;
     height: 22px;
-    background-image: url('/src/images/setting-add.svg');
   }
 }
 
-.setting_remove {
+.settingAddUser {
   &::before {
-    content: "";
     width: 22px;
     height: 22px;
-    background-image: url('/src/images/setting-remove.svg');
+    background-image: url('/src/images/setting-user-add.svg');
+  }
+}
+
+.settingRemoveUser {
+  &::before {
+    width: 22px;
+    height: 22px;
+    background-image: url('/src/images/setting-user-remove.svg');
+  }
+}
+
+.settingRemoveChat {
+  &::before {
+    width: 22px;
+    height: 22px;
+    background-image: url('/src/images/setting-chat-remove.svg');
   }
 }

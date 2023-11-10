@@ -21,14 +21,19 @@ export class ChatSettings extends Block {
       return;
     }
 
-    if (attribute === 'add') {
+    if (attribute === 'addUser') {
       this.props.isModalShow = false;
       store.set('popup.chat', { isShow: true, type: 'addUser' });
     }
 
-    if (attribute === 'remove') {
+    if (attribute === 'removeUser') {
       this.props.isModalShow = false;
       store.set('popup.chat', { isShow: true, type: 'removeUser' });
+    }
+
+    if (attribute === 'removeChat') {
+      this.props.isModalShow = false;
+      store.set('popup.chat', { isShow: true, type: 'removeChat' });
     }
   }
 
@@ -47,11 +52,14 @@ export class ChatSettings extends Block {
           <button class="{{styles.button}}" data-button="control"></button>
           {{#if isModalShow}}
             <div class="{{styles.modal}}">
-              <button class="{{styles.setting}} {{styles.setting_add}}" data-button="add">
+              <button class="{{styles.setting}} {{styles.settingAddUser}}" data-button="addUser">
                 Добавить пользователя
               </button>
-              <button class="{{styles.setting}} {{styles.setting_remove}}" data-button="remove">
+              <button class="{{styles.setting}} {{styles.settingRemoveUser}}" data-button="removeUser">
                 Удалить пользователя
+              </button> 
+              <button class="{{styles.setting}} {{styles.settingRemoveChat}}" data-button="removeChat">
+                Удалить чат
               </button> 
             </div>
           {{/if}}

@@ -10,17 +10,18 @@ import { Link } from '../../components/link/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
 import { Button } from '../../components/button/index.ts';
-import { StateType } from '../../types.ts';
+import { StateType, UserStateType } from '../../types.ts';
 
 // Store
 import { withStore } from '../../core/Store.ts';
 
 class BaseProfile extends Block {
-  constructor() {
-    super({});
+  constructor(props: UserStateType) {
+    super(props);
   }
 
   init() {
+    console.log('BaseProfile', this.props);
     this.props.styles = styles;
     this.props.arrow = arrow;
     this.children.inputs = [];
@@ -39,33 +40,41 @@ class BaseProfile extends Block {
       to: '/profile-password-edit',
       text: 'Изменить пароль',
     });
+    const dataForRender = profileInputsData.map((inputData) => {
+      const value = this.props.user[inputData.name];
+      return { ...inputData, value };
+    });
+    this.children.avatar = new Avatar({ src: this.props.user.avatar, isEdit: false, size: 'large' });
+    this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
   }
 
-  async componentDidMount() {
-    await AuthController.fetchUser();
-  }
+  // async componentDidMount() {
+  //   await AuthController.fetchUser();
+  // }
 
-  componentDidUpdate() {
-    const { user } = this.props;
-
-    if (user) {
-      const dataForRender = profileInputsData.map((inputData) => {
-        const value = user[inputData.name];
-
-        return {
-          ...inputData,
-          value,
-        };
-      });
-
-      this.children.avatar = new Avatar({ src: user.avatar, isEdit: false });
-      this.children.avatar.dispatchComponentDidMount();
-      this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
-      this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
-    }
-
-    return true;
-  }
+  // componentDidUpdate() {
+  //   const { user } = this.props;
+  //
+  //   if (user) {
+  //     const dataForRender = profileInputsData.map((inputData) => {
+  //       const value = user[inputData.name];
+  //
+  //       return {
+  //         ...inputData,
+  //         value,
+  //       };
+  //     });
+  //
+  //     console.log(this.props);
+  //
+  //     this.children.avatar = new Avatar({ src: user.avatar, isEdit: false, size: 'large' });
+  //     this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
+  //     this.children.avatar.dispatchComponentDidMount();
+  //     this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
+  //   }
+  //
+  //   return true;
+  // }
 
   render() {
     return this.compile(
@@ -109,15 +118,7 @@ class BaseProfile extends Block {
 }
 
 const mapStateToProps = (state: StateType) => ({
-  user: {
-    login: state.user?.login,
-    phone: state.user?.phone,
-    email: state.user?.email,
-    avatar: state.user?.avatar,
-    first_name: state.user?.first_name,
-    second_name: state.user?.second_name,
-    display_name: state.user?.display_name,
-  },
+  user: state.user,
 });
 
 export const Profile = withStore(mapStateToProps)(BaseProfile);

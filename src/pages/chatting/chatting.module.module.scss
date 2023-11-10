@@ -86,37 +86,3 @@
   }
 }
 
-.dialogWindow {
-  display: grid;
-  height: 100%;
-  padding: 0 20px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 54px 1fr 54px;
-  overflow: hidden;
-}
-
-.dialogHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--pale-gray-20);
-}
-
-.dialogUserInfo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dialogUserAvatar {
-  width: 34px;
-  height: 34px;
-}
-
-.dialogUserName {
-  color: var(--black);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 13px;
-}

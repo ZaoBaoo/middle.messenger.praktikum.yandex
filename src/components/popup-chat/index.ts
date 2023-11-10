@@ -24,6 +24,12 @@ export const popupOptions: PopupOptionsType = {
     name: 'popupChat',
     label: 'Название чата',
   },
+  removeChat: {
+    title: 'Удалить чат',
+    textButton: 'Удалить',
+    name: 'popupChat',
+    label: 'Название чата',
+  },
 };
 
 export class PopupChat extends Block {
@@ -48,6 +54,11 @@ export class PopupChat extends Block {
     switch (this.props.type) {
       case 'addChat':
         await ChatsControllers.createChat({ title });
+        await ChatsControllers.fetchingChats();
+        break;
+      case 'removeChat':
+        await ChatsControllers.deleteChat({ chatId: 33477 });
+        await ChatsControllers.fetchingChats();
         break;
       default:
         break;

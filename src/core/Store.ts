@@ -3,6 +3,7 @@ import Block from './Block.ts';
 import { EventBus } from './EventBus.ts';
 import { set } from '../utils/set.ts';
 import type { StateType } from '../types.ts';
+import { isEqual } from '../utils/isEqual.ts';
 
 enum StorageEvent {
   UpdateState = 'update',
@@ -30,11 +31,17 @@ export function withStore(mapStateToProps: (state: StateType) => any) {
       constructor(props: any) {
         super({ ...props, ...mapStateToProps(store.getState()) });
 
+        let oldPartState = mapStateToProps(store.getState());
+
         store.on(StorageEvent.UpdateState, () => {
           const propsFromState = mapStateToProps(store.getState());
 
-          console.log('STORE: ', propsFromState);
-          this.setProps(propsFromState);
+          if (!isEqual(oldPartState, propsFromState)) {
+            console.log(propsFromState);
+            this.setProps({ ...propsFromState });
+          }
+
+          oldPartState = propsFromState;
         });
       }
     };
