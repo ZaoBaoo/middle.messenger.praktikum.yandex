@@ -8,8 +8,6 @@ export class AuthController {
   static async fetchUser() {
     const user = await authApi.getUser();
 
-    console.log('USER: ', user);
-
     store.set('user', user);
   }
 

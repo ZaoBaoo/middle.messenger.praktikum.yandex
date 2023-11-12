@@ -7,16 +7,16 @@ import { Link } from '../../components/link/index.ts';
 // Types
 // import { ErrorPageType } from './types.ts';
 
-// const def = {
-//   code: '505',
-//   text: 'Мы уже фиксим',
-//   redirectTo: '/messenger',
-//   redirectText: 'Назад к чатам',
-// };
+const def = {
+  code: '404',
+  text: 'Страница не найдена',
+  redirectTo: '/messenger',
+  redirectText: 'Назад к чатам',
+};
 
 export class ErrorPage extends Block {
   constructor() {
-    super({});
+    super(def);
   }
 
   init() {

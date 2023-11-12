@@ -25,16 +25,17 @@
 
 .modal {
   display: flex;
-  gap: 16px;
   position: absolute;
   top: 50px;
   right: 0;
+  z-index: 10;
   flex-direction: column;
   width: 210px;
   padding: 15px;
   border-radius: 12px;
   background: #FFF;
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+  gap: 16px;
 }
 
 .modal_show {

@@ -40,8 +40,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    // await AuthController.logOut();
-
     await AuthController.fetchUser();
 
     router.start();
@@ -55,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     router.start();
 
     if (isProtectedRoute) {
-      router.go(Routes.Main);
+      router.go(Routes.Login);
     }
   }
 });

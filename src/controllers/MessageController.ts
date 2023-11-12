@@ -65,8 +65,6 @@ export class MessageController {
     if (messages && webSocket) {
       const indexLastMessage = Math.max(...messages.map((message) => message.id));
 
-      console.log(messages);
-
       webSocket.send(
         JSON.stringify({
           content: `${indexLastMessage}`,

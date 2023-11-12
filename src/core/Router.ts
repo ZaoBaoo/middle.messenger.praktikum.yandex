@@ -1,5 +1,6 @@
 import Block from './Block.ts';
 import { Route } from './Route.ts';
+import { Routes } from '../types.ts';
 
 class Router {
   private static __instance: Router;
@@ -41,6 +42,7 @@ class Router {
     const route = this.getRoute(pathname);
 
     if (!route) {
+      this.go(Routes.ErrorPage);
       return;
     }
 
