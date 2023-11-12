@@ -8,11 +8,13 @@ import { Link } from '../../components/link/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
 import { InputWrapperProfile } from '../../components/input-wrapper-profile/index.ts';
 import { Button } from '../../components/button/index.ts';
+import { LinkArrow } from '../../components/link-arrow/index.ts';
+
+// Types
 import { StateType, UserStateType } from '../../types.ts';
 
 // Store
 import { withStore } from '../../core/Store.ts';
-import { LinkArrow } from '../../components/link-arrow';
 
 class BaseProfile extends Block {
   constructor(props: UserStateType) {

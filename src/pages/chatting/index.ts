@@ -6,6 +6,7 @@ import { ChatsInner } from '../../components/chats-inner/index.ts';
 import { PopupChat } from '../../components/popup-chat/index.ts';
 import { Button } from '../../components/button/index.ts';
 import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
+import { Link } from '../../components/link/index.ts';
 
 // Store
 import store, { withStore } from '../../core/Store.ts';
@@ -14,7 +15,6 @@ import store, { withStore } from '../../core/Store.ts';
 import type { StateType } from '../../types.ts';
 import { DialogWindow } from '../../components/dialog-window/index.ts';
 import { POPUP_TYPE } from '../../types.ts';
-import { Link } from '../../components/link';
 
 // <a href="/profile">
 // <p class="{{styles.asideProfileText}}">Профиль</p>

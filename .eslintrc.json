@@ -25,6 +25,7 @@
     "no-restricted-syntax": "off",
     "no-prototype-builtins": "off",
     "no-continue": "off",
-    "max-classes-per-file": "off"
+    "max-classes-per-file": "off",
+    "no-empty-function": "off"
   }
 }

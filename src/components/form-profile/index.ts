@@ -8,8 +8,7 @@ import { InputWrapperProfile } from '../input-wrapper-profile/index.ts';
 
 // Types
 import type { FormProfileProps } from './types.ts';
-import type { WrapperAccountProps } from '../../types.ts';
-import { StateType } from '../../types.ts';
+import type { WrapperAccountProps, StateType } from '../../types.ts';
 import { withStore } from '../../core/Store.ts';
 
 export class BaseFormProfile<T> extends Block {
@@ -44,9 +43,9 @@ export class BaseFormProfile<T> extends Block {
               ) as HTMLInputElement[];
 
             if (inputsPassword.length) {
-              const [password, passwordConfirm] = inputsPassword;
+              const [passwordInput, passwordConfirmInput] = inputsPassword;
 
-              if (password.value !== passwordConfirm.value) {
+              if (passwordInput.value !== passwordConfirmInput.value) {
                 const [, newPassword, passwordConfirm] = this.children.inputs;
 
                 if (!Array.isArray(newPassword.children.error) && !Array.isArray(passwordConfirm.children.error)) {

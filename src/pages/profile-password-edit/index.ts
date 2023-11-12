@@ -6,6 +6,7 @@ import { passwordEditInputs } from '../../data/password-edit-inputs.ts';
 // Components
 import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
+import { LinkArrow } from '../../components/link-arrow/index.ts';
 
 // Store
 import { withStore } from '../../core/Store.ts';
@@ -16,7 +17,6 @@ import { UsersController } from '../../controllers/UsersController.ts';
 // Types
 import type { StateType, PasswordChangeType } from '../../types.ts';
 import type { ProfilePasswordEditPropsType } from './types.ts';
-import { LinkArrow } from '../../components/link-arrow';
 
 class BaseProfilePasswordEdit extends Block {
   constructor(props: ProfilePasswordEditPropsType) {

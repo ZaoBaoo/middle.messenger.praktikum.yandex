@@ -7,12 +7,12 @@ import { profileInputsData } from '../../data/profile-inputs-data.ts';
 // Components
 import { FormProfile } from '../../components/form-profile/index.ts';
 import { Avatar } from '../../components/avatar/index.ts';
+import { LinkArrow } from '../../components/link-arrow/index.ts';
 
 // Types
 import { StateType, UserChangeType } from '../../types.ts';
 import { UsersController } from '../../controllers/UsersController.ts';
 import store, { withStore } from '../../core/Store.ts';
-import { LinkArrow } from '../../components/link-arrow';
 
 export class BaseProfileInfoEdit extends Block {
   constructor() {
