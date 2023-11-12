@@ -13,6 +13,7 @@ import store, { withStore } from '../../core/Store.ts';
 // Type
 import type { StateType } from '../../types.ts';
 import { DialogWindow } from '../../components/dialog-window/index.ts';
+import { POPUP_TYPE } from '../../types.ts';
 
 export class BaseChatting extends Block {
   constructor() {
@@ -20,7 +21,7 @@ export class BaseChatting extends Block {
   }
 
   handlerOpenPopup() {
-    store.set('popup.chat', { isShow: true, type: 'addChat' });
+    store.set('popup.chat', { isShow: true, type: POPUP_TYPE.CREATE_CHAT });
   }
 
   init() {
@@ -32,6 +33,7 @@ export class BaseChatting extends Block {
       view: 'addChat',
       events: { click: this.handlerOpenPopup },
     });
+    this.children.dialogWindow = new DialogWindow({});
   }
 
   async componentDidMount() {
@@ -39,7 +41,7 @@ export class BaseChatting extends Block {
   }
 
   componentDidUpdate() {
-    const { popupData, chats, currentChat } = this.props;
+    const { popupData, chats } = this.props;
 
     if (popupData) {
       this.children.popup = new PopupChat({ type: popupData.type });
@@ -47,14 +49,6 @@ export class BaseChatting extends Block {
 
     if (chats) {
       this.children.chatsInner = new ChatsInner({ chats });
-    }
-
-    if (currentChat) {
-      this.children.dialogWindow = new DialogWindow({ currentChat: currentChat[0] });
-    } else {
-      if (!Array.isArray(this.children.dialogWindow)) {
-        this.children.dialogWindow?.hide();
-      }
     }
 
     return true;
@@ -78,7 +72,9 @@ export class BaseChatting extends Block {
                 </div>
                 {{{chatsInner}}}
               </aside>
-              {{{dialogWindow}}}
+              {{#if currentChat}}
+                {{{dialogWindow}}}
+              {{/if}}
             </div>
           </section>
           {{#if popupData.isShow}}
@@ -93,7 +89,7 @@ export class BaseChatting extends Block {
 const mapStateToProps = (state: StateType) => ({
   popupData: state.popup?.chat,
   chats: state.chats,
-  currentChat: state.currentChat,
+  currentChat: state.currentChat?.[0],
 });
 
 export const Chatting = withStore(mapStateToProps)(BaseChatting);

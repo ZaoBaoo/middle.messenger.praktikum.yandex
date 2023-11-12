@@ -1,6 +1,7 @@
 import { chatsApi } from '../api/ChatsApi.ts';
-import { AvatarUpdateType, ChatCreateType } from '../types.ts';
+import { AddUsersToChatType, AvatarUpdateType, ChatCreateType, DeleteUsersFromChat } from '../types.ts';
 import store from '../core/Store.ts';
+import { MessageController } from './MessageController.ts';
 
 export class ChatsControllers {
   static async fetchingChats() {
@@ -53,9 +54,45 @@ export class ChatsControllers {
   }
 
   static currentChat(id: number) {
-    const { chats } = store.getState();
+    const { chats, currentChat, webSocket } = store.getState();
 
     const targetChat = chats?.find((chat) => chat.id === id);
-    store.set('currentChat', [targetChat]);
+
+    if (!currentChat || currentChat[0].id !== targetChat?.id) {
+      store.set('messages', undefined);
+      store.set('currentChat', [targetChat]);
+      if (webSocket) {
+        webSocket.close();
+        store.set('webSocket', undefined);
+      }
+      MessageController.OpenChatConnection(id);
+    }
+  }
+
+  static async addUsersToChat(userId: number) {
+    try {
+      const { currentChat } = store.getState();
+
+      if (currentChat) {
+        const { id: chatId } = currentChat[0];
+
+        const data: AddUsersToChatType = {
+          users: [userId],
+          chatId,
+        };
+
+        await chatsApi.addUsersToChatRequest(data);
+      }
+    } catch (err) {
+      console.log('addUsersToChat', err);
+    }
+  }
+
+  static async deleteUsersToChat(data: DeleteUsersFromChat) {
+    try {
+      await chatsApi.deleteUsersFromChatRequest(data);
+    } catch (err) {
+      console.log('deleteUsersToChat', err);
+    }
   }
 }

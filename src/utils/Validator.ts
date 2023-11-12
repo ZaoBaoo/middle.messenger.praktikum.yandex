@@ -26,7 +26,7 @@ export default class Validator {
     [INPUT_NAME.PHONE]: 'Телефон указан неверно',
     [INPUT_NAME.MESSAGE]: '',
     [INPUT_NAME.DISPLAY_NAME]: 'Недопустимое имя в чате',
-    [INPUT_NAME.POPUP_USER]: 'Имя некорректно',
+    [INPUT_NAME.POPUP_USER]: 'ID некорректное',
     [INPUT_NAME.POPUP_CHAT]: 'Имя чата не может быть пустым',
   };
 
@@ -42,7 +42,7 @@ export default class Validator {
     [INPUT_NAME.PHONE]: /^\+?\d{10,15}$/,
     [INPUT_NAME.MESSAGE]: /^.+$/,
     [INPUT_NAME.DISPLAY_NAME]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
-    [INPUT_NAME.POPUP_USER]: /^[А-ЯЁA-Z][а-яёA-Za-z-]*$/,
+    [INPUT_NAME.POPUP_USER]: /^\d+$/,
     [INPUT_NAME.POPUP_CHAT]: /^.+$/,
   };
 

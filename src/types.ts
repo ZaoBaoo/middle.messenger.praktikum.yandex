@@ -81,6 +81,19 @@ export interface StateType {
   popup?: PopupStateType;
   chats?: ChatType[];
   currentChat?: [ChatType];
+  webSocket?: WebSocket;
+  messages?: MessageType[];
+}
+
+export interface MessageType {
+  id: number;
+  user_id: number;
+  chat_id: number;
+  type: string;
+  time: Date;
+  content: string;
+  is_read: boolean;
+  file: null;
 }
 
 export interface PasswordChangeType {
@@ -121,9 +134,12 @@ export interface ChatType {
   };
 }
 
-// export interface ChatCreateSuccessfulType {
-//   reason: string;
-// }
+export interface AddUsersToChatType {
+  users: number[];
+  chatId: number;
+}
+
+export interface DeleteUsersFromChat extends AddUsersToChatType {}
 
 export interface ChatCreateType {
   title: string;
@@ -131,4 +147,15 @@ export interface ChatCreateType {
 
 export interface ChatDeleteType {
   chatId: number;
+}
+
+export enum POPUP_TYPE {
+  ADD_USER_TO_CHAT = 'addUserToChat',
+  DELETE_USER_FROM_CHAT = 'deleteUserFromChat',
+  CREATE_CHAT = 'createChat',
+  DELETE_CHAT = 'deleteChat',
+}
+
+export interface GetTokenType {
+  token: string;
 }

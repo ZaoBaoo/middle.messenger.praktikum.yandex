@@ -11,10 +11,15 @@ export class Chat extends Block {
     super(props);
   }
 
+  async handlerCurrentChatAndMessages() {
+    const chatId = this.props.id;
+    ChatsControllers.currentChat(chatId);
+  }
+
   init() {
     this.props.styles = styles;
     this.props.events = {
-      click: () => ChatsControllers.currentChat(this.props.id),
+      click: this.handlerCurrentChatAndMessages.bind(this),
     };
     this.children.avatar = new Avatar({ src: this.props.avatar, isEdit: false, size: 'medium' });
   }

@@ -1,6 +1,5 @@
 import styles from './input-control-dialog.module.scss';
 import Block from '../../core/Block.ts';
-import { FormDataResponseType } from '../../types.ts';
 import { validator } from '../../utils/Validator.ts';
 
 export class InputControlDialog extends Block {
@@ -8,8 +7,13 @@ export class InputControlDialog extends Block {
     super({});
   }
 
-  handlerSendMessage(response: FormDataResponseType) {
-    console.log(response);
+  handlerSendMessage(message: string) {
+    this.props.currentMessageSocket.send(
+      JSON.stringify({
+        content: message,
+        type: 'message',
+      }),
+    );
   }
 
   init() {
@@ -24,7 +28,7 @@ export class InputControlDialog extends Block {
         const resultValidation = validator.isFieldValid(value, name);
 
         if (resultValidation.isValid) {
-          this.handlerSendMessage({ [name]: value });
+          this.handlerSendMessage(value);
         }
       },
     };

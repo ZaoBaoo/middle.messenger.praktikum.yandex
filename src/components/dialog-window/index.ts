@@ -6,8 +6,10 @@ import { InputControlDialog } from '../input-control-dialog/index.ts';
 import { Avatar } from '../avatar/index.ts';
 import { DialogWindowPropsType } from './types.ts';
 import { ChatsControllers } from '../../controllers/ChatsControllers.ts';
+import { withStore } from '../../core/Store.ts';
+import { StateType } from '../../types.ts';
 
-export class DialogWindow extends Block {
+export class BaseDialogWindow extends Block {
   constructor(props: DialogWindowPropsType) {
     super(props);
   }
@@ -30,17 +32,23 @@ export class DialogWindow extends Block {
 
   init() {
     this.props.styles = styles;
-    const { currentChat } = this.props;
 
     this.children.chatSettings = new ChatSettings();
-    this.children.messageInner = new MessageInner();
+    this.children.messageInner = new MessageInner({});
     this.children.dialogControl = new InputControlDialog();
+  }
+
+  componentDidUpdate() {
+    const { currentChat } = this.props;
+
     this.children.avatar = new Avatar({
       src: currentChat?.avatar,
       isEdit: false,
       size: 'small',
       events: { change: this.handlerChangesAvatarChat.bind(this) },
     });
+
+    return true;
   }
 
   render() {
@@ -61,3 +69,9 @@ export class DialogWindow extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  currentChat: state.currentChat?.[0],
+});
+
+export const DialogWindow = withStore(mapStateToProps)(BaseDialogWindow);
