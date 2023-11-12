@@ -1,7 +1,5 @@
 import styles from './profile.module.scss';
 import Block from '../../core/Block.ts';
-// import avatar from '../../images/placeholder-photo-icon.svg';
-import arrow from '../../images/back-arrow-icon.svg';
 import { profileInputsData } from '../../data/profile-inputs-data.ts';
 import { AuthController } from '../../controllers/AuthController.ts';
 
@@ -14,6 +12,7 @@ import { StateType, UserStateType } from '../../types.ts';
 
 // Store
 import { withStore } from '../../core/Store.ts';
+import { LinkArrow } from '../../components/link-arrow';
 
 class BaseProfile extends Block {
   constructor(props: UserStateType) {
@@ -22,7 +21,6 @@ class BaseProfile extends Block {
 
   init() {
     this.props.styles = styles;
-    this.props.arrow = arrow;
     this.children.inputs = [];
 
     this.children.buttonLogOut = new Button({
@@ -32,7 +30,7 @@ class BaseProfile extends Block {
       view: 'logout',
     });
     this.children.linkEditInfo = new Link({
-      to: '/profile-info-edit',
+      to: '/settings',
       text: 'Изменить данные',
     });
     this.children.linkEditPassword = new Link({
@@ -45,46 +43,15 @@ class BaseProfile extends Block {
     });
     this.children.avatar = new Avatar({ src: this.props.user.avatar, isEdit: false, size: 'large' });
     this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
+    this.children.linkArrow = new LinkArrow({ to: '/messenger' });
   }
-
-  // async componentDidMount() {
-  //   await AuthController.fetchUser();
-  // }
-
-  // componentDidUpdate() {
-  //   const { user } = this.props;
-  //
-  //   if (user) {
-  //     const dataForRender = profileInputsData.map((inputData) => {
-  //       const value = user[inputData.name];
-  //
-  //       return {
-  //         ...inputData,
-  //         value,
-  //       };
-  //     });
-  //
-  //     console.log(this.props);
-  //
-  //     this.children.avatar = new Avatar({ src: user.avatar, isEdit: false, size: 'large' });
-  //     this.children.inputs = dataForRender.map((input) => new InputWrapperProfile({ ...input, disabled: true }));
-  //     this.children.avatar.dispatchComponentDidMount();
-  //     this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
-  //   }
-  //
-  //   return true;
-  // }
 
   render() {
     return this.compile(
       `
         <main>
           <section class="{{styles.profile}}">
-            <a class="{{styles.backLink}}" href="/">
-              <div class="{{styles.back}}">
-                 <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
-              </div>
-            </a>
+            {{{linkArrow}}}
             <div class="container">
               <div class="{{styles.content}}">
                 <div class="{{styles.info}}">

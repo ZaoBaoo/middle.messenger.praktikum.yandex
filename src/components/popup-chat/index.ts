@@ -49,9 +49,7 @@ export class PopupChat extends Block {
     }
   }
 
-  async handlerSuccessfulAction(type: string, value: string) {
-    console.log(type, value);
-
+  async handlerSuccessfulAction(value: string) {
     switch (this.props.type) {
       case POPUP_TYPE.CREATE_CHAT:
         await ChatsControllers.createChat({ title: value });
@@ -64,9 +62,14 @@ export class PopupChat extends Block {
       case POPUP_TYPE.ADD_USER_TO_CHAT:
         await ChatsControllers.addUsersToChat(Number(value));
         break;
+      case POPUP_TYPE.DELETE_USER_FROM_CHAT:
+        await ChatsControllers.deleteUsersToChat(Number(value));
+        break;
       default:
         break;
     }
+
+    store.set('popup.chat', undefined);
   }
 
   init() {

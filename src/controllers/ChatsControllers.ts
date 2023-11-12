@@ -88,9 +88,20 @@ export class ChatsControllers {
     }
   }
 
-  static async deleteUsersToChat(data: DeleteUsersFromChat) {
+  static async deleteUsersToChat(userId: number) {
     try {
-      await chatsApi.deleteUsersFromChatRequest(data);
+      const { currentChat } = store.getState();
+
+      if (currentChat) {
+        const { id: chatId } = currentChat[0];
+
+        const data: DeleteUsersFromChat = {
+          users: [userId],
+          chatId,
+        };
+
+        await chatsApi.deleteUsersFromChatRequest(data);
+      }
     } catch (err) {
       console.log('deleteUsersToChat', err);
     }

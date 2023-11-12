@@ -1,4 +1,4 @@
-.link {
+.common {
   color: var(--blue);
   font-size: 11px;
   font-weight: 500;
@@ -9,5 +9,32 @@
 
   &:hover {
     opacity: 0.7;
+  }
+}
+
+.profile {
+  position: relative;
+  color: var(--gray);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+  text-align: right;
+  transition: opacity 0.2s ease-in-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -21px;
+    width: 24px;
+    height: 12px;
+    background-image: url('/src/images/arrow-next-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+  }
+
+  &:hover {
+    opacity: 0.8;
   }
 }

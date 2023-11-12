@@ -236,12 +236,13 @@ class Block<P extends Record<string, any> = any> {
     return document.createElement(tagName);
   }
 
-  show() {
-    this.getContent()!.style.display = 'block';
+  show(query: string, render: Function) {
+    this.eventBus().emit(Block.EVENTS.INIT);
+    render(query, this);
   }
 
   hide() {
-    this.getContent()!.style.display = 'none';
+    this.getContent()!.remove();
   }
 }
 

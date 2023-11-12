@@ -35,7 +35,7 @@ export class BaseDialogWindow extends Block {
 
     this.children.chatSettings = new ChatSettings();
     this.children.messageInner = new MessageInner({});
-    this.children.dialogControl = new InputControlDialog();
+    this.children.dialogControl = new InputControlDialog({});
   }
 
   componentDidUpdate() {

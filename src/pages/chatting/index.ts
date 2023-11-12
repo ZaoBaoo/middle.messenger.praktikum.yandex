@@ -14,6 +14,11 @@ import store, { withStore } from '../../core/Store.ts';
 import type { StateType } from '../../types.ts';
 import { DialogWindow } from '../../components/dialog-window/index.ts';
 import { POPUP_TYPE } from '../../types.ts';
+import { Link } from '../../components/link';
+
+// <a href="/profile">
+// <p class="{{styles.asideProfileText}}">Профиль</p>
+//   </a>
 
 export class BaseChatting extends Block {
   constructor() {
@@ -34,6 +39,7 @@ export class BaseChatting extends Block {
       events: { click: this.handlerOpenPopup },
     });
     this.children.dialogWindow = new DialogWindow({});
+    this.children.link = new Link({ to: '/profile', text: 'ПРОФИЛЬ', type: 'profile' });
   }
 
   async componentDidMount() {
@@ -64,9 +70,7 @@ export class BaseChatting extends Block {
                 <div class="{{styles.asideHeader}}">
                   <div class="{{styles.asideProfile}}">
                     {{{buttonAddChat}}}
-                    <a href="/profile">
-                      <p class="{{styles.asideProfileText}}">Профиль</p>
-                    </a>
+                    {{{link}}}
                   </div>
                   <input class="{{styles.search}}" type="text" placeholder="Поиск" />
                 </div>

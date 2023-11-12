@@ -28,7 +28,9 @@ export class Route {
   ) {}
 
   leave() {
-    this.block = null;
+    if (this.block) {
+      this.block.hide();
+    }
   }
 
   match(pathname: string) {
@@ -40,6 +42,9 @@ export class Route {
       this.block = new this.blockClass({});
 
       render(this.query, this.block);
+      return;
     }
+
+    this.block.show(this.query, render);
   }
 }

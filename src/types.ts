@@ -19,8 +19,8 @@ export enum Routes {
   Login = '/login',
   Register = '/sign-up',
   Profile = '/profile',
-  Chatting = '/chatting',
-  ProfileInfoEdit = '/profile-info-edit',
+  Chatting = '/messenger',
+  ProfileInfoEdit = '/settings',
   ProfilePasswordEdit = '/profile-password-edit',
   ErrorPage = '/404',
 }
@@ -64,6 +64,8 @@ export interface UserStateType {
 
 export interface ErrorStateType {
   password: string;
+  login: string;
+  signup: string;
 }
 
 export interface PopupStateType {
@@ -90,7 +92,7 @@ export interface MessageType {
   user_id: number;
   chat_id: number;
   type: string;
-  time: Date;
+  time: string;
   content: string;
   is_read: boolean;
   file: null;

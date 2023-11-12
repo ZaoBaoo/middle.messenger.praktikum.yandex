@@ -1,11 +1,39 @@
 .message {
+  position: relative;
   max-width: 60%;
-  padding: 11px;
-  border-radius: 12px;
+  padding: 11px 20px 20px 11px;
+  border-radius: 12px 12px 0;
   background-color: #F8F8F8;
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+}
 
-  &:first-child {
-    align-self: flex-end;
-  }
+.wrapper {
+  display: flex;
+}
+
+.time {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.blue {
+  color: var(--blue);
+}
+
+.gray {
+  color: #999;
+}
+
+.messagesOthers {
+  align-self: flex-start;
+}
+
+.messageUser {
+  align-self: flex-end;
+  background-color: var(--while-blue);
 }

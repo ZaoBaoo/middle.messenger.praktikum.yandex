@@ -12,6 +12,7 @@ import { Avatar } from '../../components/avatar/index.ts';
 import { StateType, UserChangeType } from '../../types.ts';
 import { UsersController } from '../../controllers/UsersController.ts';
 import store, { withStore } from '../../core/Store.ts';
+import { LinkArrow } from '../../components/link-arrow';
 
 export class BaseProfileInfoEdit extends Block {
   constructor() {
@@ -37,11 +38,8 @@ export class BaseProfileInfoEdit extends Block {
   init() {
     this.props.styles = styles;
     this.props.arrow = arrow;
+    this.children.linkArrow = new LinkArrow({ to: '/messenger' });
   }
-
-  // async componentDidMount() {
-  //   await AuthController.fetchUser();
-  // }
 
   componentDidUpdate() {
     const { user } = store.getState();
@@ -77,11 +75,7 @@ export class BaseProfileInfoEdit extends Block {
       `
         <main>
           <section class="{{styles.profilePasswordEdit}}">
-            <a class="{{styles.backLink}}" href="/">
-              <div class="{{styles.back}}">
-                 <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
-              </div>
-            </a>
+            {{{linkArrow}}}
             <div class="container">
               <div class="{{styles.content}}">
                 <div class="{{styles.info}}">

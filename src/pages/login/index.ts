@@ -7,10 +7,11 @@ import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
 
 // Types
-import { SignInType } from '../../types.ts';
+import { SignInType, StateType } from '../../types.ts';
 import { AuthController } from '../../controllers/AuthController.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class Login extends Block {
+export class BaseLogin extends Block {
   constructor() {
     super({ title: 'Вход' });
   }
@@ -24,7 +25,7 @@ export class Login extends Block {
 
     this.children.link = new Link({
       text: 'Нет аккаунта?',
-      to: '/sign-in',
+      to: '/sign-up',
     });
     this.children.form = new FormAccount({
       dataInputsForRender: loginInputsData,
@@ -45,6 +46,7 @@ export class Login extends Block {
               <div class="{{styles.block}}">
                 <h1 class="{{styles.title}}">{{title}}</h1>
                   {{{form}}}
+                  <span class="{{styles.error}}">{{error}}</span>
                 <div class="{{styles.wrapperLink}}">
                   {{{link}}}
                 </div>
@@ -56,3 +58,9 @@ export class Login extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  error: state.errors?.login,
+});
+
+export const Login = withStore(mapStateToProps)(BaseLogin);

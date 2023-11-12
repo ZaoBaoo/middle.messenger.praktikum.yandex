@@ -21,6 +21,7 @@ export class AuthController {
 
       router.go(Routes.Chatting);
     } catch (err) {
+      store.set('errors.login', 'Некорректные данные для входа');
       console.log(err, 'signup get user');
     }
   }
@@ -33,6 +34,7 @@ export class AuthController {
 
       router.go(Routes.Chatting);
     } catch (err) {
+      store.set('errors.signup', 'Некорректные данные для регистрации');
       console.log(err, 'signup get user');
     }
   }

@@ -49,13 +49,11 @@ class Router {
     }
 
     this.currentRoute = route;
-
     route.render();
   }
 
   public go(pathname: string) {
     this.history.pushState({}, '', pathname);
-
     this._onRoute(pathname);
   }
 

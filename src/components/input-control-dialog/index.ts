@@ -1,14 +1,16 @@
 import styles from './input-control-dialog.module.scss';
 import Block from '../../core/Block.ts';
 import { validator } from '../../utils/Validator.ts';
+import { StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class InputControlDialog extends Block {
+export class BaseInputControlDialog extends Block {
   constructor() {
     super({});
   }
 
   handlerSendMessage(message: string) {
-    this.props.currentMessageSocket.send(
+    this.props.webSocket.send(
       JSON.stringify({
         content: message,
         type: 'message',
@@ -29,6 +31,7 @@ export class InputControlDialog extends Block {
 
         if (resultValidation.isValid) {
           this.handlerSendMessage(value);
+          form.reset();
         }
       },
     };
@@ -49,3 +52,9 @@ export class InputControlDialog extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  webSocket: state.webSocket,
+});
+
+export const InputControlDialog = withStore(mapStateToProps)(BaseInputControlDialog);

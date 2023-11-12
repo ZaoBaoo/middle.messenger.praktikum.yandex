@@ -16,7 +16,7 @@ class ChatsApi extends API {
   }
 
   async fetchingChatsRequest() {
-    return this.http.get<ChatType[]>('/');
+    return this.http.get<ChatType[]>('?limit=50');
   }
 
   async createChatRequest(data: ChatCreateType) {

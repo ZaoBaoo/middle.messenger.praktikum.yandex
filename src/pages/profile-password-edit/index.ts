@@ -16,6 +16,7 @@ import { UsersController } from '../../controllers/UsersController.ts';
 // Types
 import type { StateType, PasswordChangeType } from '../../types.ts';
 import type { ProfilePasswordEditPropsType } from './types.ts';
+import { LinkArrow } from '../../components/link-arrow';
 
 class BaseProfilePasswordEdit extends Block {
   constructor(props: ProfilePasswordEditPropsType) {
@@ -30,6 +31,7 @@ class BaseProfilePasswordEdit extends Block {
     this.props.styles = styles;
     this.props.arrow = arrow;
 
+    this.children.linkArrow = new LinkArrow({ to: '/messenger' });
     this.children.avatar = new Avatar({ src: this.props.avatar, isEdit: false, size: 'large' });
     this.children.form = new FormProfile({
       dataInputsForRender: passwordEditInputs,
@@ -46,11 +48,7 @@ class BaseProfilePasswordEdit extends Block {
       `
         <main>
           <section class="{{styles.profilePasswordEdit}}">
-            <a class="{{styles.backLink}}" href="/">
-              <div class="{{styles.back}}">
-                 <img class="{{styles.backIcon}}" src="{{arrow}}" alt="Вернуться назад">
-              </div>
-            </a>
+            {{{linkArrow}}}
             <div class="container">
               <div class="{{styles.content}}">
                 <div class="{{styles.info}}">

@@ -44,7 +44,7 @@ export class FormChat extends Block {
             }
 
             if (isInputValid.isValid) {
-              this.props.callback(this.props.type, currentInputElement.value);
+              this.props.callback(currentInputElement.value);
             }
           }
         },

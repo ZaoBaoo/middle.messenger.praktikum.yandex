@@ -10,7 +10,7 @@ import { Link } from '../../components/link/index.ts';
 // const def = {
 //   code: '505',
 //   text: 'Мы уже фиксим',
-//   redirectTo: '/chatting',
+//   redirectTo: '/messenger',
 //   redirectText: 'Назад к чатам',
 // };
 

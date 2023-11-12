@@ -1,4 +1,4 @@
-import './sing-up.scss';
+import styles from './sing-up.module.scss';
 import Block from '../../core/Block.ts';
 import { signInInputsData } from '../../data/sign-in-inputs-data.ts';
 
@@ -9,8 +9,10 @@ import { FormAccount } from '../../components/form-account/index.ts';
 // Types
 import type { SignUpType } from '../../types.ts';
 import { AuthController } from '../../controllers/AuthController.ts';
+import { StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class SignUp extends Block {
+export class BaseSignUp extends Block {
   constructor() {
     super({ title: 'Регистрация' });
   }
@@ -20,6 +22,8 @@ export class SignUp extends Block {
   }
 
   init() {
+    this.props.styles = styles;
+
     this.children.link = new Link({
       text: 'Войти',
       to: '/login',
@@ -38,12 +42,13 @@ export class SignUp extends Block {
     return this.compile(
       `
         <main>
-          <section class="sign-in">
-            <div class="sign-in__content">
-              <div class="sign-in__block">
-                <h1 class="sign-in__title">{{title}}</h1>
+          <section class="{{styles.signIn}}">
+            <div class="{{styles.content}}">
+              <div class="{{styles.block}}">
+                <h1 class="{{styles.title}}">{{title}}</h1>
                 {{{form}}}
-                <div class="sign-in__wrapper-link">
+                <span class="{{styles.error}}">{{error}}</span>
+                <div class="{{styles.wrapperLink}}">
                   {{{link}}}
                 </div>
               </div>
@@ -54,3 +59,9 @@ export class SignUp extends Block {
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  error: state.errors?.signup,
+});
+
+export const SignUp = withStore(mapStateToProps)(BaseSignUp);

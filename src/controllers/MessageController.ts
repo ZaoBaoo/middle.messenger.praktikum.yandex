@@ -1,6 +1,7 @@
 import { chatsApi } from '../api/ChatsApi.ts';
 import store from '../core/Store.ts';
 import { MessageType } from '../types.ts';
+import { messageModifier } from '../utils/messageModifier.ts';
 
 export class MessageController {
   static async OpenChatConnection(chatId: number) {
@@ -21,6 +22,14 @@ export class MessageController {
             type: 'get old',
           }),
         );
+
+        const interval = setInterval(() => {
+          socket.send(JSON.stringify({ type: 'ping' }));
+        }, 5000);
+
+        socket.addEventListener('close', () => {
+          clearInterval(interval);
+        });
       });
 
       socket.addEventListener('close', (event) => {
@@ -36,29 +45,10 @@ export class MessageController {
       socket.addEventListener('message', (event: MessageEvent) => {
         const data: MessageType | MessageType[] = JSON.parse(event.data);
         const { messages } = store.getState();
-
-        const isDataMessageArray = Array.isArray(data);
+        const modifiedMessages = messageModifier(data, messages, userId);
 
         // Если данных о сообщениях в STORE нет
-        if (!messages) {
-          // Если data [сообщения] являются массивом
-          if (isDataMessageArray) {
-            store.set('messages', data);
-          } else {
-            store.set('messages', [data]);
-          }
-          return;
-        }
-
-        let updatedMessages;
-
-        if (isDataMessageArray) {
-          updatedMessages = [...messages, ...data];
-          store.set('messages', updatedMessages);
-        } else {
-          updatedMessages = [...messages, data];
-          store.set('messages', updatedMessages);
-        }
+        store.set('messages', modifiedMessages);
       });
 
       socket.addEventListener('error', (event) => {
@@ -66,6 +56,23 @@ export class MessageController {
       });
 
       store.set('webSocket', socket);
+    }
+  }
+
+  static async MoreMessages() {
+    const { messages, webSocket } = store.getState();
+
+    if (messages && webSocket) {
+      const indexLastMessage = Math.max(...messages.map((message) => message.id));
+
+      console.log(messages);
+
+      webSocket.send(
+        JSON.stringify({
+          content: `${indexLastMessage}`,
+          type: 'get old',
+        }),
+      );
     }
   }
 }
