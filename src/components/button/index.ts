@@ -6,17 +6,37 @@ import { ButtonType } from './types.ts';
 
 export class Button extends Block {
   constructor(props: ButtonType) {
-    super('button', props);
+    super(props);
   }
 
-  init() {
-    this.addClass(styles.button);
-    const element = this.element as HTMLInputElement;
+  // componentDidMount() {
+  //   if (this.props.view === 'logout') {
+  //     this.element?.classList.add(styles.buttonLogOut);
+  //   } else {
 
-    element!.type = this.props.type;
+  // }
+
+  protected afterRender() {
+    if (this.props.view === 'logout') {
+      this.element?.classList.add(styles.buttonLogOut);
+      return;
+    }
+
+    if (this.props.view === 'addChat') {
+      this.element?.classList.add(styles.addChat);
+      return;
+    }
+
+    this.element?.classList.add(styles.button);
   }
 
   render() {
-    return this.compile(`{{text}}`);
+    return this.compile(
+      `
+        <button>
+          {{text}}
+        </button>
+      `,
+    );
   }
 }

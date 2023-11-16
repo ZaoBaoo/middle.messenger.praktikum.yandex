@@ -6,19 +6,20 @@ import { Navbar } from '../../layouts/navbar/index.ts';
 
 export class Main extends Block {
   constructor() {
-    super('main', {});
+    super({});
   }
 
   init() {
-    this.addClass(styles.main);
-
+    this.props.styles = styles;
     this.children.navbar = new Navbar();
   }
 
   render() {
     return this.compile(
       `
-        {{{ navbar }}}
+        <main class="{{styles.main}}">
+          {{{ navbar }}}
+        </main>
       `,
     );
   }

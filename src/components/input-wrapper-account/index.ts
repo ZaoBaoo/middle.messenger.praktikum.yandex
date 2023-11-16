@@ -11,11 +11,10 @@ import { ErrorValidation } from '../error-validation/index.ts';
 
 export class InputWrapperAccount extends Block {
   constructor(props: WrapperAccountProps) {
-    super('div', props);
+    super(props);
   }
 
   init() {
-    this.addClass(styles.formInputCommon);
     this.props.styles = styles;
 
     const blur = (e: Event) => {
@@ -40,9 +39,11 @@ export class InputWrapperAccount extends Block {
   render() {
     return this.compile(
       `
-        {{{input}}}
-        <label class="{{styles.formInputLabelCommon}}">{{label}}</label>
-        {{{error}}}
+        <div class="{{styles.formInputCommon}}">
+          {{{input}}}
+          <label class="{{styles.formInputLabelCommon}}">{{label}}</label>
+          {{{error}}}
+        </div>
       `,
     );
   }

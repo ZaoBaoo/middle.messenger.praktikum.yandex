@@ -7,22 +7,25 @@ import { Link } from '../../components/link/index.ts';
 import { FormAccount } from '../../components/form-account/index.ts';
 
 // Types
-import { FormDataResponseType } from '../../types.ts';
+import { SignInType, StateType } from '../../types.ts';
+import { AuthController } from '../../controllers/AuthController.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class Login extends Block {
+export class BaseLogin extends Block {
   constructor() {
-    super('main', { title: 'Вход' });
+    super({ title: 'Вход' });
   }
 
-  handlerAuth(response: FormDataResponseType) {
-    console.log(response);
+  async handlerAuth(response: SignInType) {
+    await AuthController.signIn(response);
   }
 
   init() {
     this.props.styles = styles;
+
     this.children.link = new Link({
       text: 'Нет аккаунта?',
-      to: '/sign-in',
+      to: '/sign-up',
     });
     this.children.form = new FormAccount({
       dataInputsForRender: loginInputsData,
@@ -37,18 +40,27 @@ export class Login extends Block {
   render() {
     return this.compile(
       `
-        <section class="{{styles.login}}">
-          <div class="{{styles.content}}">
-            <div class="{{styles.block}}">
-              <h1 class="{{styles.title}}">{{title}}</h1>
-                {{{form}}}
-              <div class="{{styles.wrapperLink}}">
-                {{{link}}}
+        <main class="{{styles.main}}">
+          <section class="{{styles.login}}">
+            <div class="{{styles.content}}">
+              <div class="{{styles.block}}">
+                <h1 class="{{styles.title}}">{{title}}</h1>
+                  {{{form}}}
+                  <span class="{{styles.error}}">{{error}}</span>
+                <div class="{{styles.wrapperLink}}">
+                  {{{link}}}
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-    `,
+          </section>
+        </main>
+      `,
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  error: state.errors?.login,
+});
+
+export const Login = withStore(mapStateToProps)(BaseLogin);

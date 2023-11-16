@@ -1,19 +1,24 @@
 import styles from './input-control-dialog.module.scss';
 import Block from '../../core/Block.ts';
-import { FormDataResponseType } from '../../types.ts';
 import { validator } from '../../utils/Validator.ts';
+import { StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class InputControlDialog extends Block {
+export class BaseInputControlDialog extends Block {
   constructor() {
-    super('form', {});
+    super({});
   }
 
-  handlerSendMessage(response: FormDataResponseType) {
-    console.log(response);
+  handlerSendMessage(message: string) {
+    this.props.webSocket.send(
+      JSON.stringify({
+        content: message,
+        type: 'message',
+      }),
+    );
   }
 
   init() {
-    this.addClass(styles.dialogControl);
     this.props.styles = styles;
 
     this.props.events = {
@@ -25,7 +30,8 @@ export class InputControlDialog extends Block {
         const resultValidation = validator.isFieldValid(value, name);
 
         if (resultValidation.isValid) {
-          this.handlerSendMessage({ [name]: value });
+          this.handlerSendMessage(value);
+          form.reset();
         }
       },
     };
@@ -34,13 +40,21 @@ export class InputControlDialog extends Block {
   render() {
     return this.compile(
       `
-        <label class="{{styles.dialogFile}}" for="fileLoad">
-          <input id="fileLoad" type="file" />
-        </label>
-
-        <input class="{{styles.dialogInputText}}" type="text" placeholder="Сообщение" name="message" />
-        <button class="{{styles.dialogSendMessage}}" type="submit"></button>
+        <form class="{{styles.dialogControl}}">
+          <label class="{{styles.dialogFile}}" for="fileLoad">
+            <input id="fileLoad" type="file" />
+          </label>
+  
+          <input class="{{styles.dialogInputText}}" type="text" placeholder="Сообщение" name="message" />
+          <button class="{{styles.dialogSendMessage}}" type="submit"></button>
+        </form>
       `,
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  webSocket: state.webSocket,
+});
+
+export const InputControlDialog = withStore(mapStateToProps)(BaseInputControlDialog);

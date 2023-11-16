@@ -1,7 +1,5 @@
-export interface PropsType {
-  srcImage: string;
-  name: string;
-  message: string;
-  time: string;
-  countMessage: string;
+import { ChatType } from '../../types.ts';
+
+export interface ChatPropsType {
+  chat: [ChatType];
 }

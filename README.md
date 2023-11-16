@@ -16,11 +16,13 @@
 
 - [Главная](https://effervescent-gnome-eb94b4.netlify.app/) - сводная страница для удобной навигации.
 - [Логин](https://effervescent-gnome-eb94b4.netlify.app/login) - аутентификация в приложение.
-- [Регистрация](https://effervescent-gnome-eb94b4.netlify.app/sign-in) - страница с регистрацией новых пользвателей.
+- [Регистрация](https://effervescent-gnome-eb94b4.netlify.app/sign-up) - страница с регистрацией новых пользвателей.
 - [Профиль](https://effervescent-gnome-eb94b4.netlify.app/profile) - профиль пользователя.
-- [Редактировать профиль](https://effervescent-gnome-eb94b4.netlify.app/profile-info-edit) - поменять информацию пользователя.
+- [Редактировать профиль](https://effervescent-gnome-eb94b4.netlify.app/settings) - поменять информацию пользователя.
 - [Изменить пароль](https://effervescent-gnome-eb94b4.netlify.app/profile-password-edit) - поменять пароль пользователя.
+- [Чаты и сообщения](https://effervescent-gnome-eb94b4.netlify.app/null) - создание/удаление чатов, обмен сообщениями ``real-time``, добавления/удаление пользователей в чате
 - [Страница с ошибкой](https://effervescent-gnome-eb94b4.netlify.app/null) - 404/5хх в зависимости от переданных параметров в пропсах
+
 
 ## Макет
 [Figma](https://www.figma.com/file/jF5fFFzgGOxQeB4CmKWTiE/Chat_external_link?type=design&node-id=12-35&mode=design&t=FTxLSiwRphfwBm8o-0)

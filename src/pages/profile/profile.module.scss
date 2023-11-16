@@ -5,38 +5,6 @@
   overflow-y: auto;
 }
 
-.backIcon {
-  width: 28px;
-  height: 28px;
-  transition: all 0.2s ease-in-out;
-}
-
-.back {
-  display: flex;
-  position: fixed;
-  top: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 100%;
-  background-color: var(--pale-gray-10);
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: var(--pale-gray-20);
-
-    .backIcon {
-      transform: translateX(-4px);
-      opacity: 0.9;
-    }
-  }
-}
-
-.backLink {
-  display: block;
-}
-
 .content {
   display: flex;
   justify-content: center;
@@ -85,15 +53,4 @@
   width: 100%;
   padding: 5px 0;
   border-bottom: 1px solid var(--pale-gray-20);
-}
-
-.button {
-  margin-top: 10px;
-  border: none;
-  background-color: transparent;
-  color: var(--red);
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 13px;
-  cursor: pointer;
 }

@@ -1,27 +1,33 @@
 import styles from './chats-inner.module.scss';
 import Block from '../../core/Block.ts';
-import { chatsData } from '../../data/chats-data.ts';
 
 // Components
 import { Chat } from '../chat/index.ts';
 
+// Store
+import { ChatsInnerPropsType } from './types.ts';
+import { ChatType } from '../../types.ts';
+
 export class ChatsInner extends Block {
-  constructor() {
-    super('ul', {});
+  constructor(props: ChatsInnerPropsType) {
+    super(props);
   }
 
   init() {
-    this.addClass(styles.chats);
+    this.props.styles = styles;
+    const { chats } = this.props;
 
-    this.children.chats = chatsData.map((data) => new Chat(data));
+    this.children.chats = chats.map((chat: ChatType) => new Chat(chat));
   }
 
   render() {
     return this.compile(
       `
-        {{#each chats}}
-          {{{this}}}
-        {{/each}}
+        <ul class="{{styles.chats}}">
+          {{#each chats}}
+            {{{this}}}
+          {{/each}}
+        </ul>
       `,
     );
   }

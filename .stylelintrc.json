@@ -10,6 +10,7 @@
       "declarations"
     ],
     "order/properties-order": [
+      "content",
       "display",
       "position",
       "top",
@@ -78,7 +79,6 @@
       "animation",
       "transition",
       "transform",
-      "content",
       "quotes",
       "user-select",
       "opacity"

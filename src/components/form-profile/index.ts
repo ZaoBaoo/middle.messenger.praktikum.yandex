@@ -8,22 +8,24 @@ import { InputWrapperProfile } from '../input-wrapper-profile/index.ts';
 
 // Types
 import type { FormProfileProps } from './types.ts';
-import type { WrapperAccountProps } from '../../types.ts';
+import type { WrapperAccountProps, StateType } from '../../types.ts';
+import { withStore } from '../../core/Store.ts';
 
-export class FormProfile extends Block {
-  constructor(props: FormProfileProps) {
-    super('form', props);
+export class BaseFormProfile<T> extends Block {
+  constructor(props: FormProfileProps<T>) {
+    super(props);
   }
 
   init() {
-    this.addClass(styles.rows);
     this.props.styles = styles;
 
     this.children.button = new Button(this.props.buttonData);
     this.children.inputs = this.props.dataInputsForRender.map(
-      (input: WrapperAccountProps) =>
-        new InputWrapperProfile({ ...input, disabled: false }),
+      (input: WrapperAccountProps) => new InputWrapperProfile({ ...input, disabled: false }),
     );
+    if (Array.isArray(this.children.inputs)) {
+      this.children.inputs.forEach((input) => input.dispatchComponentDidMount());
+    }
 
     this.setProps({
       events: {
@@ -32,22 +34,42 @@ export class FormProfile extends Block {
           const form = e.target! as HTMLFormElement;
 
           if (Array.isArray(this.children.inputs)) {
+            const inputsPassword = Array.from(form.elements)
+              .filter((item) => item instanceof HTMLInputElement)
+              .filter(
+                (input) =>
+                  (input as HTMLInputElement).name === 'newPassword' ||
+                  (input as HTMLInputElement).name === 'password_confirm',
+              ) as HTMLInputElement[];
+
+            if (inputsPassword.length) {
+              const [passwordInput, passwordConfirmInput] = inputsPassword;
+
+              if (passwordInput.value !== passwordConfirmInput.value) {
+                const [, newPassword, passwordConfirm] = this.children.inputs;
+
+                if (!Array.isArray(newPassword.children.error) && !Array.isArray(passwordConfirm.children.error)) {
+                  newPassword.children.error.setProps({
+                    text: 'Пароли не совпадают',
+                  });
+                  passwordConfirm.children.error.setProps({
+                    text: 'Пароли не совпадают',
+                  });
+                }
+
+                return;
+              }
+            }
+
+            // Проверяем валидность всех полей и формируем массив
             const resultValidation = this.children.inputs.map((inputForm) => {
               const { name: currentInputName } = inputForm.getProps();
 
-              const currentInputElement = form.elements[
-                currentInputName
-              ] as HTMLInputElement;
+              const currentInputElement = form.elements[currentInputName] as HTMLInputElement;
 
-              const isInputValid = validator.isFieldValid(
-                currentInputElement.value,
-                currentInputElement.name,
-              );
+              const isInputValid = validator.isFieldValid(currentInputElement.value, currentInputElement.name);
 
-              if (
-                !isInputValid.isValid &&
-                !Array.isArray(inputForm.children.error)
-              ) {
+              if (!isInputValid.isValid && !Array.isArray(inputForm.children.error)) {
                 inputForm.children.error.setProps({
                   text: isInputValid.message,
                 });
@@ -56,21 +78,19 @@ export class FormProfile extends Block {
               return isInputValid.isValid;
             });
 
-            const allFieldsCorrect = resultValidation.every(
-              (value) => value === true,
-            );
+            const allFieldsCorrect = resultValidation.every((value) => value === true);
 
             if (allFieldsCorrect) {
               const formData = new FormData(form);
               const formDataArray: [string, File | string][] = [];
 
-              formData.forEach((value, key) =>
-                formDataArray.push([key, value]),
-              );
+              formData.forEach((value, key) => formDataArray.push([key, value]));
 
               const objectValues = Object.fromEntries(formDataArray);
 
               this.props.submitCallback(objectValues);
+
+              form.reset();
             }
           }
         },
@@ -78,16 +98,27 @@ export class FormProfile extends Block {
     });
   }
 
+  componentDidMount() {}
+
   render() {
     return this.compile(
       `
-        {{#each inputs}}
-          {{{this}}}
-        {{/each}}
-        <div class="{{styles.wrapperButton}}">
-          {{{button}}}
-        </div>
+        <form class="{{styles.rows}}">
+          {{#each inputs}}
+            {{{this}}}
+          {{/each}}
+          <div class="{{styles.wrapperButton}}">
+            <span class="{{styles.errorPassword}}">{{passwordError}}</span>
+            {{{button}}}
+          </div>
+        </form>
       `,
     );
   }
 }
+
+const mapStateToProps = (state: StateType) => ({
+  passwordError: state.errors?.password,
+});
+
+export const FormProfile = withStore(mapStateToProps)(BaseFormProfile);

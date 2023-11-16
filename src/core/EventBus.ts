@@ -9,10 +9,7 @@ export class EventBus<
     [K in MapInterface<E>]?: Handler<Args[K]>[];
   } = {};
 
-  on<Event extends MapInterface<E>>(
-    event: Event,
-    callback: Handler<Args[Event]>,
-  ) {
+  on<Event extends MapInterface<E>>(event: Event, callback: Handler<Args[Event]>) {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -20,25 +17,20 @@ export class EventBus<
     this.listeners[event]?.push(callback);
   }
 
-  off<Event extends MapInterface<E>>(
-    event: Event,
-    callback: Handler<Args[Event]>,
-  ) {
+  off<Event extends MapInterface<E>>(event: Event, callback: Handler<Args[Event]>) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event] = this.listeners[event]!.filter(
-      (listener) => listener !== callback,
-    );
+    this.listeners[event] = this.listeners[event]!.filter((listener) => listener !== callback);
   }
 
   emit<Event extends MapInterface<E>>(event: Event, ...args: Args[Event]) {
-    if (!this.listeners[event]) {
-      throw new Event(`Нет события: ${event}`);
-    }
+    // if (!this.listeners[event]) {
+    //   throw new Event(`Нет события: ${event}`);
+    // }
 
-    this.listeners[event]!.forEach((listener) => {
+    this.listeners[event]?.forEach((listener) => {
       listener(...args);
     });
   }

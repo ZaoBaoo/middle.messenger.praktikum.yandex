@@ -21,3 +21,37 @@
     opacity: 0.9;
   }
 }
+
+.buttonLogOut {
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
+  color: var(--red);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 13px;
+  cursor: pointer;
+}
+
+.addChat {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 13px;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:focus {
+    outline: 1px solid #555;
+    opacity: 0.9;
+  }
+}

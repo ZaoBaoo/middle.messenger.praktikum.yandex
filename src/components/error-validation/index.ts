@@ -6,22 +6,24 @@ import type { ErrorValidationType, OptionsType } from './types.ts';
 
 export class ErrorValidation extends Block {
   constructor(props: ErrorValidationType) {
-    super('span', props);
+    super(props);
   }
 
-  init() {
+  afterRender() {
     const options: OptionsType = {
       left: styles.errorValidationLeft,
       right: styles.errorValidationRight,
     };
 
-    this.addClass(options[this.props.type]);
+    this.element!.classList.add(options[this.props.type]);
   }
 
   render() {
     return this.compile(
       `
-        {{{text}}}
+        <span>
+          {{{text}}}
+        </span>
       `,
     );
   }

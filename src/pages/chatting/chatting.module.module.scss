@@ -23,35 +23,9 @@
 
 .asideProfile {
   display: flex;
-  justify-content: flex-end;
-  padding: 20px 22px;
-}
-
-.asideProfileText {
-  position: relative;
-  color: var(--gray);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 12px;
-  text-align: right;
-  transition: opacity 0.2s ease-in-out;
-
-  &::after {
-    position: absolute;
-    top: 0;
-    right: -21px;
-    width: 24px;
-    height: 12px;
-    background-image: url('/src/images/arrow-next-icon.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: contain;
-    content: '';
-  }
-
-  &:hover {
-    opacity: 0.8;
-  }
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 22px 20px 0;
 }
 
 .search {
@@ -85,53 +59,3 @@
   }
 }
 
-.dialogWindow {
-  display: grid;
-  height: 100%;
-  padding: 0 20px;
-  grid-template-columns: 1fr;
-  grid-template-rows: 54px 1fr 54px;
-  overflow: hidden;
-}
-
-.dialogHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--pale-gray-20);
-}
-
-.dialogUserInfo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.dialogUserAvatar {
-  width: 34px;
-  height: 34px;
-}
-
-.dialogUserName {
-  color: var(--black);
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 13px;
-}
-
-.dialogMoreButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25px;
-  height: 25px;
-  border: none;
-  border-radius: 50%;
-  background-color: transparent;
-  background-image: url('/src/images/more-vertical-icon.svg');
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 15%;
-  cursor: pointer;
-}

@@ -1,4 +1,6 @@
 .label {
+  display: flex;
+  align-items: center;
   cursor: pointer;
   transition: opacity 0.2s ease-in-out;
 
@@ -12,9 +14,19 @@
   pointer-events: none;
 }
 
-.photo {
+.avatarLarge {
   width: 130px;
   height: 130px;
+}
+
+.avatarMedium {
+  width: 47px;
+  height: 47px;
+}
+
+.avatarSmall {
+  width: 34px;
+  height: 34px;
 }
 
 .input {

@@ -22,17 +22,10 @@ class Block<P extends Record<string, any> = any> {
 
   private _element: HTMLElement | null = null;
 
-  private readonly _meta: { tagName: string; props: P };
-
-  constructor(tagName = 'div', propsWithChildren: P) {
+  constructor(propsWithChildren: P) {
     const eventBus = new EventBus();
 
     const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
-    this._meta = {
-      tagName,
-      props: props as P,
-    };
 
     this.children = children;
     this.props = this._makePropsProxy(props);
@@ -89,14 +82,7 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
   }
 
-  _createResources() {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-  }
-
   private _init() {
-    this._createResources();
-
     this.init();
 
     this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
@@ -106,10 +92,6 @@ class Block<P extends Record<string, any> = any> {
 
   _componentDidMount() {
     this.componentDidMount();
-  }
-
-  protected addClass(className: string = '') {
-    this.element!.classList.add(className);
   }
 
   protected componentDidMount() {}
@@ -156,25 +138,31 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _render() {
-    const fragment = this.render();
-
     this._removeEvents();
 
-    this._element!.innerHTML = '';
+    const fragment = this.render();
 
-    this._element!.append(fragment);
+    const newElement = fragment.firstElementChild as HTMLElement;
+
+    if (this._element && newElement) {
+      this._element.replaceWith(newElement);
+    }
+
+    this._element = newElement;
+
+    this.afterRender();
 
     this._addEvents();
   }
+
+  protected afterRender() {}
 
   protected compile(template: string) {
     const contextAndStubs: Record<string, any> = { ...this.props };
 
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map(
-          (com) => `<div data-id="${com.id}"></div>`,
-        );
+        contextAndStubs[name] = component.map((com) => `<div data-id="${com.id}"></div>`);
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
       }
@@ -188,9 +176,7 @@ class Block<P extends Record<string, any> = any> {
 
     Object.entries(this.children).forEach(([, component]) => {
       if (Array.isArray(component)) {
-        const stubs = component.map((com) =>
-          temp.content.querySelector(`[data-id="${com.id}"]`),
-        );
+        const stubs = component.map((com) => temp.content.querySelector(`[data-id="${com.id}"]`));
 
         if (!stubs.length) {
           return;
@@ -250,12 +236,13 @@ class Block<P extends Record<string, any> = any> {
     return document.createElement(tagName);
   }
 
-  show() {
-    this.getContent()!.style.display = 'block';
+  show(query: string, render: Function) {
+    this.eventBus().emit(Block.EVENTS.INIT);
+    render(query, this);
   }
 
   hide() {
-    this.getContent()!.style.display = 'none';
+    this.getContent()!.remove();
   }
 }
 

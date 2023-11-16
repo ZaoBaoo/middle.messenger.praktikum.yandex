@@ -18,6 +18,14 @@
     "default-param-last": "off",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "warn",
-    "no-console": "off"
+    "no-console": "off",
+    "no-useless-constructor": "off",
+    "new-cap": "off",
+    "no-constructor-return": "off",
+    "no-restricted-syntax": "off",
+    "no-prototype-builtins": "off",
+    "no-continue": "off",
+    "max-classes-per-file": "off",
+    "no-empty-function": "off"
   }
 }

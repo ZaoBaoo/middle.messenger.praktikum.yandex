@@ -5,10 +5,8 @@ const METHOD = {
   DELETE: 'DELETE',
 };
 
-type DataType = Record<string, unknown>;
-
 interface Options {
-  data?: DataType;
+  data?: unknown;
   headers?: object;
 }
 
@@ -16,40 +14,36 @@ interface OptionsWithMethod extends Options {
   method: string;
 }
 
-const queryStringify = (data: DataType) =>
-  Object.entries(data)
-    .map(([key, value]) => {
-      value = typeof value === 'object' ? value!.toString() : value;
-      return `${key}=${value}`;
-    })
-    .join('&');
-
 export class HTTPTransport {
-  get(url: string, options?: Options): Promise<XMLHttpRequest> {
-    const urlWithQueryParams = queryStringify(options?.data || {});
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
 
-    url = `${url}?${urlWithQueryParams}`;
+  protected endpoint: string;
 
-    return this.request(url, { ...options, method: METHOD.GET });
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  post(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.POST });
+  public get<Response>(path = '/'): Promise<Response> {
+    return this._request<Response>(this.endpoint + path);
   }
 
-  put(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.PUT });
+  public post<Response = void>(path: string, options?: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.POST });
   }
 
-  delete(url: string, options: Options): Promise<XMLHttpRequest> {
-    return this.request(url, { ...options, method: METHOD.DELETE });
+  public put<Response = void>(path: string, options: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.PUT });
   }
 
-  request(
+  public delete<Response = void>(path: string, options: Options): Promise<Response> {
+    return this._request<Response>(this.endpoint + path, { ...options, method: METHOD.DELETE });
+  }
+
+  private _request<Response>(
     url: string,
-    options: OptionsWithMethod,
+    options: OptionsWithMethod = { method: METHOD.GET },
     timeout = 5000,
-  ): Promise<XMLHttpRequest> {
+  ): Promise<Response> {
     const { method, data = {}, headers = {} } = options;
 
     const headersArrow = Object.entries(headers);
@@ -58,8 +52,18 @@ export class HTTPTransport {
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
       xhr.onload = () => {
-        resolve(xhr);
+        resolve(xhr.response);
       };
       xhr.timeout = timeout;
 
@@ -68,15 +72,20 @@ export class HTTPTransport {
       };
 
       headersArrow.forEach(([key, value]) => xhr.setRequestHeader(key, value));
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      }
 
       xhr.onabort = reject;
       xhr.onerror = reject;
       xhr.ontimeout = reject;
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
       if (method === METHOD.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   }

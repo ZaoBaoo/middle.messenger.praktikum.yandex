@@ -3,25 +3,47 @@ import Block from '../../core/Block.ts';
 
 // Types
 import { LinkType } from './types.ts';
+import { router } from '../../core/Router.ts';
 
 export class Link extends Block {
   constructor(props: LinkType) {
-    super('a', props);
+    super(props);
   }
 
   init() {
-    this.addClass(styles.link);
+    this.props.styles = styles;
 
-    const element = this.element as HTMLLinkElement;
-    element!.href = this.props.to;
+    const { type = 'common' } = this.props;
+
+    let view;
+    switch (type) {
+      case 'common':
+        view = styles.common;
+        break;
+      case 'profile':
+        view = styles.profile;
+        break;
+      default:
+        break;
+    }
+
+    this.props.view = view;
+
+    this.props.events = {
+      click: (event: Event) => {
+        event.preventDefault();
+        router.go(this.props.to);
+      },
+    };
   }
 
   render() {
     return this.compile(
       `
-        {{text}}
+        <a class="{{view}}" href="{{to}}">
+          {{text}}
+        </a>
       `,
     );
   }
 }
-// export const Link: LinkType = (props) => Handlebars.compile(tmpl)(props);
