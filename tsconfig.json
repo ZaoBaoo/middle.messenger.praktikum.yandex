@@ -1,10 +1,12 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
-    "types": ["vite/client"],
     "target": "ESNext",
-    "useDefineForClassFields": true,
     "module": "ESNext",
-    "lib": ["ESNext", "dom"],
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
@@ -18,7 +20,7 @@
     "allowImportingTsExtensions": true,
     "noImplicitAny": true,
     "sourceMap": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
   },
   "include": ["src"]
 }
