@@ -4,10 +4,10 @@
   },
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "commonjs",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "strict": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -22,5 +22,8 @@
     "sourceMap": true,
     "strictNullChecks": true,
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "./global.d.ts"
+  ]
 }
