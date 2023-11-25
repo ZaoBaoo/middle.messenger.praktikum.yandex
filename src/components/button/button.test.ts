@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Button } from './index.ts';
 
 describe('Button component', () => {
-  it('should be clickable', () => {
+  it('Should be clickable', () => {
     const callback = sinon.stub();
 
     const button = new Button({
@@ -19,5 +19,17 @@ describe('Button component', () => {
     element.click();
 
     expect(callback.calledOnce).to.eq(true);
+  });
+
+  it('Should have text and type', () => {
+    const button = new Button({
+      text: 'кнопка',
+      type: 'submit',
+    });
+
+    const buttonHtml = button.element as HTMLButtonElement;
+
+    expect(buttonHtml?.textContent).to.eq('кнопка');
+    expect(buttonHtml?.type).to.eq('submit');
   });
 });

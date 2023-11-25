@@ -40,9 +40,7 @@ export class Link extends Block {
   render() {
     return this.compile(
       `
-        <a class="{{view}}" href="{{to}}">
-          {{text}}
-        </a>
+        <a class="{{view}}" href="{{to}}">{{text}}</a>
       `,
     );
   }

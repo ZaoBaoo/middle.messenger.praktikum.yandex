@@ -15,6 +15,8 @@ export class Avatar extends Block {
 
     const { src } = this.props;
 
+    console.log('src', src);
+
     this.props.src = src ? `https://ya-praktikum.tech/api/v2/resources${src}` : placeholder;
 
     switch (this.props.size) {
