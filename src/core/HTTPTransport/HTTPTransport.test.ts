@@ -11,7 +11,7 @@ describe('HTTPTransport test', () => {
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
-    //@ts-expect-error
+    // @ts-ignore
     global.XMLHttpRequest = xhr;
 
     xhr.onCreate = (req) => {

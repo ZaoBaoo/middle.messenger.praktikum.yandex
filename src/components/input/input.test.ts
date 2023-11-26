@@ -1,6 +1,5 @@
-// import { expect } from 'chai';
-import { Input } from './index.ts';
 import { expect } from 'chai';
+import { Input } from './index.ts';
 
 describe('Input component', () => {
   const inputComponent = new Input({
