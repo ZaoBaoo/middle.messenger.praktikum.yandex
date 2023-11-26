@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { router } from './Router.ts';
 import { Routes } from '../types.ts';
 import { Main } from '../pages/main/';
-import { Login } from '../pages/login/index.ts';
+import { Login } from '../pages/login/';
 import { SignUp } from '../pages/signup/index.ts';
 
 describe('Router class', () => {
