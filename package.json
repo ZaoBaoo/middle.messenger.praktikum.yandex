@@ -8,7 +8,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "vite --open",
-    "start": "vite build && node server.js",
+    "start": "vite build && node server.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "stylelint \"**/*.scss\" && eslint . --ext .ts",

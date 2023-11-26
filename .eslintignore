@@ -2,4 +2,4 @@
 **/*.min.js
 /node_modules
 dist
-server.js
+server.mjs
