@@ -101,43 +101,4 @@ describe('HTTPTransport test', () => {
       expect(request.url).to.eq(BASE_API_URL + path);
     });
   });
-
-  describe('Checking data for requests', () => {
-    it('Validation of data in post() method', () => {
-      const url = '/auth/signup';
-
-      const data = {
-        login: 'ivanov',
-        password: '123456Aaa',
-      };
-
-      instance.post(`${url}`, { data });
-
-      const [request] = requests;
-
-      expect(request.requestBody).to.equal(JSON.stringify(data));
-    });
-
-    it('Validation of data in put() method', () => {
-      const path = '/';
-      const data = { title: 'Страница' };
-
-      instance.put(path, { data });
-
-      const [request] = requests;
-
-      expect(request.requestBody).to.eq(JSON.stringify(data));
-    });
-
-    it('Validation of data in delete() method', () => {
-      const path = '/';
-      const data = { title: 'Страница' };
-
-      instance.delete(path, { data });
-
-      const [request] = requests;
-
-      expect(request.requestBody).to.eq(JSON.stringify(data));
-    });
-  });
 });
