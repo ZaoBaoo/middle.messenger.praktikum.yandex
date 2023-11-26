@@ -12,7 +12,7 @@ describe('set function', () => {
     const path = null;
     const obj = {};
 
-    // @ts-expect-error
+    // @ts-expect-error: To test the case
     const fn = () => set(obj, path, 1);
 
     expect(fn).to.throw(Error);
