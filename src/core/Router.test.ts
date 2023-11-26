@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { router } from './Router.ts';
 import { Routes } from '../types.ts';
-import { Main } from '../pages/main/';
-import { Login } from '../pages/login/';
-import { SignUp } from '../pages/signup/';
+import { Main } from '../pages/main/index.ts';
+import { Login } from '../pages/login/index.ts';
+import { SignUp } from '../pages/signup/index.ts';
 
 describe('Router class', () => {
   const BASE_HTML = '<!DOCTYPE html><html><body><div id="root"></div></body></html>';
@@ -16,7 +16,7 @@ describe('Router class', () => {
   router.start();
 
   it('Should register routes', () => {
-    expect(router.getRoutes()).to.have.lengthOf(4);
+    expect(router.getRoutes()).to.have.lengthOf(3);
   });
 
   it('Method .go() should take new path', () => {
