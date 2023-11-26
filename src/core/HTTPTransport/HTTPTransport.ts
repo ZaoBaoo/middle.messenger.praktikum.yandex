@@ -1,3 +1,5 @@
+import { BASE_API_URL } from '../../utils/constants.ts';
+
 const METHOD = {
   GET: 'GET',
   POST: 'POST',
@@ -15,7 +17,7 @@ interface OptionsWithMethod extends Options {
 }
 
 export class HTTPTransport {
-  static API_URL = 'https://ya-praktikum.tech/api/v2';
+  static API_URL = BASE_API_URL;
 
   protected endpoint: string;
 
