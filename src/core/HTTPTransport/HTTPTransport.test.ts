@@ -104,13 +104,17 @@ describe('HTTPTransport test', () => {
 
   describe('Checking data for requests', () => {
     it('Validation of data in post() method', () => {
-      const path = '/auth/signup';
+      const url = '/auth/signup';
+
       const data = {
         login: 'ivanov',
-        password: '123456789',
+        password: '123456Aaa',
       };
-      instance.post(path, { data });
+
+      instance.post(`${url}`, { data });
+
       const [request] = requests;
+
       expect(request.requestBody).to.equal(JSON.stringify(data));
     });
 
