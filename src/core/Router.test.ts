@@ -3,7 +3,7 @@ import { router } from './Router.ts';
 import { Routes } from '../types.ts';
 import { Main } from '../pages/main/';
 import { Login } from '../pages/login/';
-import { SignUp } from '../pages/signup/index.ts';
+import { SignUp } from '../pages/signup/';
 
 describe('Router class', () => {
   const BASE_HTML = '<!DOCTYPE html><html><body><div id="root"></div></body></html>';
