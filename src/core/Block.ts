@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from 'nanoid';
 
 import { EventBus } from './EventBus.ts';
 
@@ -12,7 +12,7 @@ class Block<P extends Record<string, any> = any> {
     FLOW_RENDER: 'flow:render',
   } as const;
 
-  public id = uuidv4();
+  public id = nanoid(6);
 
   protected props: P;
 

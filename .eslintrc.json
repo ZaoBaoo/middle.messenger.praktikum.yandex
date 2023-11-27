@@ -1,8 +1,9 @@
 {
   "env": {
-    "browser": true
+    "browser": true,
+    "es2021": true
   },
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended", "prettier"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
@@ -26,6 +27,10 @@
     "no-prototype-builtins": "off",
     "no-continue": "off",
     "max-classes-per-file": "off",
-    "no-empty-function": "off"
+    "no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }

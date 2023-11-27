@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     .use(Routes.Chatting, Chatting)
     .use(Routes.ProfileInfoEdit, ProfileInfoEdit)
     .use(Routes.ProfilePasswordEdit, ProfilePasswordEdit)
-    .use(Routes.ErrorPage, ErrorPage);
+    .use(Routes.ErrorPage, ErrorPage)
+    .use(Routes.ErrorPage505, ErrorPage);
 
   let isProtectedRoute = true;
 

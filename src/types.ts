@@ -23,6 +23,7 @@ export enum Routes {
   ProfileInfoEdit = '/settings',
   ProfilePasswordEdit = '/profile-password-edit',
   ErrorPage = '/404',
+  ErrorPage505 = '/500',
 }
 
 export type FormDataResponseType = { [p: string]: File | string };

@@ -33,9 +33,7 @@ export class Button extends Block {
   render() {
     return this.compile(
       `
-        <button>
-          {{text}}
-        </button>
+        <button>{{text}}</button>
       `,
     );
   }

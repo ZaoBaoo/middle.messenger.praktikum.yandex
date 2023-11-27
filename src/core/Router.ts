@@ -2,7 +2,7 @@ import Block from './Block.ts';
 import { Route } from './Route.ts';
 import { Routes } from '../types.ts';
 
-class Router {
+export class Router {
   private static __instance: Router;
 
   private routes: Route[] = [];
@@ -29,11 +29,11 @@ class Router {
   }
 
   public start() {
-    window.onpopstate = (event: PopStateEvent) => {
+    window.addEventListener('popstate', (event: PopStateEvent) => {
       const target = event.currentTarget as Window;
 
       this._onRoute(target.location.pathname);
-    };
+    });
 
     this._onRoute(window.location.pathname);
   }
@@ -57,6 +57,10 @@ class Router {
   public go(pathname: string) {
     this.history.pushState({}, '', pathname);
     this._onRoute(pathname);
+  }
+
+  public getRoutes() {
+    return this.routes;
   }
 
   public back() {
